@@ -1,4 +1,4 @@
-package com.example.myapplication.models.current_vacancy
+package ru.practicum.android.diploma.data.dto.responses.vacancy.deteils
 
 data class ProfessionalRole(
     val id: String,

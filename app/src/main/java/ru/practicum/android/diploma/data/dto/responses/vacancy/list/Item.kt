@@ -1,4 +1,8 @@
-package com.example.myapplication.models.list_vacancy
+package ru.practicum.android.diploma.data.dto.responses.vacancy.list
+
+import ru.practicum.android.diploma.data.dto.responses.vacancy.Area
+import ru.practicum.android.diploma.data.dto.responses.vacancy.Employer
+import ru.practicum.android.diploma.data.dto.responses.vacancy.Salary
 
 data class Item(
     val id: String, // идентификатор вакансии

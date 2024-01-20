@@ -1,4 +1,6 @@
-package com.example.myapplication.models.list_vacancy
+package ru.practicum.android.diploma.data.dto.responses.vacancy
+
+import ru.practicum.android.diploma.data.dto.responses.vacancy.list.LogoUrls
 
 data class Employer(
     val id: String,

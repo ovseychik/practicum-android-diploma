@@ -1,4 +1,4 @@
-package com.example.myapplication.models.current_vacancy
+package ru.practicum.android.diploma.data.dto.responses.vacancy
 
 data class Salary(
     val currency: String, // валюта обозначение на латинице

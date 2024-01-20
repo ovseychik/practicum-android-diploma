@@ -1,4 +1,4 @@
-package com.example.myapplication.models.current_vacancy
+package ru.practicum.android.diploma.data.dto.responses.vacancy.list
 
 data class LogoUrls(
     val `240`: String,
