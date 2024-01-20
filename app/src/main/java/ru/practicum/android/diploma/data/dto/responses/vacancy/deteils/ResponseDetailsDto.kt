@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.data.dto.responses.vacancy.Area
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Employer
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Salary
 
-data class ResponseDetailsDto(
+class ResponseDetailsDto(
     val id: String, // id вакансии
     val name: String, // название вакансии
     val salary: Salary, // внутри з/п
@@ -23,4 +23,4 @@ data class ResponseDetailsDto(
     val professionalRoles: List<ProfessionalRole>, // внури названия профессиональных ролей
     @SerializedName("published_at")
     val publishedAt: String, // дата и время публикации вакансии в формате "2013-07-08T16:17:21+0400"
-) : Response()
+): Response()

@@ -7,5 +7,5 @@ data class ResponseAreasGuideItem(
     val id: String,
     val name: String, // название локации
     @SerializedName("parent_id")
-    val parentId: Any // id родительской локации
+    val parentId: String? // id родительской локации
 )
