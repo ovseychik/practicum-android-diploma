@@ -19,7 +19,7 @@ retrofit = "2.9.0"
 room = "2.6.1"
 
 # Navigation
-navigation = "2.5.3"
+navigation = "2.7.6"
 
 [libraries]
 
@@ -62,7 +62,7 @@ glide = "com.github.bumptech.glide:glide:4.15.1"
 # Fragments and navigation
 navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
 navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "navigation" }
+fragment = "androidx.fragment:fragment-ktx:1.6.2"
 
 # Coroutines
 coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
