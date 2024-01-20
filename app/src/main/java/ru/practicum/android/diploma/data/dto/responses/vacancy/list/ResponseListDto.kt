@@ -8,5 +8,6 @@ data class ResponseListDto(
     val items: List<Item>, // список вакансий
     val page: Int, // номер страницы
     val pages: Int, // всего страниц
-    @SerializedName("per_page") val perPage: Int, // кол-во итемов на странице
+    @SerializedName("per_page")
+    val perPage: Int, // кол-во итемов на странице
 ) : Response()

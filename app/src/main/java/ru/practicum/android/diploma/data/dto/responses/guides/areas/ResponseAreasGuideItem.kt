@@ -6,5 +6,6 @@ data class ResponseAreasGuideItem(
     val areas: List<AreaGuide>, // список локаций
     val id: String,
     val name: String, // название локации
-    @SerializedName("parent_id") val parentId: Any // id родительской локации
+    @SerializedName("parent_id")
+    val parentId: Any // id родительской локации
 )
