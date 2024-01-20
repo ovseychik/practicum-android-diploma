@@ -70,9 +70,11 @@ dependencies {
     // glide
     implementation(libs.glide)
 
-    // fragments and navigation
+    // navigation
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+
+    // fragments
     implementation(libs.fragment)
 
     // coroutines
