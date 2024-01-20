@@ -70,7 +70,7 @@ dependencies {
     // glide
     implementation(libs.glide)
 
-    // navigation
+    // jetpack-navigation
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
 
