@@ -59,23 +59,23 @@ dependencies {
     // endregion
 
     // retrofit
-    val retrofit_version = "2.9.0"
-    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
+    val retrofitVersion = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
     // room
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 
     // glide
     implementation("com.github.bumptech.glide:glide:4.15.1")
 
     // fragments and navigation
-    val navigation_version = "2.5.3"
-    implementation("androidx.navigation:navigation-fragment-ktx:$navigation_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$navigation_version")
+    val navigationVersion = "2.5.3"
+    implementation("androidx.navigation:navigation-fragment-ktx:$navigationVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navigationVersion")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     // coroutines
