@@ -5,7 +5,6 @@ java = "VERSION_1_8"
 # Build constants
 minSdk = "26"
 compileSdk = "34"
-retrofitVersion = "2.9.0"
 targetSdk = "33"
 
 # Detekt
