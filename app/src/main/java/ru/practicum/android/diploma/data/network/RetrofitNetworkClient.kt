@@ -3,6 +3,8 @@ package ru.practicum.android.diploma.data.network
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.ResponseBody
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.GuideRequest
@@ -99,6 +101,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = ResponseGuide<ResponseCountriesGuideItem>().apply { listItem.addAll(result) }
                 response.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
+                throw e
                 ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
             }
         }
