@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
 
+    <!-- bottom navigation (bn) menu items-->
+    <string name="bn_main">Главная</string>
+    <string name="bn_favorites">Избранное</string>
+    <string name="bn_team">Команда</string>
+
     <!-- team members screen (alphabetically) -->
     <string name="fragment_team_title">Команда</string>
 
