@@ -16,4 +16,5 @@ data class SearchRequest(
         KEY_AREA to "",
         KEY_INDUSTRY to ""
     ),
+    val vacancyId: String = ""
 )
