@@ -13,11 +13,11 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Search fragment"
-        app:layout_constraintBottom_toTopOf="@id/guidline_bottom"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidline_bottom"
+        android:id="@+id/guideline_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -30,7 +30,7 @@
         android:text="To Filters Fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidline_bottom" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_to_details"
@@ -40,6 +40,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/button_to_filters"
-        app:layout_constraintTop_toBottomOf="@id/guidline_bottom" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

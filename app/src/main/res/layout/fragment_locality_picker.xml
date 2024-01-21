@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/fragment_padding_horizontal"
-    tools:context="ui.similarvacancy.fragment.SimilarVacancyFragment">
+    tools:context="ui.filter.fragment.LocalityPickerFragment">
 
     <TextView
-        android:id="@+id/text_view_vacancy_details_fragment_title"
+        android:id="@+id/text_view_locality_fragment_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Similar vacancies fragment"
+        android:text="Locality picker fragment (country / town)"
         app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,19 +27,9 @@
         android:id="@+id/button_to_filters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to OG Vacancy"
+        android:text="Back to Filter Fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_to_details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="To Similar Vacancy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/button_to_filters"
         app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
