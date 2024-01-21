@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Practicum-Android-Diploma</string>
+
+    <!-- team members screen (alphabetically) -->
+    <string name="fragment_team_title">Команда</string>
+
+    <string name="made_by">Над приложением работали</string>
+
+    <string name="member1">Александр Корытин</string>
+    <string name="member2">Данила Морозов</string>
+    <string name="member3">Сергей Овсейчик</string>
+    <string name="member4">Аслан Шкахов</string>
+
 </resources>
