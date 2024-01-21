@@ -66,7 +66,6 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = ResponseGuide<ResponseIndustriesGuideItem>().apply { listItem.addAll(result) }
                 response.apply { resultCode = 200 }
             } catch (e: Throwable) {
-                Log.d("MyLog", "${e.message}")
                 ResponseGuide<ResponseIndustriesGuideItem>().apply { resultCode = 500 }
             }
         }
@@ -81,7 +80,6 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = hhService.getAreas(request.id)
                 response.apply { resultCode = 200 }
             } catch (e: Throwable) {
-                Log.d("MyLog", "${e.message}")
                 Response().apply { resultCode = 500 }
             }
         }
@@ -97,7 +95,6 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = ResponseGuide<ResponseCountriesGuideItem>().apply { listItem.addAll(result) }
                 response.apply { resultCode = 200 }
             } catch (e: Throwable) {
-                Log.d("MyLog", "${e.message}")
                 ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = 500 }
             }
         }
