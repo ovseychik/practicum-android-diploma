@@ -27,7 +27,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = hhService.getVacancies(request.searchOptions)
                 response.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                Response().apply { resultCode = SERVER_ERROR }
+                Response().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
             }
         }
     }
@@ -41,7 +41,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = hhService.getVacancy(request.vacancyId)
                 response.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                Response().apply { resultCode = SERVER_ERROR }
+                Response().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
             }
         }
     }
@@ -55,7 +55,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = hhService.getSimilarVacancies(request.vacancyId, request.searchOptions)
                 response.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                Response().apply { resultCode = SERVER_ERROR }
+                Response().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
             }
         }
     }
@@ -70,7 +70,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = ResponseGuide<ResponseIndustriesGuideItem>().apply { listItem.addAll(result) }
                 response.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                ResponseGuide<ResponseIndustriesGuideItem>().apply { resultCode = SERVER_ERROR }
+                ResponseGuide<ResponseIndustriesGuideItem>().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
             }
         }
     }
@@ -84,7 +84,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = hhService.getAreas(request.id)
                 response.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                Response().apply { resultCode = SERVER_ERROR }
+                Response().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
             }
         }
     }
@@ -99,7 +99,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val response = ResponseGuide<ResponseCountriesGuideItem>().apply { listItem.addAll(result) }
                 response.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = SERVER_ERROR }
+                ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
             }
         }
     }
