@@ -4,9 +4,10 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/text_view_search_fragment_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Search fragment"/>
+        android:text="Search fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
