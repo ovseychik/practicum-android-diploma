@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/fragment_padding_horizontal"
-    tools:context="ui.search.fragment.SearchFragment">
+    tools:context="ui.filter.fragment.FilterFragment">
 
     <TextView
-        android:id="@+id/text_view_search_fragment_title"
+        android:id="@+id/text_view_filter_fragment_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Search fragment"
+        android:text="Filter fragment"
         app:layout_constraintBottom_toTopOf="@id/guidline_bottom"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,19 +27,9 @@
         android:id="@+id/button_to_filters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To Filters Fragment"
+        android:text="Back to Search Fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidline_bottom" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_to_details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="To Details Fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/button_to_filters"
         app:layout_constraintTop_toBottomOf="@id/guidline_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
