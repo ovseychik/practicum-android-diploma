@@ -6,7 +6,9 @@ import retrofit2.http.Path
 import retrofit2.http.QueryMap
 import ru.practicum.android.diploma.BuildConfig
 import ru.practicum.android.diploma.data.dto.HH_USER_AGENT
-import ru.practicum.android.diploma.data.dto.responses.guides.areas.ResponseAreasGuide
+import ru.practicum.android.diploma.data.dto.responses.guides.areas.ResponseAreaGuideDto
+import ru.practicum.android.diploma.data.dto.responses.guides.countries.ResponseCountriesGuideItem
+import ru.practicum.android.diploma.data.dto.responses.guides.inustries.ResponseIndustriesGuideItem
 import ru.practicum.android.diploma.data.dto.responses.vacancy.details.ResponseDetailsDto
 import ru.practicum.android.diploma.data.dto.responses.vacancy.list.ResponseListDto
 
@@ -39,13 +41,16 @@ interface HHApi {
         "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
         HH_USER_AGENT
     )
-    @GET("/areas")
-    suspend fun getAreas(): ResponseAreasGuide
+    @GET("/areas/countries")
+    suspend fun getCountries(): ArrayList<ResponseCountriesGuideItem>
+
+    @GET("/areas/{area_id}")
+    suspend fun getAreas(@Path("area_id") id: String): ResponseAreaGuideDto
 
     @Headers(
         "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
         HH_USER_AGENT
     )
     @GET("/industries")
-    suspend fun getIndustries(): ResponseAreasGuide
+    suspend fun getIndustries(): ArrayList<ResponseIndustriesGuideItem>
 }
