@@ -1,5 +1,15 @@
 package ru.practicum.android.diploma.ui.search.fragment
 
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import ru.practicum.android.diploma.databinding.FragmentSearchBinding
+import ru.practicum.android.diploma.util.BindingFragment
 
-class SearchFragment : Fragment()
+class SearchFragment : BindingFragment<FragmentSearchBinding>() {
+    override fun createBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSearchBinding {
+        return FragmentSearchBinding.inflate(inflater, container, false)
+    }
+}
