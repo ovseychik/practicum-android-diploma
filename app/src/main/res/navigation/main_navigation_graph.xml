@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="ru.practicum.android.diploma.ui.filter.fragment.FilterFragment"
-        android:label="FilterFragment" >
+        android:label="FilterFragment"
+        tools:layout="@layout/fragment_filter">
         <action
             android:id="@+id/action_filterFragment_to_industryPickerFragment"
             app:destination="@id/industryPickerFragment" />
@@ -38,7 +39,8 @@
     <fragment
         android:id="@+id/favoriteVacancyFragment"
         android:name="ru.practicum.android.diploma.ui.favorite.fragment.FavoriteVacancyFragment"
-        android:label="FavoriteVacancyFragment" />
+        android:label="FavoriteVacancyFragment"
+        tools:layout="@layout/fragment_favorite_vacancy"/>
     <fragment
         android:id="@+id/similarVacancyFragment"
         android:name="ru.practicum.android.diploma.ui.similarvacancy.fragment.SimilarVacancyFragment"
