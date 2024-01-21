@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.GuideRequest
 import ru.practicum.android.diploma.data.dto.SearchRequest
@@ -22,7 +23,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
             try {
                 val response = hhService.getVacancies(request.searchOptions)
                 response.apply { resultCode = 200 }
-            } catch (e: Throwable) {
+            } catch (e: HttpException) {
                 Response().apply { resultCode = 500 }
             }
         }
@@ -36,7 +37,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
             try {
                 val response = hhService.getVacancy(request.vacancyId)
                 response.apply { resultCode = 200 }
-            } catch (e: Throwable) {
+            } catch (e: HttpException) {
                 Response().apply { resultCode = 500 }
             }
         }
@@ -50,7 +51,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
             try {
                 val response = hhService.getSimilarVacancies(request.vacancyId, request.searchOptions)
                 response.apply { resultCode = 200 }
-            } catch (e: Throwable) {
+            } catch (e: HttpException) {
                 Response().apply { resultCode = 500 }
             }
         }
@@ -65,7 +66,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val result = hhService.getIndustries()
                 val response = ResponseGuide<ResponseIndustriesGuideItem>().apply { listItem.addAll(result) }
                 response.apply { resultCode = 200 }
-            } catch (e: Throwable) {
+            } catch (e: HttpException) {
                 ResponseGuide<ResponseIndustriesGuideItem>().apply { resultCode = 500 }
             }
         }
@@ -79,7 +80,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
             try {
                 val response = hhService.getAreas(request.id)
                 response.apply { resultCode = 200 }
-            } catch (e: Throwable) {
+            } catch (e: HttpException) {
                 Response().apply { resultCode = 500 }
             }
         }
@@ -94,7 +95,7 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val result = hhService.getCountries()
                 val response = ResponseGuide<ResponseCountriesGuideItem>().apply { listItem.addAll(result) }
                 response.apply { resultCode = 200 }
-            } catch (e: Throwable) {
+            } catch (e: HttpException) {
                 ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = 500 }
             }
         }
