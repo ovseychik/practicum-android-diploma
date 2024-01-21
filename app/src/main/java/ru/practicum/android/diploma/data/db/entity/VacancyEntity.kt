@@ -39,7 +39,7 @@ data class VacancyEntity(
     val professionalRoles: String?,
     @ColumnInfo(name = "publishedAt")
     val publishedAt: String?,
-    ) {
+) {
     companion object {
         const val TABLE_NAME = "vacancy_table"
     }
