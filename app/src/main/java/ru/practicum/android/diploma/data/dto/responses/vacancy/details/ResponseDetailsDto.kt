@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.dto.responses.vacancy.deteils
+package ru.practicum.android.diploma.data.dto.responses.vacancy.details
 
 import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.dto.responses.Response
