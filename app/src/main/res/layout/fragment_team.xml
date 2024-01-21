@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/white"
     android:paddingHorizontal="@dimen/fragment_padding_horizontal"
     tools:context="ui.team.fragment.TeamFragment">
 
@@ -17,11 +18,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            style="@style/YsDisplayMedium22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
             android:text="@string/fragment_team_title"
-            android:textSize="@dimen/text_sp_fragment_title" />
+            android:textColor="?attr/black" />
     </FrameLayout>
 
     <FrameLayout
@@ -34,9 +36,11 @@
         app:layout_constraintTop_toBottomOf="@id/team_header">
 
         <TextView
+            style="@style/YsDisplayBold32"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/made_by"
+            android:textColor="?attr/black"
             android:textSize="38sp" />
     </FrameLayout>
 
@@ -54,9 +58,7 @@
 
             <TextView
                 android:id="@+id/team_member_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                style="@style/team_fragment_tv_members"
                 android:text="@string/member1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -64,10 +66,8 @@
 
             <TextView
                 android:id="@+id/team_member_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/team_fragment_tv_members"
                 android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
                 android:text="@string/member2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,10 +75,8 @@
 
             <TextView
                 android:id="@+id/team_member_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/team_fragment_tv_members"
                 android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
                 android:text="@string/member3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -86,10 +84,8 @@
 
             <TextView
                 android:id="@+id/team_member_4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/team_fragment_tv_members"
                 android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
                 android:text="@string/member4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
