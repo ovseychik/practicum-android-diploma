@@ -1,15 +1,14 @@
 package ru.practicum.android.diploma.di
 
-
-import androidx.room.Room
-import ru.practicum.android.diploma.data.db.AppDatabase
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
 import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.network.HHApi
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
