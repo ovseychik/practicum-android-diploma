@@ -20,5 +20,4 @@ interface VacancyDao {
 
     @Delete
     suspend fun deleteVacancy(vacancy: VacancyEntity)
-
 }
