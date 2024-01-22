@@ -10,6 +10,8 @@
         <item name="gray">@color/gray</item>
         <item name="light_gray">@color/light_gray</item>
         <item name="background">@color/background</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/black</item>
     </style>
 
     <style name="Theme.PracticumAndroidDiploma" parent="Base.Theme.PracticumAndroidDiploma" />
