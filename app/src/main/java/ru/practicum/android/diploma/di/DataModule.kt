@@ -12,7 +12,6 @@ import ru.practicum.android.diploma.data.network.HHApi
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.util.GlobalConstant
 
-
 val dataModule = module {
     single<HHApi> {
         Retrofit.Builder()
