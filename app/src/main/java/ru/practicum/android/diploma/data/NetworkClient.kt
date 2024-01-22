@@ -18,6 +18,6 @@ interface NetworkClient {
 
     suspend fun getAreas(request: GuideRequest): Response?
 
-    suspend fun getCountries(): ResponseGuide<ResponseCountriesGuideItem>
+    suspend fun getCountries(): ResponseGuide<ResponseCountriesGuideItem>?
 
 }
