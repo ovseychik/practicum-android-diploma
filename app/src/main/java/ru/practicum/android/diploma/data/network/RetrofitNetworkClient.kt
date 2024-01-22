@@ -69,11 +69,11 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
         }
         val response = withContext(Dispatchers.IO) {
             try {
-                val result = hhService.getIndustries()
-                val response = ResponseGuide<ResponseIndustriesGuideItem>().apply { listItem.addAll(result) }
-                response.apply { resultCode = VALID_RESPONSE }
+                val resultList = hhService.getIndustries()
+                val result = ResponseGuide<ResponseIndustriesGuideItem>().apply { listItem.addAll(resultList) }
+                result.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                ResponseGuide<ResponseIndustriesGuideItem>().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
+                ResponseGuide<ResponseIndustriesGuideItem>().apply { resultCode = SERVER_ERROR; error = e }
             }
         }
         return response
@@ -100,13 +100,13 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
         }
         val response = withContext(Dispatchers.IO) {
             try {
-                val result = hhService.getCountries()
-                val response = ResponseGuide<ResponseCountriesGuideItem>().apply { listItem.addAll(result) }
-                response.apply { resultCode = VALID_RESPONSE }
+                val resultList = hhService.getCountries()
+                val result = ResponseGuide<ResponseCountriesGuideItem>().apply { listItem.addAll(resultList) }
+                result.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
+                ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = SERVER_ERROR; error = e }
             }
         }
-        return  response
+        return response
     }
 }
