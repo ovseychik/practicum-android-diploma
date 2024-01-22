@@ -36,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/white"
-        app:itemBackground="@null"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemRippleColor="@null"
         app:itemTextAppearanceActive="@style/YsDisplayregular12"
