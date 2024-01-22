@@ -22,91 +22,91 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
         if (isConnected(context) == false) {
             return Response().apply { resultCode = NO_INTERNET }
         }
-        return withContext(Dispatchers.IO) {
+        val response = withContext(Dispatchers.IO) {
             try {
-                val response = hhService.getVacancies(request.searchOptions)
-                response.apply { resultCode = VALID_RESPONSE }
+                val result = hhService.getVacancies(request.searchOptions)
+                result.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                Response().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
-                throw e
+                Response().apply { resultCode = SERVER_ERROR; error = e }
             }
         }
+        return response
     }
 
     override suspend fun getCurrentVacancy(request: SearchRequest): Response {
         if (isConnected(context) == false) {
             return Response().apply { resultCode = NO_INTERNET }
         }
-        return withContext(Dispatchers.IO) {
+        val response = withContext(Dispatchers.IO) {
             try {
-                val response = hhService.getVacancy(request.vacancyId)
-                response.apply { resultCode = VALID_RESPONSE }
+                val result = hhService.getVacancy(request.vacancyId)
+                result.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                Response().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
-                throw e
+                Response().apply { resultCode = SERVER_ERROR; error = e }
             }
         }
+        return response
     }
 
     override suspend fun getSimilarVacancies(request: SearchRequest): Response {
         if (isConnected(context) == false) {
             return Response().apply { resultCode = NO_INTERNET }
         }
-        return withContext(Dispatchers.IO) {
+        val response = withContext(Dispatchers.IO) {
             try {
-                val response = hhService.getSimilarVacancies(request.vacancyId, request.searchOptions)
-                response.apply { resultCode = VALID_RESPONSE }
+                val result = hhService.getSimilarVacancies(request.vacancyId, request.searchOptions)
+                result.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                Response().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
-                throw e
+                Response().apply { resultCode = SERVER_ERROR; error = e }
             }
         }
+        return response
     }
 
     override suspend fun getIndustries(): ResponseGuide<ResponseIndustriesGuideItem> {
         if (isConnected(context) == false) {
             return ResponseGuide<ResponseIndustriesGuideItem>().apply { resultCode = NO_INTERNET }
         }
-        return withContext(Dispatchers.IO) {
+        val response = withContext(Dispatchers.IO) {
             try {
                 val result = hhService.getIndustries()
                 val response = ResponseGuide<ResponseIndustriesGuideItem>().apply { listItem.addAll(result) }
                 response.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
                 ResponseGuide<ResponseIndustriesGuideItem>().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
-                throw e
             }
         }
+        return response
     }
 
     override suspend fun getAreas(request: GuideRequest): Response {
         if (isConnected(context) == false) {
             return Response().apply { resultCode = NO_INTERNET }
         }
-        return withContext(Dispatchers.IO) {
+        val response = withContext(Dispatchers.IO) {
             try {
-                val response = hhService.getAreas(request.id)
-                response.apply { resultCode = VALID_RESPONSE }
+                val result = hhService.getAreas(request.id)
+                result.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
-                Response().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
-                throw e
+                Response().apply { resultCode = SERVER_ERROR; error = e }
             }
         }
+        return response
     }
 
     override suspend fun getCountries(): ResponseGuide<ResponseCountriesGuideItem> {
         if (isConnected(context) == false) {
             return ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = NO_INTERNET }
         }
-        return withContext(Dispatchers.IO) {
+        val response = withContext(Dispatchers.IO) {
             try {
                 val result = hhService.getCountries()
                 val response = ResponseGuide<ResponseCountriesGuideItem>().apply { listItem.addAll(result) }
                 response.apply { resultCode = VALID_RESPONSE }
             } catch (e: HttpException) {
                 ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = SERVER_ERROR; errorCode = e.code() }
-                throw e
             }
         }
+        return  response
     }
 }

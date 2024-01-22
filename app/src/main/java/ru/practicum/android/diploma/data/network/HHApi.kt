@@ -17,7 +17,7 @@ interface HHApi {
         "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
         HH_USER_AGENT
     )
-    @GET("/vacancies")
+    @GET("/vacanciese")
     suspend fun getVacancies(@QueryMap searchOptions: MutableMap<String, String>): ResponseListDto
 
     @Headers(
