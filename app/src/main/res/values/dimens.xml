@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- dimensions -->
+    <dimen name="fragment_padding_horizontal">16dp</dimen>
+
+    <!-- picture corners -->
+    <dimen name="corner_radius_employer_icon_small_list">12dp</dimen>
+
+    <!-- text sizes -->
+    <dimen name="text_sp_fragment_title">22sp</dimen>
+    <dimen name="_32sp">32sp</dimen>
+    <dimen name="_22sp">22sp</dimen>
+    <dimen name="_16sp">16sp</dimen>
+    <dimen name="_12sp">12sp</dimen>
+    <dimen name="_0">0</dimen>
+</resources>

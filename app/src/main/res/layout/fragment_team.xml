@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/white"
+    android:paddingHorizontal="@dimen/fragment_padding_horizontal"
+    tools:context="ui.team.fragment.TeamFragment">
+
+    <FrameLayout
+        android:id="@+id/team_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/YsDisplayMedium22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:text="@string/fragment_team_title"
+            android:textColor="?attr/black" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/brought_to_you_by"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="92dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/team_header">
+
+        <TextView
+            style="@style/YsDisplayBold32"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/made_by"
+            android:textColor="?attr/black"
+            android:textSize="38sp" />
+    </FrameLayout>
+
+    <ScrollView
+        android:id="@+id/members_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/brought_to_you_by">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/team_member_1"
+                style="@style/team_fragment_tv_members"
+                android:text="@string/member1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/team_member_2"
+                style="@style/team_fragment_tv_members"
+                android:layout_marginTop="16dp"
+                android:text="@string/member2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/team_member_1" />
+
+            <TextView
+                android:id="@+id/team_member_3"
+                style="@style/team_fragment_tv_members"
+                android:layout_marginTop="16dp"
+                android:text="@string/member3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/team_member_2" />
+
+            <TextView
+                android:id="@+id/team_member_4"
+                style="@style/team_fragment_tv_members"
+                android:layout_marginTop="16dp"
+                android:text="@string/member4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/team_member_3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

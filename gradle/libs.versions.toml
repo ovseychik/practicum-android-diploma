@@ -9,7 +9,16 @@ targetSdk = "33"
 
 # Detekt
 detekt = "1.23.3"
-detektTwitterComposeRules ="0.0.26"
+detektTwitterComposeRules = "0.0.26"
+
+# Retrofit
+retrofit = "2.9.0"
+
+# Room
+room = "2.6.1"
+
+# Navigation
+navigation = "2.7.6"
 
 [libraries]
 
@@ -36,5 +45,28 @@ unitTests-junit = "junit:junit:4.13.2"
 # UI tests
 uiTests-junitExt = "androidx.test.ext:junit:1.1.5"
 uiTests-espressoCore = "androidx.test.espresso:espresso-core:3.5.1"
+
+# Retrofit
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+
+# Room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room = { module = "androidx.room:room-ktx", version.ref = "room" }
+
+# Glide
+glide = "com.github.bumptech.glide:glide:4.15.1"
+
+# Fragments and navigation
+navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigation" }
+fragment = "androidx.fragment:fragment-ktx:1.6.2"
+
+# Coroutines
+coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
+
+# Koin
+koin = "io.insert-koin:koin-android:3.5.3"
 
 [bundles]
