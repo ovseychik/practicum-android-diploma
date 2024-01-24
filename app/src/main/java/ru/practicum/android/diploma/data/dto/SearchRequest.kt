@@ -8,7 +8,7 @@ data class SearchRequest(
     ),
     val onlyWithSalary: Boolean = false,
     val page: Int,
-    val perPage:Int = ITEMS_PER_SHEET,
+    val perPage: Int = ITEMS_PER_SHEET,
     val salary: Int
 ) {
     companion object {
@@ -28,7 +28,7 @@ data class SearchRequest(
             val params = mutableMapOf<String, String>()
             if (text != "") params[KEY_TEXT] = text
             if (area != "") params[KEY_AREA] = area
-            if (industry !="") params[KEY_INDUSTRY] = industry
+            if (industry != "") params[KEY_INDUSTRY] = industry
             return SearchRequest(
                 searchOptions = params,
                 onlyWithSalary = isSalaryIndicate,
@@ -36,7 +36,7 @@ data class SearchRequest(
                 perPage = 20,
                 salary = salary,
 
-            )
+                )
         }
 
     }
