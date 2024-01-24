@@ -1,21 +1,43 @@
 package ru.practicum.android.diploma.data.dto
 
 data class SearchRequest(
-    val searchOptions: MutableMap<String, String> = mutableMapOf(
-        KEY_PAGE to "",
-        KEY_PER_PAGE to ITEMS_PER_SHEET,
+    val searchOptions: Map<String, String> = mutableMapOf(
         KEY_TEXT to "",
         KEY_AREA to "",
-        KEY_INDUSTRY to ""
+        KEY_INDUSTRY to "",
     ),
-    val vacancyId: String = ""
+    val onlyWithSalary: Boolean = false,
+    val page: Int,
+    val perPage:Int = ITEMS_PER_SHEET,
+    val salary: Int
 ) {
     companion object {
-        const val KEY_PAGE = "page"
-        const val KEY_PER_PAGE = "per_page"
-        const val KEY_TEXT = "text"
-        const val KEY_AREA = "area"
-        const val KEY_INDUSTRY = "industry"
-        const val ITEMS_PER_SHEET = "20"
+        private const val KEY_TEXT = "text"
+        private const val KEY_AREA = "area"
+        private const val KEY_INDUSTRY = "industry"
+        private const val ITEMS_PER_SHEET = 20
+
+        fun updatingSettings(
+            text: String,
+            page: Int,
+            area: String,
+            industry: String,
+            salary: Int,
+            isSalaryIndicate: Boolean
+        ): SearchRequest {
+            val params = mutableMapOf<String, String>()
+            if (text != "") params[KEY_TEXT] = text
+            if (area != "") params[KEY_AREA] = area
+            if (industry !="") params[KEY_INDUSTRY] = industry
+            return SearchRequest(
+                searchOptions = params,
+                onlyWithSalary = isSalaryIndicate,
+                page = page,
+                perPage = 20,
+                salary = salary,
+
+            )
+        }
+
     }
 }
