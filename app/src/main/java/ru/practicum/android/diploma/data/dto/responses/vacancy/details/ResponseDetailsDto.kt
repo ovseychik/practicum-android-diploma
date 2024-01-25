@@ -28,7 +28,7 @@ data class ResponseDetailsDto(
     @SerializedName("published_at")
     val publishedAt: String, // дата и время публикации вакансии в формате "2013-07-08T16:17:21+0400"
 ) {
-    fun map(): VacancyDetails {
+    fun mapToVacancyDetails(): VacancyDetails {
         return VacancyDetails(
             vacancyId = this.id,
             vacancyName = this.name,
@@ -46,7 +46,7 @@ data class ResponseDetailsDto(
         )
     }
 
-    fun getSalaryAsStr(salary: Salary?): String {
+   private fun getSalaryAsStr(salary: Salary?): String {
         if (salary == null) return EMPTY_SALARY
         val resultStr: StringBuilder = StringBuilder("")
         resultStr.append("от ${salary.from}")
@@ -55,7 +55,7 @@ data class ResponseDetailsDto(
         return resultStr.toString()
     }
 
-    fun getCommet(phones: List<Phone>): String {
+   private fun getCommet(phones: List<Phone>): String {
         if (phones.isEmpty()) return EMPTY_SALARY
         val resultStr: StringBuilder = StringBuilder("")
         phones.forEach { resultStr.append(it.comment) }
