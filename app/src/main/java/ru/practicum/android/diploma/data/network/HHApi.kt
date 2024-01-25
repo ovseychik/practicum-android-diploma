@@ -22,7 +22,7 @@ interface HHApi {
     @GET("/vacancies")
     suspend fun getVacancies(
         @QueryMap searchOptionsStr: Map<String, String>,
-        @Query("only_with_salary") salaryAvailability: Boolean,
+        @Query("only_with_salary") isSalarySpecified: Boolean,
         @QueryMap searchOptionsNum: Map<String, Int>
     ): ResponseListDto
 
