@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.data.models
 
-const val EMPTY_PARAM_NUM = -1
+const val EMPTY_PARAM_NUM = -101
 const val EMPTY_PARAM_SRT = ""
 
 data class SearchSettings(
