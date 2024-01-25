@@ -1,5 +1,7 @@
 package ru.practicum.android.diploma.data.dto
 
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.data.models.SearchSettings
 
 data class SearchRequest(
@@ -17,20 +19,18 @@ data class SearchRequest(
         private const val KEY_SALARY = "salary"
 
         fun setSearchOptions(
-            text: String,
-            page: Int,
+            text: String = "",
+            page: Int = 0,
             searchSettings: SearchSettings
         ): SearchRequest {
-            val mapStr = mapOf<String, String>(
-                KEY_TEXT to text,
-                KEY_AREA to searchSettings.areaId,
-                KEY_INDUSTRY to searchSettings.industry
-            )
-            val mapNum = mapOf<String, Int>(
-                KEY_PAGE to page,
-                KEY_PER_PAGE to ITEMS_PER_SHEET,
-                KEY_SALARY to searchSettings.salary
-            )
+            val mapStr = mutableMapOf<String, String>()
+            if (text != "") mapStr[KEY_TEXT] = text
+            if (searchSettings.areaId != EMPTY_PARAM_SRT) mapStr[KEY_AREA] = searchSettings.areaId
+            if (searchSettings.industry != EMPTY_PARAM_SRT) mapStr[KEY_INDUSTRY] = searchSettings.industry
+            val mapNum = mutableMapOf<String, Int>()
+            mapNum[KEY_PER_PAGE] = ITEMS_PER_SHEET
+            if (page >= 0) mapNum[KEY_PAGE] = page
+            if (searchSettings.salary != EMPTY_PARAM_NUM) mapNum[KEY_SALARY] = searchSettings.salary
             return SearchRequest(mapStr, mapNum, searchSettings.isSalarySpecified)
         }
     }
