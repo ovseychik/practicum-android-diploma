@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.data.dto.responses.vacancy.Area
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Employer
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Salary
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.domain.models.vacansy.VacancyDetails
 
 private const val EMPTY_SALARY = "Зарплата не указана"
@@ -14,6 +15,7 @@ data class ResponseDetailsDto(
     val id: String, // id вакансии
     val name: String, // название вакансии
     val salary: Salary? = null, // внутри з/п
+    val address: Address?,
     @SerializedName("alternate_url")
     val alternateUrl: String, // ссылка на вакансию
     val area: Area, // внутри название регион
@@ -32,7 +34,7 @@ data class ResponseDetailsDto(
 fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
     return VacancyDetails(
         vacancyId = this.id,
-        vacancyName = this.name,
+        vacancyName = "${this.name}, ",
         salary = getSalaryAsStr(this.salary),
         experience = this.experience.name,
         keySkills = this.keySkills.map { it.toString() },
@@ -43,7 +45,9 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
         comment = getCommet(this.contacts.phones),
         email = this.contacts.email,
         managerName = this.contacts.name,
-        phones = getPhones(this.contacts.phones)
+        phones = getPhones(this.contacts.phones),
+        address = getAdress(this.address),
+        city = this.area.name
     )
 }
 
@@ -72,5 +76,12 @@ fun getPhones(phones: List<Phone>): List<String> {
         resultStr.add(phoneStr.toString())
     }
     return resultStr
+}
+
+private fun getAdress(address: Address?): String {
+    if (address == null) return EMPTY_PARAM_SRT
+    val resultStr = StringBuilder("")
+    resultStr.append("${address.city}, ").append("${address.street}, ").append(address.building)
+    return resultStr.toString()
 }
 
