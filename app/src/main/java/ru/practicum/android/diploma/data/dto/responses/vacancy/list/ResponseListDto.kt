@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.dto.responses.vacancy.list
 
 import com.google.gson.annotations.SerializedName
+import ru.practicum.android.diploma.domain.models.vacansy.Vacancies
 
 data class ResponseListDto(
     val found: Int, // всего найдено по запросу
@@ -10,3 +11,10 @@ data class ResponseListDto(
     @SerializedName("per_page")
     val perPage: Int, // кол-во итемов на странице
 )
+
+fun ResponseListDto.mapToVacancies(): Vacancies {
+    return Vacancies(
+        listVacancies = this.items.map { it.mapToVacancyItem() },
+        page = this.page,
+    )
+}
