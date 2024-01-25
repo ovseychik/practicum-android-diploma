@@ -9,7 +9,7 @@
 
     <!-- Не забудьте использовать .centerCrop() в глайде -->
     <ImageView
-        android:id="@+id/artWork"
+        android:id="@+id/iv_company_logo"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="12dp"
