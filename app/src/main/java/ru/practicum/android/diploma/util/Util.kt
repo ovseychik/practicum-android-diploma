@@ -43,3 +43,19 @@ fun isConnected(context: Context): Boolean {
     }
     return false
 }
+
+fun getCurrencySymbol(currency: String): String {
+    return when (currency) {
+        "AZN" -> "₼" // Манаты
+        "BYR" -> "Br" // Белорусские рубли
+        "EUR" -> "€" // Евро
+        "GEL" -> "₾" // Грузинский лари
+        "KGS" -> "сом" // Кыргызский сом
+        "KZT" -> "₸" // Тенге
+        "RUR" -> "₽" // Рубли
+        "UAH" -> "₴" // Гривны
+        "USD" -> "$" // Доллары
+        "UZS" -> "so'm" // Узбекский сум
+        else -> currency
+    }
+}
