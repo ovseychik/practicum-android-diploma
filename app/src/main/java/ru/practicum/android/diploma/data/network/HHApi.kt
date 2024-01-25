@@ -21,11 +21,9 @@ interface HHApi {
     )
     @GET("/vacancies")
     suspend fun getVacancies(
-        @QueryMap searchOptions: Map<String, String>,
+        @QueryMap searchOptionsStr: Map<String, String>,
         @Query("only_with_salary") salaryAvailability: Boolean,
-        @Query("page") page: Int,
-        @Query("per_page") perPge: Int,
-        @Query("salary") salary: Int
+        @QueryMap searchOptionsNum: Map<String, Int>
     ): ResponseListDto
 
     @Headers(
