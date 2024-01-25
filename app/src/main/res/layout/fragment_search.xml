@@ -5,7 +5,137 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/screen_background_color"
-    android:paddingHorizontal="@dimen/fragment_padding_horizontal"
     tools:context="ui.search.fragment.SearchFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/_16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/_16dp" />
+
+    <TextView
+        android:id="@+id/tv_search_title"
+        style="@style/YsDisplayMedium22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_28dp"
+        android:text="@string/search_screen_title_text"
+        android:textColor="?attr/text_color"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_filter"
+        android:layout_width="@dimen/_24dp"
+        android:layout_height="@dimen/_24dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/_28dp"
+        android:background="@null"
+        android:src="@drawable/ic_filter_off"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/text_color" />
+
+    <EditText
+        android:id="@+id/et_search"
+        style="@style/YsDisplayregular16"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_56dp"
+        android:layout_marginTop="@dimen/_24dp"
+        android:layout_weight="1"
+        android:background="@drawable/search_input_field_bg_shape"
+        android:hint="@string/search_hint_text"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/_16dp"
+        android:singleLine="true"
+        android:textColor="?attr/text_color"
+        android:textColorHint="?attr/hint_text_color"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_title" />
+
+    <ImageView
+        android:id="@+id/btn_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/_16dp"
+        android:src="@drawable/ic_search"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toEndOf="@id/et_search"
+        app:layout_constraintTop_toTopOf="@id/et_search"
+        app:tint="?attr/black_universal" />
+
+    <TextView
+        android:id="@+id/tv_result_count_chips"
+        style="@style/YsDisplayregular16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12dp"
+        android:background="@drawable/result_count_chip_shape"
+        android:paddingHorizontal="@dimen/_12dp"
+        android:paddingVertical="@dimen/_4dp"
+        android:textColor="?attr/white_universal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/et_search"
+        tools:text="@string/vacancy_count_chips_text" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_result"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/tv_result_count_chips" />
+
+    <ImageView
+        android:id="@+id/iv_pic_placeholder"
+        android:layout_width="@dimen/_328dp"
+        android:layout_height="@dimen/_223dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/et_search"
+        tools:src="@drawable/ic_default_search_placeholder_pic" />
+
+    <ProgressBar
+        android:id="@+id/pb_circle"
+        android:layout_width="@dimen/_48dp"
+        android:layout_height="@dimen/_48dp"
+        android:indeterminate="true"
+        android:indeterminateTint="?attr/blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/et_search" />
+
+    <TextView
+        android:id="@+id/tv_error_placeholder"
+        style="@style/YsDisplayMedium22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/iv_pic_placeholder"
+        tools:text="@string/no_internet_error_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
