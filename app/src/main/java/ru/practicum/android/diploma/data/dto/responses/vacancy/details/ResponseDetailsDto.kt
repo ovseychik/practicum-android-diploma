@@ -27,51 +27,50 @@ data class ResponseDetailsDto(
     val professionalRoles: List<ProfessionalRole>, // внури названия профессиональных ролей
     @SerializedName("published_at")
     val publishedAt: String, // дата и время публикации вакансии в формате "2013-07-08T16:17:21+0400"
-) {
-    companion object {
-        fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
-            return VacancyDetails(
-                vacancyId = this.id,
-                vacancyName = this.name,
-                salary = getSalaryAsStr(this.salary),
-                experience = this.experience.name,
-                keySkills = this.keySkills.map { it.toString() },
-                vacancyDescription = "${Html.fromHtml(this.description, Html.FROM_HTML_MODE_COMPACT)}",
-                companyName = this.employer.name,
-                companyLogoLittle = this.employer.logoUrls.little,
-                companyLogoMedium = this.employer.logoUrls.medium,
-                comment = getCommet(this.contacts.phones),
-                email = this.contacts.email,
-                managerName = this.contacts.name,
-                phones = getPhones(this.contacts.phones)
-            )
-        }
+)
 
-        private fun getSalaryAsStr(salary: Salary?): String {
-            if (salary == null) return EMPTY_SALARY
-            val resultStr: StringBuilder = StringBuilder("")
-            resultStr.append("от ${salary.from}")
-            if (salary.to != EMPTY_PARAM_NUM) resultStr.append("до ${salary.to}")
-            resultStr.append(" ${salary.currency}")
-            return resultStr.toString()
-        }
-
-        private fun getCommet(phones: List<Phone>): String {
-            if (phones.isEmpty()) return EMPTY_SALARY
-            val resultStr: StringBuilder = StringBuilder("")
-            phones.forEach { resultStr.append(it.comment) }
-            return resultStr.toString()
-        }
-
-        fun getPhones(phones: List<Phone>): List<String> {
-            if (phones.isEmpty()) return emptyList()
-            val resultStr = mutableListOf<String>()
-            phones.forEach {
-                val phoneStr = StringBuilder("")
-                phoneStr.append("${it.country} (${it.city}) ${it.number}")
-                resultStr.add(phoneStr.toString())
-            }
-            return resultStr
-        }
-    }
+fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
+    return VacancyDetails(
+        vacancyId = this.id,
+        vacancyName = this.name,
+        salary = getSalaryAsStr(this.salary),
+        experience = this.experience.name,
+        keySkills = this.keySkills.map { it.toString() },
+        vacancyDescription = "${Html.fromHtml(this.description, Html.FROM_HTML_MODE_COMPACT)}",
+        companyName = this.employer.name,
+        companyLogoLittle = this.employer.logoUrls.little ?: "",
+        companyLogoMedium = this.employer.logoUrls.medium ?: "",
+        comment = getCommet(this.contacts.phones),
+        email = this.contacts.email,
+        managerName = this.contacts.name,
+        phones = getPhones(this.contacts.phones)
+    )
 }
+
+private fun getSalaryAsStr(salary: Salary?): String {
+    if (salary == null) return EMPTY_SALARY
+    val resultStr: StringBuilder = StringBuilder("")
+    resultStr.append("от ${salary.from}")
+    if (salary.to != EMPTY_PARAM_NUM) resultStr.append("до ${salary.to}")
+    resultStr.append(" ${salary.currency}")
+    return resultStr.toString()
+}
+
+private fun getCommet(phones: List<Phone>): String {
+    if (phones.isEmpty()) return EMPTY_SALARY
+    val resultStr: StringBuilder = StringBuilder("")
+    phones.forEach { resultStr.append(it.comment) }
+    return resultStr.toString()
+}
+
+fun getPhones(phones: List<Phone>): List<String> {
+    if (phones.isEmpty()) return emptyList()
+    val resultStr = mutableListOf<String>()
+    phones.forEach {
+        val phoneStr = StringBuilder("")
+        phoneStr.append("+${it.country} (${it.city}) ${it.number}")
+        resultStr.add(phoneStr.toString())
+    }
+    return resultStr
+}
+
