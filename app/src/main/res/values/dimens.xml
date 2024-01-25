@@ -2,6 +2,8 @@
 <resources>
     <!-- dimensions -->
     <dimen name="fragment_padding_horizontal">16dp</dimen>
+    <dimen name="iv_item_vacancy_size">48dp</dimen>
+    <dimen name="item_vacancy_to_text_tab">12dp</dimen>
 
     <!-- picture corners -->
     <dimen name="corner_radius_employer_icon_small_list">12dp</dimen>
