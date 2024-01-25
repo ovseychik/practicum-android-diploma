@@ -40,8 +40,8 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
         keySkills = this.keySkills.map { it.toString() },
         vacancyDescription = "${Html.fromHtml(this.description, Html.FROM_HTML_MODE_COMPACT)}",
         companyName = this.employer.name,
-        companyLogoLittle = this.employer.logoUrls.little ?: "",
-        companyLogoMedium = this.employer.logoUrls.medium ?: "",
+        companyLogoLittle = this.employer.logoUrls?.little ?: "",
+        companyLogoMedium = this.employer.logoUrls?.medium ?: "",
         comment = getCommet(this.contacts.phones),
         email = this.contacts.email,
         managerName = this.contacts.name,
@@ -51,7 +51,7 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
     )
 }
 
-private fun getSalaryAsStr(salary: Salary?): String {
+fun getSalaryAsStr(salary: Salary?): String {
     if (salary == null) return EMPTY_SALARY
     val resultStr: StringBuilder = StringBuilder("")
     resultStr.append("от ${salary.from}")
