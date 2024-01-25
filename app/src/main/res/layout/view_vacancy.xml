@@ -13,7 +13,6 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="9dp"
         android:background="@drawable/frame_vacancy_small_icon"
         android:scaleType="center"
         tools:src="@drawable/ic_vacancy_logo_placeholder" />
