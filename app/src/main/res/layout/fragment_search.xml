@@ -108,11 +108,11 @@
         android:id="@+id/iv_pic_placeholder"
         android:layout_width="@dimen/_328dp"
         android:layout_height="@dimen/_223dp"
+        android:src="@drawable/ic_default_search_placeholder_pic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/et_search"
-        tools:src="@drawable/ic_default_search_placeholder_pic" />
+        app:layout_constraintTop_toBottomOf="@id/et_search" />
 
     <ProgressBar
         android:id="@+id/pb_circle"
