@@ -4,80 +4,47 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingVertical="9dp">
 
-
+    <!-- Не забудьте использовать .centerCrop() в глайде -->
     <ImageView
         android:id="@+id/artWork"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="@dimen/track_margin8"
-        android:layout_marginBottom="@dimen/track_margin8"
-        tools:src="@drawable/ic_album_cover_placeholder" />
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/frame_vacancy_small_icon"
+        android:scaleType="center"
+        tools:src="@drawable/ic_vacancy_logo_placeholder" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/trackName"
-                style="@style/TrackName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="28dp"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:singleLine="true"
-                tools:text="Всё идёт по плану" />
-
-            <TextView
-                style="@style/ForwardIconStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/track_margin16" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_vacancy_title"
+            style="@style/YsDisplayMedium22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            tools:text="Специалист по работе с рогами и копытами высшего разряда, со средним специальным образованием и уверенным знанием Kotlin" />
 
-            <TextView
-                android:id="@+id/artistName"
-                style="@style/TrackBandAndDuration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                tools:text="Лето в Омске" />
+        <TextView
+            android:id="@+id/tv_company_name"
+            style="@style/YsDisplayregular16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            tools:text="Товарищество с ограниченной ответственностью &quot;Межгалактическая кофедерация защиты и охраны рогов и копыт ордена Трудового красного знамени имени В.И. Ленина благославленная багдроидом&quot;" />
 
-            <ImageView
-                style="@style/SeparatorEllipse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="6dp" />
+        <TextView
+            android:id="@+id/tv_salary"
+            style="@style/YsDisplayregular16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            tools:text="От 1 до 100 500 орешков на руки после удержания налога" />
 
-            <TextView
-                android:id="@+id/trackDuration"
-                style="@style/TrackBandAndDuration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="28dp"
-                android:maxLines="1"
-                tools:text="2:55" />
-
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
