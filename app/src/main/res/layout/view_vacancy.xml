@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="horizontal"
+    android:paddingVertical="9dp">
+
+    <!-- Не забудьте использовать .centerCrop() в глайде -->
+    <ImageView
+        android:id="@+id/iv_company_logo"
+        android:layout_width="@dimen/iv_item_vacancy_size"
+        android:layout_height="@dimen/iv_item_vacancy_size"
+        android:layout_marginEnd="@dimen/item_vacancy_to_text_tab"
+        android:background="@drawable/frame_vacancy_small_icon"
+        android:scaleType="center"
+        tools:src="@drawable/ic_vacancy_logo_placeholder" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_vacancy_title"
+            style="@style/YsDisplayMedium22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/black"
+            tools:text="Специалист по работе с рогами и копытами высшего разряда, со средним специальным образованием и уверенным знанием Kotlin" />
+
+        <TextView
+            android:id="@+id/tv_company_name"
+            style="@style/YsDisplayregular16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:textColor="?attr/black"
+            tools:text="Товарищество с ограниченной ответственностью &quot;Межгалактическая кофедерация защиты и охраны рогов и копыт ордена Трудового красного знамени имени В.И. Ленина благославленная багдроидом&quot;" />
+
+        <TextView
+            android:id="@+id/tv_salary"
+            style="@style/YsDisplayregular16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:textColor="?attr/black"
+            tools:text="От 1 до 100 500 орешков на руки после удержания налога" />
+
+    </LinearLayout>
+</LinearLayout>
