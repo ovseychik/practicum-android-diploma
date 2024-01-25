@@ -25,11 +25,9 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
             try {
                 val result =
                     hhService.getVacancies(
-                        request.searchOptions,
-                        request.onlyWithSalary,
-                        request.page,
-                        request.perPage,
-                        request.salary
+                        searchOptionsStr = request.searchOptionsStr,
+                        searchOptionsNum = request.searchOptionsNum,
+                        isSalarySpecified = request.onlyWithSalary
                     )
                 Result.success(result)
             } catch (e: HttpException) {
