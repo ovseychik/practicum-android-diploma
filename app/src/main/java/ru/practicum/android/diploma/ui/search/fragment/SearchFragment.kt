@@ -11,7 +11,8 @@ import ru.practicum.android.diploma.util.BindingFragment
 
 class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     override fun createBinding(
-        inflater: LayoutInflater, container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ): FragmentSearchBinding {
         return FragmentSearchBinding.inflate(inflater, container, false)
     }
