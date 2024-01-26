@@ -4,7 +4,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/screen_background_color"
+    android:orientation="vertical"
     android:paddingHorizontal="@dimen/fragment_padding_horizontal"
     tools:context="ui.favorite.fragment.FavoriteVacancyFragment">
+
+    <TextView
+        android:id="@+id/tv_favorite_title"
+        style="@style/YsDisplayMedium22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_19dp"
+        android:text="@string/favorite_screen_title_text"
+        android:textColor="?attr/text_color" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_36dp"
+        android:visibility="gone"
+        tools:listitem="@layout/view_vacancy" />
+
+    <LinearLayout
+        android:id="@+id/ll_error_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_pic_placeholder"
+            android:layout_width="@dimen/_328dp"
+            android:layout_height="@dimen/_223dp"
+            android:src="@drawable/ic_empty_list_favorite_pic" />
+
+        <TextView
+            android:id="@+id/tv_error_placeholder"
+            style="@style/YsDisplayMedium22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:gravity="center"
+            android:text="@string/favorite_empty_list_error_text"
+            android:textColor="?attr/text_color" />
+
+    </LinearLayout>
 
 </LinearLayout>

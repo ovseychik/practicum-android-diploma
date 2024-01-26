@@ -24,5 +24,8 @@
     <string name="server_error">Ошибка сервера</string>
     <string name="empty">Не удалось получить список вакансий</string>
     <string name="empty_salary">Зарплата не указана</string>
+    <string name="favorite_screen_title_text">Избранное</string>
+    <string name="favorite_empty_list_error_text">Список пуст</string>
+    <string name="favorite_db_error_text">Не удалось получить\nсписок вакансии</string>
 
 </resources>
