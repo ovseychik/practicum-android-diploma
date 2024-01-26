@@ -27,6 +27,8 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             etSearch.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrBlank()) {
                     btnClear.setImageResource(R.drawable.ic_search)
+                    // TODO возможно, стоит переделать, когда доберемся до state
+                    ivPicPlaceholder.visibility = View.VISIBLE
                 } else {
                     btnClear.setImageResource(R.drawable.ic_close)
                     ivPicPlaceholder.visibility = View.GONE
