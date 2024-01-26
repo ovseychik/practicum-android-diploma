@@ -6,9 +6,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.SearchRequest
 import ru.practicum.android.diploma.data.dto.responses.vacancy.list.mapToVacancies
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.data.models.SearchSettings
+import ru.practicum.android.diploma.data.models.ValuesSearchId
 import ru.practicum.android.diploma.domain.api.RepositoryVacavcies
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
@@ -17,7 +20,7 @@ import java.net.ConnectException
 const val SEARCHING_OPTIONS = "searching_options" // заглушка до реализации фичи фильтрации
 
 class RepositoryVacanciesImpl(
-    private val client: RetrofitNetworkClient,
+    private val client: NetworkClient,
     private val settingsPref: SharedPreferences,
     private val json: Gson
 ) : RepositoryVacavcies {
@@ -46,7 +49,12 @@ class RepositoryVacanciesImpl(
     }
 
     private fun updateSearchSettings(): SearchSettings {
-        val settingsStr = settingsPref.getString(SEARCHING_OPTIONS, "")
-        return json.fromJson(settingsStr, SearchSettings::class.java)
+        val settingsStr = settingsPref.getString(SEARCHING_OPTIONS, EMPTY_PARAM_SRT)
+        if (settingsStr != EMPTY_PARAM_SRT){
+            return json.fromJson(settingsStr, SearchSettings::class.java)
+        } else {
+            return SearchSettings(settingsId = ValuesSearchId.BASE)
+        }
+
     }
 }
