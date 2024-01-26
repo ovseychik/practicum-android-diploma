@@ -29,4 +29,7 @@
     <dimen name="_328dp">328dp</dimen>
     <dimen name="_223dp">223dp</dimen>
     <dimen name="_2dp">2dp</dimen>
+    <dimen name="_19dp">19dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_31dp">31dp</dimen>
 </resources>
