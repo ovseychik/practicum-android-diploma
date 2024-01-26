@@ -14,10 +14,12 @@ import ru.practicum.android.diploma.data.network.HHApi
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.util.GlobalConstant
 
+const val BASE_URL = "https://api.hh.ru"
+
 val dataModule = module {
     single<HHApi> {
         Retrofit.Builder()
-            .baseUrl(GlobalConstant.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(HHApi::class.java)
