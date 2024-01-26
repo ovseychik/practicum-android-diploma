@@ -50,7 +50,7 @@ class RepositoryVacanciesImpl(
 
     private fun updateSearchSettings(): SearchSettings {
         val settingsStr = settingsPref.getString(SEARCHING_OPTIONS, EMPTY_PARAM_SRT)
-        if (settingsStr != EMPTY_PARAM_SRT){
+        if (settingsStr != EMPTY_PARAM_SRT) {
             return json.fromJson(settingsStr, SearchSettings::class.java)
         } else {
             return SearchSettings(settingsId = ValuesSearchId.BASE)

@@ -11,8 +11,7 @@ data class SearchSettings(
     val industry: String = EMPTY_PARAM_SRT
 )
 
-
-enum class ValuesSearchId{
+enum class ValuesSearchId {
     MODIFIED,
     BASE
 }
