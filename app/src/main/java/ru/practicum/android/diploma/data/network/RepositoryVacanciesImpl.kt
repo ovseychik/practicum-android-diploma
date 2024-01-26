@@ -12,7 +12,7 @@ import ru.practicum.android.diploma.data.dto.responses.vacancy.list.mapToVacanci
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.data.models.SearchSettings
 import ru.practicum.android.diploma.data.models.ValuesSearchId
-import ru.practicum.android.diploma.domain.api.RepositoryVacavcies
+import ru.practicum.android.diploma.domain.api.RepositoryVacancies
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import java.net.ConnectException
@@ -23,9 +23,9 @@ class RepositoryVacanciesImpl(
     private val client: NetworkClient,
     private val settingsPref: SharedPreferences,
     private val json: Gson
-) : RepositoryVacavcies {
-    override suspend fun getVacancies(text: String, page: Int): Flow<SearchResultData<Vacancies>> = flow {
-        val searchResult = client.getVacancies(SearchRequest.setSearchOptions(text, page, updateSearchSettings()))
+) : RepositoryVacancies {
+    override suspend fun getVacancies(query: String, pageNum: Int): Flow<SearchResultData<Vacancies>> = flow {
+        val searchResult = client.getVacancies(SearchRequest.setSearchOptions(query, pageNum, updateSearchSettings()))
         val data = searchResult.getOrNull()
         val error = searchResult.exceptionOrNull()
 
