@@ -6,7 +6,7 @@ import ru.practicum.android.diploma.data.dto.responses.vacancy.Employer
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Salary
 import ru.practicum.android.diploma.data.dto.responses.vacancy.details.getSalaryAsStr
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
-import ru.practicum.android.diploma.domain.models.vacansy.VacancyItem
+import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 
 data class Item(
     val id: String, // идентификатор вакансии

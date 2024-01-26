@@ -7,7 +7,7 @@ import ru.practicum.android.diploma.data.dto.responses.vacancy.Employer
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Salary
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
-import ru.practicum.android.diploma.domain.models.vacansy.VacancyDetails
+import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 
 private const val EMPTY_SALARY = "Зарплата не указана"
 
@@ -46,7 +46,7 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
         email = this.contacts.email,
         managerName = this.contacts.name,
         phones = getPhones(this.contacts.phones),
-        address = getAdress(this.address),
+        address = getAddress(this.address),
         city = this.area.name
     )
 }
@@ -78,7 +78,7 @@ fun getPhones(phones: List<Phone>): List<String> {
     return resultStr
 }
 
-private fun getAdress(address: Address?): String {
+private fun getAddress(address: Address?): String {
     if (address == null) return EMPTY_PARAM_SRT
     val resultStr = StringBuilder("")
     resultStr.append("${address.city}, ").append("${address.street}, ").append(address.building)
