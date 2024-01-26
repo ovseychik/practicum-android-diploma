@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/white"
+    android:background="?attr/screen_background_color"
     android:paddingHorizontal="@dimen/fragment_padding_horizontal"
     tools:context="ui.team.fragment.TeamFragment">
 
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
             android:text="@string/fragment_team_title"
-            android:textColor="?attr/black" />
+            android:textColor="?attr/text_color" />
     </FrameLayout>
 
     <FrameLayout
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/made_by"
-            android:textColor="?attr/black"
+            android:textColor="?attr/text_color"
             android:textSize="38sp" />
     </FrameLayout>
 
