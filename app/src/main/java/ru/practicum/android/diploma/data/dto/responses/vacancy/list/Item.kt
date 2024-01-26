@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Area
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Employer
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Salary
+import ru.practicum.android.diploma.data.dto.responses.vacancy.details.getSalaryAsStr
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
+import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 
 data class Item(
     val id: String, // идентификатор вакансии
@@ -16,3 +19,14 @@ data class Item(
     @SerializedName("show_logo_in_search")
     val showLogo: Boolean, // показывать ли логотип при поиске
 )
+
+fun Item.mapToVacancyItem(): VacancyItem {
+    return VacancyItem(
+        id = this.id,
+        city = this.area.name,
+        logo = this.employer.logoUrls?.little ?: EMPTY_PARAM_SRT,
+        nameVacancy = this.name,
+        nameCompany = this.employer.name,
+        salary = getSalaryAsStr(this.salary)
+    )
+}
