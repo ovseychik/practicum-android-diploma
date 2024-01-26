@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.domain.api
 
 import kotlinx.coroutines.flow.Flow
-import ru.practicum.android.diploma.data.dto.SearchRequest
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 
