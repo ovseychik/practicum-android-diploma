@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.presentation.models
 
 import androidx.annotation.StringRes
-import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 
 sealed interface VacanciesScreenState {
