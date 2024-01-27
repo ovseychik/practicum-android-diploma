@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/tv_company_name"
-            style="@style/YsDisplayregular16"
+            style="@style/YsDisplayRegular16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -43,7 +43,7 @@
 
         <TextView
             android:id="@+id/tv_salary"
-            style="@style/YsDisplayregular16"
+            style="@style/YsDisplayRegular16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"

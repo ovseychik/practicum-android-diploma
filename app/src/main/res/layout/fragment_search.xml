@@ -45,7 +45,7 @@
 
     <EditText
         android:id="@+id/et_search"
-        style="@style/YsDisplayregular16"
+        style="@style/YsDisplayRegular16"
         android:layout_width="@dimen/_0dp"
         android:layout_height="@dimen/_56dp"
         android:layout_marginTop="@dimen/_31dp"
@@ -79,7 +79,7 @@
 
     <TextView
         android:id="@+id/tv_result_count_chips"
-        style="@style/YsDisplayregular16"
+        style="@style/YsDisplayRegular16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12dp"
