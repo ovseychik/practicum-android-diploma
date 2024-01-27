@@ -22,7 +22,7 @@
 
     <string name="no_internet">Нет интернета</string>
     <string name="server_error">Ошибка сервера</string>
-    <string name="empty">Не удалось получить список вакансий</string>
+    <string name="empty">Не удалось получить\nсписок вакансий</string>
     <string name="empty_salary">Зарплата не указана</string>
     <string name="favorite_screen_title_text">Избранное</string>
     <string name="favorite_empty_list_error_text">Список пуст</string>
