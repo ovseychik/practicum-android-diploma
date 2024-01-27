@@ -17,4 +17,3 @@ data class VacancyDetails(
     val comment: String,
     val city: String
 )
-

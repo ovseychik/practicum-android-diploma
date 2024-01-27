@@ -84,4 +84,3 @@ private fun getAddress(address: Address?): String {
     resultStr.append("${address.city}, ").append("${address.street}, ").append(address.building)
     return resultStr.toString()
 }
-

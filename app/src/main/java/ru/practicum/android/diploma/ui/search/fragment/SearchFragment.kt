@@ -16,7 +16,7 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 import ru.practicum.android.diploma.presentation.models.ScreenStateVacancies
 import ru.practicum.android.diploma.presentation.vacancy.VacancyAdapter
-import ru.practicum.android.diploma.presentation.view_model.SearhViewModel
+import ru.practicum.android.diploma.presentation.viewmodel.SearhViewModel
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.VACANCY
 import ru.practicum.android.diploma.util.debounce
@@ -24,10 +24,10 @@ import ru.practicum.android.diploma.util.debounce
 class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private val viewModel by viewModel<SearhViewModel>()
-    private val vacancyAdapter = VacancyAdapter {
-        vacancyClickDebounce(it)
+    private val vacancyAdapter = VacancyAdapter {vacancyItem ->
+        vacancyClickDebounce?.let { it1 -> it1(vacancyItem) }
     }
-    private lateinit var vacancyClickDebounce: (VacancyItem) -> Unit
+    private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
     private var currentQuery = ""
 
     override fun createBinding(
@@ -74,7 +74,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancyItem ->
-            // надо подумать, возможно, тут надо обойтись без Gson (нарушаем принцип внедрения зависимостей)
             val vacancyBundle = bundleOf(VACANCY to Gson().toJson(vacancyItem))
             findNavController().navigate(R.id.action_searchFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
@@ -83,63 +82,83 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     private fun render(state: ScreenStateVacancies) {
         when (state) {
             is ScreenStateVacancies.Content -> {
-                with(binding) {
-                    rvSearchResult.isVisible = true
-                    tvResultCountChips.isVisible = true
-                    tvErrorPlaceholder.isVisible = false
-                    ivPicPlaceholder.isVisible = false
-                    pbCircle.isVisible = false
-                    tvResultCountChips.text = state.foundItems.toString()
-                    vacancyAdapter.clearData()
-                    vacancyAdapter.addVacancies(state.listVacancies)
-                }
+                showContent(state.listVacancies, state.foundItems)
             }
 
             is ScreenStateVacancies.Empty -> {
-                with(binding) {
-                    rvSearchResult.isVisible = false
-                    tvResultCountChips.isVisible = false
-                    tvErrorPlaceholder.isVisible = true
-                    ivPicPlaceholder.isVisible = true
-                    pbCircle.isVisible = false
-                    ivPicPlaceholder.setImageResource(R.drawable.ic_nothing_found_pic)
-                    tvErrorPlaceholder.text = getString(state.message)
-                }
+                showEmptyState(state.message)
             }
 
             is ScreenStateVacancies.Error -> {
-                with(binding) {
-                    rvSearchResult.isVisible = false
-                    tvResultCountChips.isVisible = false
-                    tvErrorPlaceholder.isVisible = true
-                    ivPicPlaceholder.isVisible = true
-                    pbCircle.isVisible = false
-                    ivPicPlaceholder.setImageResource(R.drawable.ic_nothing_found_pic)
-                    tvErrorPlaceholder.text = getString(state.message)
-                }
+                showServerErrorState(state.message)
             }
 
             is ScreenStateVacancies.IsLoading -> {
-                with(binding) {
-                    rvSearchResult.isVisible = false
-                    tvResultCountChips.isVisible = false
-                    tvErrorPlaceholder.isVisible = false
-                    ivPicPlaceholder.isVisible = false
-                    pbCircle.isVisible = true
-                }
+                showLoadingState()
             }
 
             is ScreenStateVacancies.NoInternet -> {
-                with(binding) {
-                    rvSearchResult.isVisible = false
-                    tvResultCountChips.isVisible = false
-                    tvErrorPlaceholder.isVisible = true
-                    ivPicPlaceholder.isVisible = true
-                    pbCircle.isVisible = false
-                    ivPicPlaceholder.setImageResource(R.drawable.ic_no_internet_pic)
-                    tvErrorPlaceholder.text = getString(state.message)
-                }
+                showNoInternetState(state.message)
             }
+        }
+    }
+
+    private fun showContent(vacanciesList: List<VacancyItem>, itemsFound: Int) {
+        with(binding) {
+            rvSearchResult.isVisible = true
+            tvResultCountChips.isVisible = true
+            tvErrorPlaceholder.isVisible = false
+            ivPicPlaceholder.isVisible = false
+            pbCircle.isVisible = false
+            tvResultCountChips.text = itemsFound.toString()
+            vacancyAdapter.clearData()
+            vacancyAdapter.addVacancies(vacanciesList)
+        }
+    }
+
+    private fun showEmptyState(message: Int) {
+        with(binding) {
+            rvSearchResult.isVisible = false
+            tvResultCountChips.isVisible = false
+            tvErrorPlaceholder.isVisible = true
+            ivPicPlaceholder.isVisible = true
+            pbCircle.isVisible = false
+            ivPicPlaceholder.setImageResource(R.drawable.ic_nothing_found_pic)
+            tvErrorPlaceholder.text = getString(message)
+        }
+    }
+
+    private fun showServerErrorState(message: Int) {
+        with(binding) {
+            rvSearchResult.isVisible = false
+            tvResultCountChips.isVisible = false
+            tvErrorPlaceholder.isVisible = true
+            ivPicPlaceholder.isVisible = true
+            pbCircle.isVisible = false
+            ivPicPlaceholder.setImageResource(R.drawable.ic_nothing_found_pic)
+            tvErrorPlaceholder.text = getString(message)
+        }
+    }
+
+    private fun showLoadingState() {
+        with(binding) {
+            rvSearchResult.isVisible = false
+            tvResultCountChips.isVisible = false
+            tvErrorPlaceholder.isVisible = false
+            ivPicPlaceholder.isVisible = false
+            pbCircle.isVisible = true
+        }
+    }
+
+    private fun showNoInternetState(message: Int) {
+        with(binding) {
+            rvSearchResult.isVisible = false
+            tvResultCountChips.isVisible = false
+            tvErrorPlaceholder.isVisible = true
+            ivPicPlaceholder.isVisible = true
+            pbCircle.isVisible = false
+            ivPicPlaceholder.setImageResource(R.drawable.ic_no_internet_pic)
+            tvErrorPlaceholder.text = getString(message)
         }
     }
 
