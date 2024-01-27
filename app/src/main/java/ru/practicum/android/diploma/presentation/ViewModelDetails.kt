@@ -28,7 +28,6 @@ class ViewModelDetails(private val detailsInteractor: DetailsInteractor) {
                 _screenState.postValue(ScreenStateDetails.Error(result.message))
             }
 
-
             is SearchResultData.Data -> {
                 _screenState.postValue(ScreenStateDetails.Content(result.value!!))
             }
