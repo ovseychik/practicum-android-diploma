@@ -77,6 +77,17 @@
         app:layout_constraintTop_toTopOf="@id/et_search"
         app:tint="?attr/black_universal" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_result"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/et_search" />
+
     <TextView
         android:id="@+id/tv_result_count_chips"
         style="@style/YsDisplayregular16"
@@ -92,17 +103,6 @@
         app:layout_constraintStart_toEndOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@id/et_search"
         tools:text="@string/vacancy_count_chips_text" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_search_result"
-        android:layout_width="@dimen/_0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12dp"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toStartOf="@id/right_guideline"
-        app:layout_constraintStart_toEndOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/et_search" />
 
     <ImageView
         android:id="@+id/iv_pic_placeholder"
