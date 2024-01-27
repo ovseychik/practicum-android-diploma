@@ -1,26 +1,42 @@
-package ru.practicum.android.diploma.presentation
+package ru.practicum.android.diploma.presentation.vacancy.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
-import ru.practicum.android.diploma.presentation.models.ScreenStateVacancies
+import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
 
-class ViewModelVacancies(
+class SearhViewModel(
     private val vacanciesInteractor: VacanciesInteractor
 ) : ViewModel() {
 
     private var _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
-
+    private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
-    suspend fun getVacancies(query: String, pageNum: Int = 0) {
+
+    fun getVacancies(query: String, pageNum: Int = 0) {
         if (query.isNotEmpty()) {
             _screenState.postValue(ScreenStateVacancies.IsLoading)
-            vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
-                processingResult(result)
+            viewModelScope.launch(Dispatchers.IO) {
+                vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
+                    processingResult(result)
+                }
             }
+        }
+    }
+
+    fun debounceSearch(query: String) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
+            getVacancies(query)
         }
     }
 
@@ -47,5 +63,9 @@ class ViewModelVacancies(
                 )
             }
         }
+    }
+
+    companion object {
+        const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
     }
 }

@@ -19,4 +19,3 @@ data class VacancyDetails(
     val employment: String, // тип занятости (полный день)
     val schedule: String, // график работы (удаленка)
 )
-
