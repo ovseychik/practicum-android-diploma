@@ -56,7 +56,7 @@ fun getSalaryAsStr(salary: Salary?): String {
     if (salary == null) return EMPTY_SALARY
     val resultStr: StringBuilder = StringBuilder("")
     resultStr.append("от ${salary.from}")
-    if (salary.to != EMPTY_PARAM_NUM) resultStr.append(" до ${salary.to}")
+    if (salary.to != EMPTY_PARAM_NUM) resultStr.append(" до ${salary.to ?: salary.from}")
     resultStr.append(" ${getCurrencySymbol(salary.currency)}")
     return resultStr.toString()
 }
