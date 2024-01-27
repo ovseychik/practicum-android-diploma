@@ -24,8 +24,8 @@ import ru.practicum.android.diploma.util.debounce
 class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private val viewModel by viewModel<SearhViewModel>()
-    private val vacancyAdapter = VacancyAdapter {vacancyItem ->
-        vacancyClickDebounce?.let { it1 -> it1(vacancyItem) }
+    private val vacancyAdapter = VacancyAdapter { vacancyItem ->
+        vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(vacancyItem) }
     }
     private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
     private var currentQuery = ""
@@ -110,7 +110,12 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             tvErrorPlaceholder.isVisible = false
             ivPicPlaceholder.isVisible = false
             pbCircle.isVisible = false
-            tvResultCountChips.text = itemsFound.toString()
+            tvResultCountChips.text = resources.getQuantityString(
+                R.plurals.items_found_number,
+                itemsFound,
+                itemsFound
+            )
+
             vacancyAdapter.clearData()
             vacancyAdapter.addVacancies(vacanciesList)
         }
