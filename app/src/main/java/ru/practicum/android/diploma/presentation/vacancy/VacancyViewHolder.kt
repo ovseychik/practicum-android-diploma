@@ -1,10 +1,13 @@
 package ru.practicum.android.diploma.presentation.vacancy
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 
@@ -19,11 +22,16 @@ class VacancyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         tvCompanyName.text = vacancyItem.nameCompany
         tvSalary.text = vacancyItem.salary
 
+        Log.d("WTF", vacancyItem.logo)
         Glide.with(itemView)
             .load(vacancyItem.logo)
-            .centerCrop()
+            .transform(
+                CenterCrop(),
+                RoundedCorners(
+                    itemView.context.resources.getDimensionPixelSize(R.dimen._8dp)
+                )
+            )
             .placeholder(R.drawable.ic_vacancy_logo_placeholder)
             .into(ivLogo)
-
     }
 }
