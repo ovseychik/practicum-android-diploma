@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.viewmodel
+package ru.practicum.android.diploma.presentation.vacancy.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
-import ru.practicum.android.diploma.presentation.models.ScreenStateVacancies
+import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
 
 class SearhViewModel(
     private val vacanciesInteractor: VacanciesInteractor
