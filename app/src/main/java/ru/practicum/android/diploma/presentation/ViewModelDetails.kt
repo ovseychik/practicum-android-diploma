@@ -9,14 +9,12 @@ import ru.practicum.android.diploma.presentation.models.ScreenStateDetails
 
 class ViewModelDetails(private val detailsInteractor: DetailsInteractor) {
     private var _screenState: MutableLiveData<ScreenStateDetails> = MutableLiveData()
-
     val screenState: LiveData<ScreenStateDetails> = _screenState
-    suspend fun getVacancies(query: String) {
 
+    suspend fun getVacancies(query: String) {
         _screenState.postValue(ScreenStateDetails.IsLoading)
         detailsInteractor.getVacancyDetails(query).collect { result ->
             processingResult(result)
-
         }
     }
 
