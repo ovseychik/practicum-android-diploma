@@ -19,7 +19,7 @@ data class ResponseDetailsDto(
     @SerializedName("alternate_url")
     val alternateUrl: String, // ссылка на вакансию
     val area: Area, // внутри название регион
-    val contacts: Contacts, // контакты: имя, маил, коментарий, телефоны
+    val contacts: Contacts?, // контакты: имя, маил, коментарий, телефоны
     val description: String, // описание вакансии
     val employer: Employer, // внутри данные компании
     val experience: Experience, // внутри строка для заполнения поля опыт
@@ -42,10 +42,10 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
         companyName = this.employer.name,
         companyLogoLittle = this.employer.logoUrls?.little ?: "",
         companyLogoMedium = this.employer.logoUrls?.medium ?: "",
-        comment = getCommit(this.contacts.phones),
-        email = this.contacts.email,
-        managerName = this.contacts.name,
-        phones = getPhones(this.contacts.phones),
+        comment = getCommit(this.contacts?.phones ?: emptyList()),
+        email = this.contacts?.email ?: EMPTY_PARAM_SRT,
+        managerName = this.contacts?.name ?: EMPTY_PARAM_SRT,
+        phones = getPhones(this.contacts?.phones ?: emptyList()),
         address = getAddress(this.address),
         city = this.area.name
     )
