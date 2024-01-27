@@ -2,8 +2,6 @@ package ru.practicum.android.diploma.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
-import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 
 @Entity(tableName = VacancyEntity.TABLE_NAME)
 data class VacancyEntity(
