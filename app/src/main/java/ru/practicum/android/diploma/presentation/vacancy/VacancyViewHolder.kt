@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.vacancy
 
-import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView

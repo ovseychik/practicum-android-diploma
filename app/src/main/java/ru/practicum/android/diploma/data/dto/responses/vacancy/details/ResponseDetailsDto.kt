@@ -8,6 +8,7 @@ import ru.practicum.android.diploma.data.dto.responses.vacancy.Salary
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
+import ru.practicum.android.diploma.util.getCurrencySymbol
 
 private const val EMPTY_SALARY = "Зарплата не указана"
 
@@ -56,7 +57,7 @@ fun getSalaryAsStr(salary: Salary?): String {
     val resultStr: StringBuilder = StringBuilder("")
     resultStr.append("от ${salary.from}")
     if (salary.to != EMPTY_PARAM_NUM) resultStr.append("до ${salary.to}")
-    resultStr.append(" ${salary.currency}")
+    resultStr.append(" ${getCurrencySymbol(salary.currency)}")
     return resultStr.toString()
 }
 
