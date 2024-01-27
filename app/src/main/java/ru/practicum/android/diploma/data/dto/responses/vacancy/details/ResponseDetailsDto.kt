@@ -42,7 +42,7 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
         companyName = this.employer.name,
         companyLogoLittle = this.employer.logoUrls?.little ?: "",
         companyLogoMedium = this.employer.logoUrls?.medium ?: "",
-        comment = getCommet(this.contacts.phones),
+        comment = getCommit(this.contacts.phones),
         email = this.contacts.email,
         managerName = this.contacts.name,
         phones = getPhones(this.contacts.phones),
@@ -60,10 +60,10 @@ fun getSalaryAsStr(salary: Salary?): String {
     return resultStr.toString()
 }
 
-private fun getCommet(phones: List<Phone>): String {
-    if (phones.isEmpty()) return EMPTY_SALARY
+private fun getCommit(phones: List<Phone>): String {
+    if (phones.isEmpty()) return EMPTY_PARAM_SRT
     val resultStr: StringBuilder = StringBuilder("")
-    phones.forEach { resultStr.append(it.comment) }
+    phones.forEach { if (it.comment != EMPTY_PARAM_SRT) resultStr.append(it.comment) }
     return resultStr.toString()
 }
 
