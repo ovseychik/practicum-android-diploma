@@ -2,19 +2,24 @@ package ru.practicum.android.diploma.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.DetailsInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 import ru.practicum.android.diploma.presentation.models.ScreenStateDetails
 
-class ViewModelDetails(private val detailsInteractor: DetailsInteractor) {
+class ViewModelDetails(private val detailsInteractor: DetailsInteractor) : ViewModel() {
     private var _screenState: MutableLiveData<ScreenStateDetails> = MutableLiveData()
     val screenState: LiveData<ScreenStateDetails> = _screenState
 
-    suspend fun getVacancies(query: String) {
+    fun getVacancyDetails(vacancyId: String) {
         _screenState.postValue(ScreenStateDetails.IsLoading)
-        detailsInteractor.getVacancyDetails(query).collect { result ->
-            processingResult(result)
+        viewModelScope.launch {
+            detailsInteractor.getVacancyDetails(vacancyId).collect { result ->
+                processingResult(result)
+            }
         }
     }
 
