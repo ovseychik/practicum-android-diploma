@@ -31,6 +31,8 @@
             android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="@dimen/_4dp"
+            android:layout_marginEnd="@dimen/_4dp"
             style="@style/YsDisplayMedium22"
             android:layout_gravity="center_vertical"
             android:text="@string/vacancy"/>
@@ -43,6 +45,9 @@
             android:background="@android:color/transparent"
             android:padding="@dimen/_8dp"
             app:srcCompat="@drawable/ic_share" />
+        <View
+            android:layout_width="@dimen/_4dp"
+            android:layout_height="match_parent" />
         <ImageButton
             android:id="@+id/add_to_favorite_button"
             android:layout_width="wrap_content"
@@ -83,6 +88,7 @@
                 android:id="@+id/vacancy_name"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_8dp"
                 app:layout_constraintStart_toEndOf="@id/left_guideline"
                 app:layout_constraintEnd_toStartOf="@id/right_guideline"
                 style="@style/YsDisplayBold32"
@@ -112,7 +118,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="?attr/light_gray">
 
                     <ImageView
@@ -182,7 +188,7 @@
                 app:layout_constraintEnd_toStartOf="@id/right_guideline"
                 style="@style/YsDisplayRegular16"
                 android:layout_marginTop="@dimen/_4dp"
-                tools:text="от одного года">
+                tools:text="От одного года">
             </TextView>
 
             <TextView
@@ -194,7 +200,7 @@
                 app:layout_constraintEnd_toStartOf="@id/right_guideline"
                 style="@style/YsDisplayRegular16"
                 android:layout_marginTop="@dimen/_8dp"
-                tools:text="Полная занятось">
+                tools:text="Полная занятость">
             </TextView>
 
             <TextView
