@@ -31,11 +31,11 @@ class ViewModelVacancies(
             }
 
             is SearchResultData.ErrorServer -> {
-                _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
+                _screenState.postValue(ScreenStateVacancies.Error(result.message))
             }
 
             is SearchResultData.Empty -> {
-                _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
+                _screenState.postValue(ScreenStateVacancies.Empty(result.message))
             }
 
             is SearchResultData.Data -> {
