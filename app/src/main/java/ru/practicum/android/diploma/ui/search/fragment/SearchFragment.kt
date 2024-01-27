@@ -18,6 +18,7 @@ import ru.practicum.android.diploma.presentation.models.ScreenStateVacancies
 import ru.practicum.android.diploma.presentation.vacancy.VacancyAdapter
 import ru.practicum.android.diploma.presentation.view_model.SearhViewModel
 import ru.practicum.android.diploma.util.BindingFragment
+import ru.practicum.android.diploma.util.VACANCY
 import ru.practicum.android.diploma.util.debounce
 
 class SearchFragment : BindingFragment<FragmentSearchBinding>() {
@@ -43,7 +44,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
         }
-
     }
 
     private fun bind() {
@@ -51,13 +51,12 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             etSearch.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrBlank()) {
                     btnClear.setImageResource(R.drawable.ic_search)
-                    // возможно, стоит переделать, когда будет state-класс
-                    ivPicPlaceholder.visibility = View.VISIBLE
                 } else {
                     btnClear.setImageResource(R.drawable.ic_close)
-                    ivPicPlaceholder.visibility = View.GONE
-                    currentQuery = text.toString()
-                    viewModel.getVacancies(currentQuery)
+                    if (text.toString() != currentQuery) {
+                        currentQuery = text.toString()
+                        viewModel.debounceSearch(currentQuery)
+                    }
                 }
             }
 
@@ -75,6 +74,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancyItem ->
+            // надо подумать, возможно, тут надо обойтись без Gson (нарушаем принцип внедрения зависимостей)
             val vacancyBundle = bundleOf(VACANCY to Gson().toJson(vacancyItem))
             findNavController().navigate(R.id.action_searchFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
@@ -145,6 +145,5 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     companion object {
         const val CLICK_DEBOUNCE_DELAY_MILLIS = 1000L
-        const val VACANCY = "VACANCY"
     }
 }
