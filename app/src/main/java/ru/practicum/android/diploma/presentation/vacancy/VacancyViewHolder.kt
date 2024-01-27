@@ -12,7 +12,7 @@ class VacancyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val ivLogo: ImageView = itemView.findViewById(R.id.iv_company_logo)
     private val tvVacancyTitle: TextView = itemView.findViewById(R.id.tv_vacancy_title)
     private val tvCompanyName: TextView = itemView.findViewById(R.id.tv_company_name)
-    private val tvSalary: TextView = itemView.findViewById((R.id.tv_salary))
+    private val tvSalary: TextView = itemView.findViewById(R.id.tv_salary)
 
     fun bind(vacancyItem: VacancyItem) {
         tvVacancyTitle.text = vacancyItem.nameVacancy
