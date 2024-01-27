@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.data.db.convertors
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.practicum.android.diploma.data.db.entity.VacancyEntity
-import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 
