@@ -1,25 +1,30 @@
-package ru.practicum.android.diploma.presentation
+package ru.practicum.android.diploma.presentation.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import ru.practicum.android.diploma.presentation.models.ScreenStateVacancies
 
-class ViewModelVacancies(
+class SearhViewModel(
     private val vacanciesInteractor: VacanciesInteractor
 ) : ViewModel() {
 
     private var _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
 
     val screenState: LiveData<ScreenStateVacancies> = _screenState
-    suspend fun getVacancies(query: String, pageNum: Int = 0) {
+    fun getVacancies(query: String, pageNum: Int = 0) {
         if (query.isNotEmpty()) {
             _screenState.postValue(ScreenStateVacancies.IsLoading)
-            vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
-                processingResult(result)
+            viewModelScope.launch(Dispatchers.IO) {
+                vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
+                    processingResult(result)
+                }
             }
         }
     }
@@ -31,11 +36,11 @@ class ViewModelVacancies(
             }
 
             is SearchResultData.ErrorServer -> {
-                _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
+                _screenState.postValue(ScreenStateVacancies.Error(result.message))
             }
 
             is SearchResultData.Empty -> {
-                _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
+                _screenState.postValue(ScreenStateVacancies.Empty(result.message))
             }
 
             is SearchResultData.Data -> {
