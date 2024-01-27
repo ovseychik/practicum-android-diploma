@@ -244,7 +244,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_16dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:visibility="gone"/>
+                    tools:itemCount="3"
+                    tools:listitem="@layout/key_skill_item"/>
             </LinearLayout>
 
             <TextView
