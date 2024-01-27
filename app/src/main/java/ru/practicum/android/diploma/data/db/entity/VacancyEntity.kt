@@ -2,6 +2,8 @@ package ru.practicum.android.diploma.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
+import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 
 @Entity(tableName = VacancyEntity.TABLE_NAME)
 data class VacancyEntity(
@@ -20,7 +22,9 @@ data class VacancyEntity(
     val managerName: String?,
     val phones: String?, // list<String>
     val comment: String?,
-    val city: String?
+    val city: String?,
+    val employment: String?,
+    val schedule: String?,
 ) {
     companion object {
         const val TABLE_NAME = "vacancy_table"
