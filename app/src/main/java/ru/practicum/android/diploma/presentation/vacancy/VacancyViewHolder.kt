@@ -1,6 +1,6 @@
 package ru.practicum.android.diploma.presentation.vacancy
 
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,12 +17,13 @@ class VacancyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val tvCompanyName: TextView = itemView.findViewById(R.id.tv_company_name)
     private val tvSalary: TextView = itemView.findViewById(R.id.tv_salary)
 
+
     fun bind(vacancyItem: VacancyItem) {
-        tvVacancyTitle.text = vacancyItem.nameVacancy
+        tvVacancyTitle.text =
+            itemView.context.getString(R.string.employer_title_plus_city, vacancyItem.nameVacancy, vacancyItem.city)
         tvCompanyName.text = vacancyItem.nameCompany
         tvSalary.text = vacancyItem.salary
 
-        Log.d("WTF", vacancyItem.logo)
         Glide.with(itemView)
             .load(vacancyItem.logo)
             .transform(
