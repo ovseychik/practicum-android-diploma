@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -18,7 +17,7 @@ import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacan
 import ru.practicum.android.diploma.presentation.vacancy.VacancyAdapter
 import ru.practicum.android.diploma.presentation.vacancy.viewmodel.SearhViewModel
 import ru.practicum.android.diploma.util.BindingFragment
-import ru.practicum.android.diploma.util.VACANCY
+import ru.practicum.android.diploma.util.VACANCY_ID
 import ru.practicum.android.diploma.util.debounce
 
 class SearchFragment : BindingFragment<FragmentSearchBinding>() {
@@ -74,7 +73,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancyItem ->
-            val vacancyBundle = bundleOf(VACANCY to Gson().toJson(vacancyItem))
+            val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
             findNavController().navigate(R.id.action_searchFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
     }
