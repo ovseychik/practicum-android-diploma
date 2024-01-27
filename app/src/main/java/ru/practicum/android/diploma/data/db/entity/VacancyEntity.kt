@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = VacancyEntity.TABLE_NAME)
 data class VacancyEntity(
     @PrimaryKey
-    val vacancyId: String?,
+    val vacancyId: String,
     val vacancyName: String?,
     val address: String?,
     val salary: String?,
