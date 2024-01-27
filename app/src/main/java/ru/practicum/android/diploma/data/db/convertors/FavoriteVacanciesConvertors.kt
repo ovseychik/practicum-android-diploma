@@ -11,22 +11,22 @@ class FavoriteVacanciesConvertors(private val json: Gson) {
     fun mapToVacancyDetails(entity: VacancyEntity): VacancyDetails {
         return VacancyDetails(
             entity.vacancyId,
-            entity.vacancyName ?: EMPTY_PARAM_SRT,
-            entity.address ?: EMPTY_PARAM_SRT,
-            entity.salary ?: EMPTY_PARAM_SRT,
-            entity.experience ?: EMPTY_PARAM_SRT,
-            getListIatem(entity.keySkills ?: EMPTY_PARAM_SRT),
-            entity.vacancyDescription ?: EMPTY_PARAM_SRT,
-            entity.companyName ?: EMPTY_PARAM_SRT,
-            entity.companyLogoMedium ?: EMPTY_PARAM_SRT,
-            entity.companyLogoLittle ?: EMPTY_PARAM_SRT,
-            entity.email ?: EMPTY_PARAM_SRT,
-            entity.managerName ?: EMPTY_PARAM_SRT,
-            getListIatem(entity.phones ?: EMPTY_PARAM_SRT),
-            entity.comment ?: EMPTY_PARAM_SRT,
-            entity.city ?: EMPTY_PARAM_SRT,
-            entity.employment ?: EMPTY_PARAM_SRT,
-            entity.schedule ?: EMPTY_PARAM_SRT,
+            entity.vacancyName,
+            entity.address,
+            entity.salary,
+            entity.experience,
+            getListIatem(entity.keySkills),
+            entity.vacancyDescription,
+            entity.companyName,
+            entity.companyLogoMedium,
+            entity.companyLogoLittle,
+            entity.email,
+            entity.managerName,
+            getListIatem(entity.phones),
+            entity.comment,
+            entity.city,
+            entity.employment,
+            entity.schedule,
         )
     }
 
@@ -55,11 +55,11 @@ class FavoriteVacanciesConvertors(private val json: Gson) {
     fun mapToVacansyItem(entity: VacancyEntity): VacancyItem {
         return VacancyItem(
             entity.vacancyId,
-            entity.vacancyName ?: EMPTY_PARAM_SRT,
-            entity.companyLogoLittle ?: EMPTY_PARAM_SRT,
-            entity.vacancyName ?: EMPTY_PARAM_SRT,
-            entity.companyName ?: EMPTY_PARAM_SRT,
-            entity.salary ?: EMPTY_PARAM_SRT
+            entity.vacancyName,
+            entity.companyLogoLittle,
+            entity.vacancyName,
+            entity.companyName,
+            entity.salary
         )
     }
 
