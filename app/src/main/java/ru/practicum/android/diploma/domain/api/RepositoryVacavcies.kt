@@ -6,6 +6,6 @@ import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 
 const val START_PAGE = 0
 
-interface RepositoryVacavcies {
-    suspend fun getVacancies(text: String, page: Int = START_PAGE): Flow<SearchResultData<Vacancies>>
+interface RepositoryVacancies {
+    suspend fun getVacancies(query: String, pageNum: Int = START_PAGE): Flow<SearchResultData<Vacancies>>
 }
