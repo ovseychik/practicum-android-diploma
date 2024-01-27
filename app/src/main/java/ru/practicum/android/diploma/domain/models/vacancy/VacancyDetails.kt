@@ -15,5 +15,7 @@ data class VacancyDetails(
     val managerName: String,
     val phones: List<String>,
     val comment: String,
-    val city: String
+    val city: String,
+    val employment: String, // тип занятости (полный день)
+    val schedule: String, // график работы (удаленка)
 )
