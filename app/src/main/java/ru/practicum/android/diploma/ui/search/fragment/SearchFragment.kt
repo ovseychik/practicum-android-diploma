@@ -90,8 +90,8 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
                     ivPicPlaceholder.isVisible = false
                     pbCircle.isVisible = false
                     tvResultCountChips.text = state.foundItems.toString()
+                    vacancyAdapter.clearData()
                     vacancyAdapter.addVacancies(state.listVacancies)
-                    vacancyAdapter.notifyDataSetChanged()
                 }
             }
 

@@ -31,6 +31,11 @@ class VacancyAdapter(
         }
     }
 
+    fun clearData() {
+        items.clear()
+        notifyDataSetChanged()
+    }
+
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is ItemType.Vacancy -> 0
