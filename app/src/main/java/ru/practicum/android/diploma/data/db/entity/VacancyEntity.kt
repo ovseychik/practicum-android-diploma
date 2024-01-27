@@ -6,26 +6,21 @@ import androidx.room.PrimaryKey
 @Entity(tableName = VacancyEntity.TABLE_NAME)
 data class VacancyEntity(
     @PrimaryKey
-    val id: String,
-    val url: String?,
-    val name: String?,
-    val salaryFrom: String?,
-    val salaryTo: String?,
-    val currency: String?,
-    val gross: Boolean?,
-    val employerId: String?,
-    val area: String?,
-    val experienceId: String?,
-    val employment: String?,
-    val schedule: String?,
-    val contactPerson: String?,
+    val vacancyId: String?,
+    val vacancyName: String?,
+    val address: String?,
+    val salary: String?,
+    val experience: String?,
+    val keySkills: String?, // list<String>
+    val vacancyDescription: String?,
+    val companyName: String?,
+    val companyLogoMedium: String?,
+    val companyLogoLittle: String?,
     val email: String?,
-    val phone: String?,
-    val description: String?,
-    val keySkills: String?,
-    val professionalRoles: String?,
-    val publishedAt: String?,
+    val managerName: String?,
+    val phones: String?, // list<String>
     val comment: String?,
+    val city: String?
 ) {
     companion object {
         const val TABLE_NAME = "vacancy_table"
