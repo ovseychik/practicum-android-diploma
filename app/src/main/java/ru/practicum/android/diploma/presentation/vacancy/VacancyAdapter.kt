@@ -6,21 +6,25 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 
-class VacancyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class VacancyAdapter(
+    private val onClick: (VacancyItem) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items: MutableList<ItemType> = mutableListOf()
 
-    fun addVacancy() {
-        items.add(ItemType.VACANCY)
-        notifyItemInserted(items.size - 1)
+    fun addVacancies(vacancies: List<VacancyItem>) {
+        for (vacancy in vacancies) {
+            items.add(ItemType.Vacancy(vacancy))
+        }
+        notifyItemRangeInserted(items.size - vacancies.size, vacancies.size)
     }
 
     fun addLoading() {
-        items.add(ItemType.LOADING)
+        items.add(ItemType.Loading)
         notifyItemInserted(items.size - 1)
     }
 
     fun removeLoading() {
-        val position = items.indexOf(ItemType.LOADING)
+        val position = items.indexOf(ItemType.Loading)
         if (position != -1) {
             items.removeAt(position)
             notifyItemRemoved(position)
@@ -29,8 +33,8 @@ class VacancyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            ItemType.VACANCY -> 0
-            ItemType.LOADING -> 1
+            is ItemType.Vacancy -> 0
+            is ItemType.Loading -> 1
         }
     }
 
@@ -49,9 +53,16 @@ class VacancyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            0 -> (holder as VacancyViewHolder).bind(items[position] as VacancyItem)
-            1 -> (holder as LoadingViewHolder).bind()
+        val item = items[position]
+        when (item) {
+            is ItemType.Vacancy -> (holder as VacancyViewHolder).bind(item.vacancyItem)
+            is ItemType.Loading -> (holder as LoadingViewHolder).bind()
+        }
+
+        if (item is ItemType.Vacancy) {
+            holder.itemView.setOnClickListener {
+                onClick.invoke(item.vacancyItem)
+            }
         }
     }
 
