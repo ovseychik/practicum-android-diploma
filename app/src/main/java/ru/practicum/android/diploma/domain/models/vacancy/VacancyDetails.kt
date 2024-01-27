@@ -1,5 +1,8 @@
 package ru.practicum.android.diploma.domain.models.vacancy
 
+import ru.practicum.android.diploma.data.dto.responses.vacancy.details.Employment
+import ru.practicum.android.diploma.data.dto.responses.vacancy.details.Schedule
+
 data class VacancyDetails(
     val vacancyId: String,
     val vacancyName: String,
@@ -15,6 +18,8 @@ data class VacancyDetails(
     val managerName: String,
     val phones: List<String>,
     val comment: String,
-    val city: String
+    val city: String,
+    val employment: String, // тип занятости (полный день)
+    val schedule: String, // график работы (удаленка)
 )
 

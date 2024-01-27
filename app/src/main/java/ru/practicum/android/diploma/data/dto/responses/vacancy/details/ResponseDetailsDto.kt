@@ -29,6 +29,9 @@ data class ResponseDetailsDto(
     val professionalRoles: List<ProfessionalRole>, // внури названия профессиональных ролей
     @SerializedName("published_at")
     val publishedAt: String, // дата и время публикации вакансии в формате "2013-07-08T16:17:21+0400"
+    val employment: Employment?, // тип занятости (полный день)
+    val schedule: Schedule?, // график работы (удаленка)
+
 )
 
 fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
@@ -47,7 +50,9 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
         managerName = this.contacts?.name ?: EMPTY_PARAM_SRT,
         phones = getPhones(this.contacts?.phones ?: emptyList()),
         address = getAddress(this.address),
-        city = this.area.name
+        city = this.area.name,
+        schedule = this.schedule?.name ?: EMPTY_PARAM_SRT,
+        employment = this.employment?.name ?: EMPTY_PARAM_SRT
     )
 }
 
