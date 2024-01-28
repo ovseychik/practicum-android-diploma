@@ -25,7 +25,11 @@ class SearhViewModel(
 
     fun getVacancies(query: String, pageNum: Int = 0) {
         if (query.isNotEmpty()) {
-            _screenState.postValue(ScreenStateVacancies.IsLoading)
+            if (pageNum == 0) {
+                _screenState.postValue(ScreenStateVacancies.IsLoading)
+            } else {
+                _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
+            }
             viewModelScope.launch(Dispatchers.IO) {
                 vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
                     processingResult(result)
@@ -61,12 +65,16 @@ class SearhViewModel(
             }
 
             is SearchResultData.Data -> {
-                _screenState.postValue(
-                    ScreenStateVacancies.Content(
-                        result.value?.foundItems!!,
-                        result.value.listVacancies
+                if (currentPage == 0) {
+                    _screenState.postValue(
+                        ScreenStateVacancies.Content(
+                            result.value?.foundItems!!,
+                            result.value.listVacancies
+                        )
                     )
-                )
+                } else {
+                    _screenState.postValue(result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) })
+                }
             }
         }
     }

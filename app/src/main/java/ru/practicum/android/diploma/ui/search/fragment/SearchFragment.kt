@@ -98,6 +98,14 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             is ScreenStateVacancies.NoInternet -> {
                 showNoInternetState(state.message)
             }
+
+            is ScreenStateVacancies.NextPageIsLoading -> {
+                showNextPageLoading()
+            }
+
+            is ScreenStateVacancies.NextPageIsLoaded -> {
+                showNextPageLoaded(state.listVacancies)
+            }
         }
     }
 
@@ -162,6 +170,29 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             ivPicPlaceholder.setImageResource(R.drawable.ic_no_internet_pic)
             tvErrorPlaceholder.text = getString(message)
         }
+    }
+
+    private fun showNextPageLoading() {
+        with(binding) {
+            rvSearchResult.isVisible = true
+            tvResultCountChips.isVisible = true
+            tvErrorPlaceholder.isVisible = false
+            ivPicPlaceholder.isVisible = false
+            pbCircle.isVisible = false
+        }
+        vacancyAdapter.addLoading()
+    }
+
+    private fun showNextPageLoaded(listVacancies: List<VacancyItem>) {
+        vacancyAdapter.removeLoading()
+        with(binding) {
+            rvSearchResult.isVisible = true
+            tvResultCountChips.isVisible = true
+            tvErrorPlaceholder.isVisible = false
+            ivPicPlaceholder.isVisible = false
+            pbCircle.isVisible = false
+        }
+        vacancyAdapter.addVacancies(listVacancies)
     }
 
     private fun setOnScrollListener() {
