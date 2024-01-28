@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.ui.search.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -44,7 +46,20 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         setOnScrollListener()
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
+            Log.d("WTF", it.toString())
         }
+        viewModel.toastState.observe(viewLifecycleOwner) {
+            errorWhilePageLoadingNotification(it)
+        }
+    }
+
+    private fun errorWhilePageLoadingNotification(message: String) {
+        vacancyAdapter.removeLoading()
+        Snackbar.make(
+            binding.root,
+            message,
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     private fun bind() {
@@ -206,6 +221,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
                     val itemsCount = vacancyAdapter.itemCount
                     if (pos >= itemsCount - 1) {
                         viewModel.onLastItemReached()
+                        Log.d("WTF", "onlastitemReached")
                     }
                 }
             }

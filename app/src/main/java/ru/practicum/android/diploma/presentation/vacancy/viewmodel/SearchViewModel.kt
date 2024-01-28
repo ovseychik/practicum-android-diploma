@@ -23,14 +23,14 @@ class SearchViewModel(
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
     val toastState: LiveData<String> = showToast
-    private var currentPage = 0
+    private var currentPage = FIRST_PAGE
     private var isNextPageLoading = false
     private var currentQuery = ""
     private var foundItemsCount = 0
 
-    fun getVacancies(query: String, pageNum: Int = 0) {
+    fun getVacancies(query: String, pageNum: Int = FIRST_PAGE) {
         if (query.isNotEmpty()) {
-            if (pageNum != 0 && !isNextPageLoading) {
+            if (pageNum != FIRST_PAGE && !isNextPageLoading) {
                 isNextPageLoading = true
                 _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
                 viewModelScope.launch(Dispatchers.IO) {
@@ -40,7 +40,7 @@ class SearchViewModel(
                 }
             }
 
-            if (pageNum == 0) {
+            if (pageNum == FIRST_PAGE) {
                 _screenState.postValue(ScreenStateVacancies.IsLoading)
                 viewModelScope.launch(Dispatchers.IO) {
                     vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
@@ -57,7 +57,7 @@ class SearchViewModel(
             searchJob = viewModelScope.launch {
                 delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
                 getVacancies(query)
-                currentPage = 0
+                currentPage = FIRST_PAGE
                 currentQuery = query
             }
         }
@@ -66,11 +66,21 @@ class SearchViewModel(
     private fun processingResult(result: SearchResultData<Vacancies>) {
         when (result) {
             is SearchResultData.NoInternet -> {
-                _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
+                if (currentPage == FIRST_PAGE) {
+                    _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
+                } else {
+                    isNextPageLoading = false
+                    showToast.postValue("Проверьте подключение к интернету")
+                }
             }
 
             is SearchResultData.ErrorServer -> {
-                _screenState.postValue(ScreenStateVacancies.Error(result.message))
+                if (currentPage == FIRST_PAGE) {
+                    _screenState.postValue(ScreenStateVacancies.Error(result.message))
+                } else {
+                    isNextPageLoading = false
+                    showToast.postValue("Произошла ошибка")
+                }
             }
 
             is SearchResultData.Empty -> {
@@ -78,7 +88,7 @@ class SearchViewModel(
             }
 
             is SearchResultData.Data -> {
-                if (currentPage == 0) {
+                if (currentPage == FIRST_PAGE) {
                     _screenState.postValue(
                         ScreenStateVacancies.Content(
                             result.value?.foundItems!!,
@@ -100,13 +110,12 @@ class SearchViewModel(
         if (currentPage < foundItemsCount / ITEMS_PER_PAGE) {
             currentPage++
             getVacancies(currentQuery, currentPage)
-        } else {
-            // show toast
         }
     }
 
     companion object {
         const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
         const val ITEMS_PER_PAGE = 20
+        const val FIRST_PAGE = 0
     }
 }
