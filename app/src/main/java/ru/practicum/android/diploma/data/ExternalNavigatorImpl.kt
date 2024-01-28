@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.ExternalNavigator
 
 class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
+    var listExeption: ArrayList<in Throwable> = arrayListOf()
     override fun shareLink(url: String?) {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.apply {
@@ -31,6 +32,7 @@ class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
         try {
             context.startActivity(emailIntent)
         } catch (activityNotFound: ActivityNotFoundException) {
+            listExeption.add(activityNotFound)
             Toast.makeText(context, context.getString(R.string.app_not_found), Toast.LENGTH_SHORT)
                 .show()
         }
