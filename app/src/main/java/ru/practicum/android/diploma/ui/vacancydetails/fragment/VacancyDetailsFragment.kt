@@ -103,7 +103,6 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             companyName.text = details.companyName
             companyLocation.text = if (details.address == EMPTY_PARAM_SRT) details.city else details.address
             experience.text = details.experience
-            employment.text = details.employment
             vacancyDescription.text = details.vacancyDescription
             comment.text = details.comment
             contactsPerson.text = details.managerName
@@ -124,6 +123,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
                 keySkillsAdapter.submitList(details.keySkills)
             }
         }
+        setEmployment(details)
         setContacts(details)
     }
 
@@ -190,6 +190,17 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
                 comment.isVisible = true
                 comment.text = details.comment
             }
+        }
+    }
+
+    private fun setEmployment(details: VacancyDetails) {
+        with(binding) {
+            if (details.employment != EMPTY_PARAM_SRT) {
+                employment.text = "${details.employment}, ${details.schedule}"
+            } else {
+                employment.text = details.schedule
+            }
+
         }
     }
 

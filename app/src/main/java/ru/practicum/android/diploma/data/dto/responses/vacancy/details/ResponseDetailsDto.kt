@@ -40,7 +40,7 @@ data class ResponseDetailsDto(
 fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
     return VacancyDetails(
         vacancyId = this.id,
-        vacancyName = "${this.name}, ",
+        vacancyName = "${this.name}",
         salary = getSalaryAsStr(this.salary),
         experience = this.experience?.name ?: EMPTY_PARAM_SRT,
         keySkills = this.keySkills.map { it.name },
