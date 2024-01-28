@@ -11,6 +11,7 @@ import ru.practicum.android.diploma.domain.api.RepositoryDetails
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 class RepositoryDetailsImpl(private val client: NetworkClient) : RepositoryDetails {
     override suspend fun getVacancyDetails(vacancyId: String): Flow<SearchResultData<VacancyDetails>> = flow {
@@ -23,6 +24,10 @@ class RepositoryDetailsImpl(private val client: NetworkClient) : RepositoryDetai
             }
 
             error is ConnectException -> {
+                emit(SearchResultData.NoInternet(R.string.no_internet))
+            }
+
+            error is SocketTimeoutException -> {
                 emit(SearchResultData.NoInternet(R.string.no_internet))
             }
 

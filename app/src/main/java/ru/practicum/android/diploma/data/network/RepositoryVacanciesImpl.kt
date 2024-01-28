@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.domain.api.RepositoryVacancies
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 const val SEARCHING_OPTIONS = "searching_options" // заглушка до реализации фичи фильтрации
 
@@ -39,6 +40,10 @@ class RepositoryVacanciesImpl(
             }
 
             error is ConnectException -> {
+                emit(SearchResultData.NoInternet(R.string.no_internet))
+            }
+
+            error is SocketTimeoutException -> {
                 emit(SearchResultData.NoInternet(R.string.no_internet))
             }
 

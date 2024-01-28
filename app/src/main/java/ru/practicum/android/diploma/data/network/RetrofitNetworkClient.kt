@@ -15,6 +15,7 @@ import ru.practicum.android.diploma.data.dto.responses.vacancy.details.ResponseD
 import ru.practicum.android.diploma.data.dto.responses.vacancy.list.ResponseListDto
 import ru.practicum.android.diploma.util.isConnected
 import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 class RetrofitNetworkClient(private val hhService: HHApi, private val context: Context) : NetworkClient {
     override suspend fun getVacancies(request: SearchRequest): Result<ResponseListDto> {
@@ -32,6 +33,8 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 Result.success(result)
             } catch (e: HttpException) {
                 Result.failure(e)
+            } catch (e: SocketTimeoutException) {
+                Result.failure(e)
             }
         }
         return response
@@ -46,6 +49,8 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val result = hhService.getVacancy(request.vacancyId)
                 Result.success(result)
             } catch (e: HttpException) {
+                Result.failure(e)
+            } catch (e: SocketTimeoutException) {
                 Result.failure(e)
             }
         }
@@ -62,6 +67,8 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 Result.success(resultList)
             } catch (e: HttpException) {
                 Result.failure(e)
+            } catch (e: SocketTimeoutException) {
+                Result.failure(e)
             }
         }
         return response
@@ -76,6 +83,8 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val result = hhService.getAreas(request.id)
                 Result.success(result)
             } catch (e: HttpException) {
+                Result.failure(e)
+            } catch (e: SocketTimeoutException) {
                 Result.failure(e)
             }
         }
@@ -92,6 +101,8 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 Result.success(resultList)
             } catch (e: HttpException) {
                 Result.failure(e)
+            } catch (e: SocketTimeoutException) {
+                Result.failure(e)
             }
         }
         return response
@@ -106,6 +117,8 @@ class RetrofitNetworkClient(private val hhService: HHApi, private val context: C
                 val resultList = hhService.getCountries()
                 Result.success(resultList)
             } catch (e: HttpException) {
+                Result.failure(e)
+            } catch (e: SocketTimeoutException) {
                 Result.failure(e)
             }
         }
