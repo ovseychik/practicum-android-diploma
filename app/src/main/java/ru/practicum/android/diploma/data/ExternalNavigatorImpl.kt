@@ -1,8 +1,11 @@
 package ru.practicum.android.diploma.data
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.ExternalNavigator
 
 class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
@@ -22,10 +25,15 @@ class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
         val emailIntent = Intent(Intent.ACTION_SENDTO)
         emailIntent.apply {
             data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, email)
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
-        context.startActivity(emailIntent)
+        try {
+            context.startActivity(emailIntent)
+        } catch (activityNotFound: ActivityNotFoundException) {
+            Toast.makeText(context, context.getString(R.string.app_not_found), Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
     override fun openDial(number: String?) {
