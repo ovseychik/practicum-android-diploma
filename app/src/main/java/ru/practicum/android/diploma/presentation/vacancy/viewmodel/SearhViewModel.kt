@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.presentation.vacancy.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,6 +23,7 @@ class SearhViewModel(
     private var currentPage = 0
     private var isNextPageLoading = false
     private var currentQuery = ""
+    private var foundItemsCount = 0
 
     fun getVacancies(query: String, pageNum: Int = 0) {
         if (query.isNotEmpty()) {
@@ -82,6 +82,7 @@ class SearhViewModel(
                             result.value.listVacancies
                         )
                     )
+                    foundItemsCount = result.value.foundItems
                 } else {
                     _screenState.postValue(result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) })
                     isNextPageLoading = false
@@ -91,11 +92,16 @@ class SearhViewModel(
     }
 
     fun onLastItemReached() {
-        currentPage++
-        getVacancies(currentQuery, currentPage)
+        if (currentPage < foundItemsCount / ITEMS_PER_PAGE) {
+            currentPage++
+            getVacancies(currentQuery, currentPage)
+        } else {
+            // show toast
+        }
     }
 
     companion object {
         const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
+        const val ITEMS_PER_PAGE = 20
     }
 }
