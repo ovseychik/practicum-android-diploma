@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.di
 
 import org.koin.dsl.module
+import ru.practicum.android.diploma.data.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.data.network.RepositoryDetailsImpl
 import ru.practicum.android.diploma.data.network.RepositoryVacanciesImpl
 import ru.practicum.android.diploma.domain.api.DetailsInteractor
+import ru.practicum.android.diploma.domain.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.api.RepositoryDetails
 import ru.practicum.android.diploma.domain.api.RepositoryVacancies
 import ru.practicum.android.diploma.domain.impl.details.DetailsInteractorImpl
@@ -24,5 +26,9 @@ val domainModule = module {
 
     single<VacanciesInteractor> {
         VacanciesInteractorImpl(vacanciesRepository = get())
+    }
+
+    single<FavoritesRepository> {
+        FavoritesRepositoryImpl(appDatabase = get(), vacancyConvertors = get())
     }
 }
