@@ -84,7 +84,9 @@ class SearhViewModel(
                     )
                     foundItemsCount = result.value.foundItems
                 } else {
-                    _screenState.postValue(result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) })
+                    _screenState.postValue(
+                        result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) }
+                    )
                     isNextPageLoading = false
                 }
             }
