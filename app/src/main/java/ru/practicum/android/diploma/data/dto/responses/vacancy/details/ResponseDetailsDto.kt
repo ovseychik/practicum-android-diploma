@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Area
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Employer
 import ru.practicum.android.diploma.data.dto.responses.vacancy.Salary
-import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
+import ru.practicum.android.diploma.data.dto.responses.vacancy.list.LogoUrls
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 import ru.practicum.android.diploma.util.getCurrencySymbol
@@ -23,7 +23,7 @@ data class ResponseDetailsDto(
     val contacts: Contacts?, // контакты: имя, маил, коментарий, телефоны
     val description: String, // описание вакансии
     val employer: Employer, // внутри данные компании
-    val experience: Experience, // внутри строка для заполнения поля опыт
+    val experience: Experience?, // внутри строка для заполнения поля опыт
     @SerializedName("key_skills")
     val keySkills: List<KeySkill>, // основные навыки
     @SerializedName(" professional_roles")
@@ -40,11 +40,11 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
         vacancyId = this.id,
         vacancyName = "${this.name}, ",
         salary = getSalaryAsStr(this.salary),
-        experience = this.experience.name,
-        keySkills = this.keySkills.map { it.toString() },
-        vacancyDescription = "${Html.fromHtml(this.description, Html.FROM_HTML_MODE_COMPACT)}",
+        experience = this.experience?.name ?: EMPTY_PARAM_SRT,
+        keySkills = this.keySkills.map { it.name },
+        vacancyDescription = "${Html.fromHtml(this.description, Html.FROM_HTML_SEPARATOR_LINE_BREAK_HEADING)}",
         companyName = this.employer.name,
-        companyLogoLittle = this.employer.logoUrls?.little ?: "",
+        companyLogoLittle = getLogoUrl(this.employer.logoUrls),
         companyLogoMedium = this.employer.logoUrls?.medium ?: "",
         comment = getComment(this.contacts?.phones ?: emptyList()),
         email = this.contacts?.email ?: EMPTY_PARAM_SRT,
@@ -57,11 +57,18 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
     )
 }
 
+private fun getLogoUrl(logoUrls: LogoUrls?): String {
+    if (logoUrls == null) return ""
+    if (logoUrls.medium != null) return logoUrls.medium
+    if (logoUrls.little != null) return logoUrls.little
+    return logoUrls.original
+}
+
 fun getSalaryAsStr(salary: Salary?): String {
     if (salary == null) return EMPTY_SALARY
     val resultStr: StringBuilder = StringBuilder("")
     resultStr.append("от ${salary.from}")
-    if (salary.to != EMPTY_PARAM_NUM) resultStr.append(" до ${salary.to ?: salary.from}")
+    if (salary.to != null) resultStr.append(" до ${salary.to}")
     resultStr.append(" ${getCurrencySymbol(salary.currency)}")
     return resultStr.toString()
 }
@@ -69,7 +76,7 @@ fun getSalaryAsStr(salary: Salary?): String {
 private fun getComment(phones: List<Phone>): String {
     if (phones.isEmpty()) return EMPTY_PARAM_SRT
     val resultStr: StringBuilder = StringBuilder("")
-    phones.forEach { if (it.comment != EMPTY_PARAM_SRT) resultStr.append(it.comment) }
+    phones.forEach { if (it.comment != null) resultStr.append(it.comment) }
     return resultStr.toString()
 }
 
