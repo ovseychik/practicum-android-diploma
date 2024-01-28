@@ -12,14 +12,17 @@ import ru.practicum.android.diploma.domain.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
+import ru.practicum.android.diploma.presentation.vacancy.models.SingleLiveEvent
 
 class SearchViewModel(
     private val vacanciesInteractor: VacanciesInteractor
 ) : ViewModel() {
 
     private var _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
+    private val showToast = SingleLiveEvent<String>()
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
+    val toastState: LiveData<String> = showToast
     private var currentPage = 0
     private var isNextPageLoading = false
     private var currentQuery = ""
