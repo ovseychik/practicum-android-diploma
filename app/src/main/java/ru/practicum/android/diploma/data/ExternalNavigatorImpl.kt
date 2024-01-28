@@ -1,9 +1,9 @@
-package ru.practicum.android.diploma.domain.impl
+package ru.practicum.android.diploma.data
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import ru.practicum.android.diploma.domain.ExternalNavigator
+import ru.practicum.android.diploma.domain.api.ExternalNavigator
 
 class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
     override fun shareLink(url: String?) {
