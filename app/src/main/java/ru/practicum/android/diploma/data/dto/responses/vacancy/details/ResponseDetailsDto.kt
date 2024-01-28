@@ -9,6 +9,8 @@ import ru.practicum.android.diploma.data.dto.responses.vacancy.list.LogoUrls
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 import ru.practicum.android.diploma.util.getCurrencySymbol
+import java.text.DecimalFormat
+import java.util.Locale
 
 private const val EMPTY_SALARY = "Зарплата не указана"
 
@@ -67,10 +69,15 @@ private fun getLogoUrl(logoUrls: LogoUrls?): String {
 fun getSalaryAsStr(salary: Salary?): String {
     if (salary == null) return EMPTY_SALARY
     val resultStr: StringBuilder = StringBuilder("")
-    resultStr.append("от ${salary.from}")
-    if (salary.to != null) resultStr.append(" до ${salary.to}")
+    resultStr.append("от ${formatSalary(salary.from)}")
+    if (salary.to != null) resultStr.append(" до ${formatSalary(salary.to)}")
     resultStr.append(" ${getCurrencySymbol(salary.currency)}")
     return resultStr.toString()
+}
+
+private fun formatSalary(salary: Int): String {
+    val format = DecimalFormat.getNumberInstance(Locale("ru", "RU"))
+    return format.format(salary)
 }
 
 private fun getComment(phones: List<Phone>): String {
