@@ -1,10 +1,13 @@
 package ru.practicum.android.diploma.di
 
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import ru.practicum.android.diploma.data.ExternalNavigatorImpl
 import ru.practicum.android.diploma.data.FavoritesRepositoryImpl
 import ru.practicum.android.diploma.data.network.RepositoryDetailsImpl
 import ru.practicum.android.diploma.data.network.RepositoryVacanciesImpl
 import ru.practicum.android.diploma.domain.api.DetailsInteractor
+import ru.practicum.android.diploma.domain.api.ExternalNavigator
 import ru.practicum.android.diploma.domain.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.api.FavoritesRepository
 import ru.practicum.android.diploma.domain.api.RepositoryDetails
@@ -35,5 +38,9 @@ val domainModule = module {
     }
     single<FavoritesInteractor> {
         FavoritesInteractorImpl(favoritesRepository = get())
+    }
+
+    single<ExternalNavigator> {
+        ExternalNavigatorImpl(androidContext())
     }
 }
