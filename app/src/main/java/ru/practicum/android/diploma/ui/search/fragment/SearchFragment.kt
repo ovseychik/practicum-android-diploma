@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
-import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
 import ru.practicum.android.diploma.presentation.vacancy.VacancyAdapter
+import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
 import ru.practicum.android.diploma.presentation.vacancy.viewmodel.SearhViewModel
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.VACANCY_ID

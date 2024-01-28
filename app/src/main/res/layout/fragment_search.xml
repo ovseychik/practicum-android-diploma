@@ -57,7 +57,7 @@
         android:maxLines="1"
         android:paddingHorizontal="@dimen/_16dp"
         android:singleLine="true"
-        android:textColor="?attr/text_color"
+        android:textColor="?attr/black_universal"
         android:textColorHint="?attr/hint_text_color"
         android:textCursorDrawable="@drawable/color_cursor"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
