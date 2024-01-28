@@ -17,14 +17,14 @@ import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 import ru.practicum.android.diploma.presentation.vacancy.VacancyAdapter
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
-import ru.practicum.android.diploma.presentation.vacancy.viewmodel.SearhViewModel
+import ru.practicum.android.diploma.presentation.vacancy.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.VACANCY_ID
 import ru.practicum.android.diploma.util.debounce
 
 class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
-    private val viewModel by viewModel<SearhViewModel>()
+    private val viewModel by viewModel<SearchViewModel>()
     private val vacancyAdapter = VacancyAdapter { vacancyItem ->
         vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(vacancyItem) }
     }

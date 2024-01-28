@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
 
-class SearhViewModel(
+class SearchViewModel(
     private val vacanciesInteractor: VacanciesInteractor
 ) : ViewModel() {
 
