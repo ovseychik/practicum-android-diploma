@@ -16,6 +16,6 @@ val viewModelModule = module {
     }
 
     viewModel<DetailsViewModel> {
-        DetailsViewModel(detailsInteractor = get(), externalNavigator = get())
+        DetailsViewModel(detailsInteractor = get(), externalNavigator = get(),)
     }
 }
