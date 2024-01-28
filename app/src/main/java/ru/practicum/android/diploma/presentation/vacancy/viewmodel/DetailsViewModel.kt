@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.domain.api.DetailsInteractor
 import ru.practicum.android.diploma.domain.api.ExternalNavigator
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
-import ru.practicum.android.diploma.presentation.models.ScreenStateDetails
+import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateDetails
 
 class DetailsViewModel(
     private val detailsInteractor: DetailsInteractor,
