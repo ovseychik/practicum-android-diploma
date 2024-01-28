@@ -20,23 +20,43 @@ class SearhViewModel(
     private var _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
+    private var currentPage = 0
+    private var isNextPageLoading = false
+    private var currentQuery = ""
+    private var foundItemsCount = 0
 
     fun getVacancies(query: String, pageNum: Int = 0) {
         if (query.isNotEmpty()) {
-            _screenState.postValue(ScreenStateVacancies.IsLoading)
-            viewModelScope.launch(Dispatchers.IO) {
-                vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
-                    processingResult(result)
+            if (pageNum != 0 && !isNextPageLoading) {
+                isNextPageLoading = true
+                _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
+                viewModelScope.launch(Dispatchers.IO) {
+                    vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
+                        processingResult(result)
+                    }
+                }
+            }
+
+            if (pageNum == 0) {
+                _screenState.postValue(ScreenStateVacancies.IsLoading)
+                viewModelScope.launch(Dispatchers.IO) {
+                    vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
+                        processingResult(result)
+                    }
                 }
             }
         }
     }
 
     fun debounceSearch(query: String) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
-            getVacancies(query)
+        if (query != currentQuery) {
+            searchJob?.cancel()
+            searchJob = viewModelScope.launch {
+                delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
+                getVacancies(query)
+                currentPage = 0
+                currentQuery = query
+            }
         }
     }
 
@@ -55,17 +75,35 @@ class SearhViewModel(
             }
 
             is SearchResultData.Data -> {
-                _screenState.postValue(
-                    ScreenStateVacancies.Content(
-                        result.value?.foundItems!!,
-                        result.value.listVacancies
+                if (currentPage == 0) {
+                    _screenState.postValue(
+                        ScreenStateVacancies.Content(
+                            result.value?.foundItems!!,
+                            result.value.listVacancies
+                        )
                     )
-                )
+                    foundItemsCount = result.value.foundItems
+                } else {
+                    _screenState.postValue(
+                        result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) }
+                    )
+                    isNextPageLoading = false
+                }
             }
+        }
+    }
+
+    fun onLastItemReached() {
+        if (currentPage < foundItemsCount / ITEMS_PER_PAGE) {
+            currentPage++
+            getVacancies(currentQuery, currentPage)
+        } else {
+            // show toast
         }
     }
 
     companion object {
         const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
+        const val ITEMS_PER_PAGE = 20
     }
 }

@@ -52,7 +52,7 @@ class VacancyAdapter(
 
             else -> LoadingViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.view_vacancy, parent, false)
+                    .inflate(R.layout.view_loading, parent, false)
             )
         }
     }

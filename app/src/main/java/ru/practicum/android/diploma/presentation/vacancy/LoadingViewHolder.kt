@@ -5,6 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 class LoadingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind() {
-        // Никаких данных в таком случае нет;
+        // Никаких данных в таком случае нет
     }
 }
