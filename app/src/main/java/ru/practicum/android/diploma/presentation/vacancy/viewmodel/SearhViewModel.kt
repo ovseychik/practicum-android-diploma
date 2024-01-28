@@ -1,5 +1,6 @@
 package ru.practicum.android.diploma.presentation.vacancy.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,18 +22,27 @@ class SearhViewModel(
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
     private var currentPage = 0
+    private var isNextPageLoading = false
     private var currentQuery = ""
 
     fun getVacancies(query: String, pageNum: Int = 0) {
         if (query.isNotEmpty()) {
+            if (pageNum != 0 && !isNextPageLoading) {
+                isNextPageLoading = true
+                _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
+                viewModelScope.launch(Dispatchers.IO) {
+                    vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
+                        processingResult(result)
+                    }
+                }
+            }
+
             if (pageNum == 0) {
                 _screenState.postValue(ScreenStateVacancies.IsLoading)
-            } else {
-                _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
-            }
-            viewModelScope.launch(Dispatchers.IO) {
-                vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
-                    processingResult(result)
+                viewModelScope.launch(Dispatchers.IO) {
+                    vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
+                        processingResult(result)
+                    }
                 }
             }
         }
@@ -40,12 +50,12 @@ class SearhViewModel(
 
     fun debounceSearch(query: String) {
         if (query != currentQuery) {
-            currentPage = 0
-            currentQuery = query
             searchJob?.cancel()
             searchJob = viewModelScope.launch {
                 delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
                 getVacancies(query)
+                currentPage = 0
+                currentQuery = query
             }
         }
     }
@@ -74,6 +84,7 @@ class SearhViewModel(
                     )
                 } else {
                     _screenState.postValue(result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) })
+                    isNextPageLoading = false
                 }
             }
         }

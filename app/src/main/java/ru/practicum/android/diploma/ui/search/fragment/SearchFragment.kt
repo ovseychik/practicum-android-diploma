@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -49,8 +50,8 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private fun bind() {
         with(binding) {
-            etSearch.doOnTextChanged { text, _, _, _ ->
-                if (text.isNullOrBlank()) {
+            etSearch.doAfterTextChanged { text ->
+                if (text.isNullOrEmpty()) {
                     btnClear.setImageResource(R.drawable.ic_search)
                 } else {
                     btnClear.setImageResource(R.drawable.ic_close)
