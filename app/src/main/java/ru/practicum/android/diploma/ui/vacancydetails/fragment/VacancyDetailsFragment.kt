@@ -26,11 +26,11 @@ import ru.practicum.android.diploma.util.debounce
 
 class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() {
     private val detailsViewModel by viewModel<DetailsViewModel>()
-    private var clickedPhoneDebounce: ((String) -> Unit)? = null
     private val phoneAdapter = PhonesAdtapter { phone ->
         clickedPhoneDebounce?.let { it(phone) }
     }
     private val keySkillsAdapter = KeySkillsAdapter()
+    private var clickedPhoneDebounce: ((String) -> Unit)? = null
     private var vacancyId: String = EMPTY_PARAM_SRT
     override fun createBinding(
         inflater: LayoutInflater,
@@ -57,6 +57,9 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             backButton.setOnClickListener {
                 findNavController().navigateUp()
             }
+            email.setOnClickListener {
+//            ("обработка клика")
+            }
             addToFavoriteButton.setOnClickListener {
                 detailsViewModel.changedInFavorite()
 //            ("обработка избранности")
@@ -78,8 +81,8 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
 
     private fun setOnPhoneClickListener() {
-        clickedPhoneDebounce = debounce<String>(CLICK_DELAY, lifecycleScope, false) {
-            detailsViewModel.openDial(it)
+        debounce<String>(CLICK_DELAY, lifecycleScope, false) {
+//            ("здесь обработка клика по телефону")
         }
     }
 
@@ -118,9 +121,6 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             } else {
                 keySkillsBlock.isVisible = true
                 keySkillsAdapter.submitList(details.keySkills)
-            }
-            shareButton.setOnClickListener {
-                detailsViewModel.sharingLink(details.alternateUrl)
             }
         }
         setEmployment(details)
@@ -177,9 +177,6 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
                 emailHeader.isVisible = true
                 email.isVisible = true
                 email.text = details.email
-                email.setOnClickListener {
-                    detailsViewModel.sendEmail(details.email)
-                }
             }
             if (details.managerName != EMPTY_PARAM_SRT) {
                 contactsHeader.isVisible = true
