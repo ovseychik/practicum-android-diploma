@@ -24,7 +24,6 @@ data class VacancyEntity(
     val city: String = EMPTY_PARAM_SRT,
     val employment: String = EMPTY_PARAM_SRT,
     val schedule: String = EMPTY_PARAM_SRT,
-    val alternateUrl: String = EMPTY_PARAM_SRT
 ) {
     companion object {
         const val TABLE_NAME = "vacancy_table"

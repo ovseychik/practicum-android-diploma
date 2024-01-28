@@ -55,8 +55,7 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
         address = getAddress(this.address),
         city = this.area.name,
         schedule = this.schedule?.name ?: EMPTY_PARAM_SRT,
-        employment = this.employment?.name ?: EMPTY_PARAM_SRT,
-        alternateUrl = this.alternateUrl
+        employment = this.employment?.name ?: EMPTY_PARAM_SRT
     )
 }
 

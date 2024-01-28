@@ -26,7 +26,6 @@ class FavoriteVacanciesConvertors(private val json: Gson) {
             entity.city,
             entity.employment,
             entity.schedule,
-            entity.alternateUrl
         )
     }
 
@@ -49,7 +48,6 @@ class FavoriteVacanciesConvertors(private val json: Gson) {
             details.city,
             details.employment,
             details.schedule,
-            details.alternateUrl
         )
     }
 
