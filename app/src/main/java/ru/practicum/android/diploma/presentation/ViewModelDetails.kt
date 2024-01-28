@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.DetailsInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
-import ru.practicum.android.diploma.presentation.models.ScreenStateDetails
+import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateDetails
 
 class ViewModelDetails(private val detailsInteractor: DetailsInteractor) : ViewModel() {
     private var _screenState: MutableLiveData<ScreenStateDetails> = MutableLiveData()

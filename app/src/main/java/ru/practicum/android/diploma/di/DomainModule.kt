@@ -6,8 +6,8 @@ import ru.practicum.android.diploma.data.network.RepositoryVacanciesImpl
 import ru.practicum.android.diploma.domain.api.DetailsInteractor
 import ru.practicum.android.diploma.domain.api.RepositoryDetails
 import ru.practicum.android.diploma.domain.api.RepositoryVacancies
-import ru.practicum.android.diploma.domain.impl.details.DetailsInteractorImpl
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
+import ru.practicum.android.diploma.domain.impl.details.DetailsInteractorImpl
 import ru.practicum.android.diploma.domain.impl.search.VacanciesInteractorImpl
 
 val domainModule = module {

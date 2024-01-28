@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.models
+package ru.practicum.android.diploma.presentation.vacancy.models
 
 import androidx.annotation.StringRes
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails

@@ -27,11 +27,13 @@ class FavoriteViewModel(
     }
 
     private fun processResult(vacancies: List<VacancyItem>) {
-        if (vacancies.isEmpty()) {
+        if (vacancies.isNullOrEmpty()) {
             renderState(FavoriteScreenState.Empty)
         } else if (vacancies.isNotEmpty()) {
             renderState(FavoriteScreenState.Content(vacancies))
-        } else renderState(FavoriteScreenState.Error)
+        } else {
+            renderState(FavoriteScreenState.Error)
+        }
     }
 
     private fun renderState(state: FavoriteScreenState) {
