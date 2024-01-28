@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
+import ru.practicum.android.diploma.presentation.vacancy.models.PageLoadingState
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
 import ru.practicum.android.diploma.presentation.vacancy.models.SingleLiveEvent
 
@@ -18,11 +19,11 @@ class SearchViewModel(
     private val vacanciesInteractor: VacanciesInteractor
 ) : ViewModel() {
 
-    private var _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
-    private val showToast = SingleLiveEvent<String>()
+    private val _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
+    private val showToast = SingleLiveEvent<PageLoadingState>()
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
-    val toastState: LiveData<String> = showToast
+    val toastState: LiveData<PageLoadingState> = showToast
     private var currentPage = FIRST_PAGE
     private var isNextPageLoading = false
     private var currentQuery = ""
@@ -70,7 +71,7 @@ class SearchViewModel(
                     _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
                 } else {
                     isNextPageLoading = false
-                    showToast.postValue("Проверьте подключение к интернету")
+                    showToast.postValue(PageLoadingState.InternetError)
                 }
             }
 
@@ -79,7 +80,7 @@ class SearchViewModel(
                     _screenState.postValue(ScreenStateVacancies.Error(result.message))
                 } else {
                     isNextPageLoading = false
-                    showToast.postValue("Произошла ошибка")
+                    showToast.postValue(PageLoadingState.ServerError)
                 }
             }
 

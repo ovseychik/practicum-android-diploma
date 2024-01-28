@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.search.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 import ru.practicum.android.diploma.presentation.vacancy.VacancyAdapter
+import ru.practicum.android.diploma.presentation.vacancy.models.PageLoadingState
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
 import ru.practicum.android.diploma.presentation.vacancy.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.util.BindingFragment
@@ -46,18 +46,23 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         setOnScrollListener()
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
-            Log.d("WTF", it.toString())
         }
         viewModel.toastState.observe(viewLifecycleOwner) {
             errorWhilePageLoadingNotification(it)
         }
     }
 
-    private fun errorWhilePageLoadingNotification(message: String) {
+    private fun errorWhilePageLoadingNotification(state: PageLoadingState) {
         vacancyAdapter.removeLoading()
         Snackbar.make(
             binding.root,
-            message,
+            if (state is PageLoadingState.ServerError) {
+                getString(
+                    R.string.error_while_loading_page
+                )
+            } else {
+                getString(R.string.no_internet_while_loading_page)
+            },
             Snackbar.LENGTH_SHORT
         ).show()
     }
@@ -221,7 +226,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
                     val itemsCount = vacancyAdapter.itemCount
                     if (pos >= itemsCount - 1) {
                         viewModel.onLastItemReached()
-                        Log.d("WTF", "onlastitemReached")
                     }
                 }
             }
