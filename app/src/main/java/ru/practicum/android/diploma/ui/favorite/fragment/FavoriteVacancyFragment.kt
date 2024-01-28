@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.databinding.FragmentFavoriteVacancyBinding
-import ru.practicum.android.diploma.presentation.favorite.FavoriteViewModel
+import ru.practicum.android.diploma.presentation.favorite.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.util.BindingFragment
 
 class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>() {
