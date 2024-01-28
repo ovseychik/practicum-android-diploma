@@ -61,9 +61,15 @@ fun ResponseDetailsDto.mapToVacancyDetails(): VacancyDetails {
 
 private fun getLogoUrl(logoUrls: LogoUrls?): String {
     if (logoUrls == null) return ""
-    if (logoUrls.medium != null) return logoUrls.medium
-    if (logoUrls.little != null) return logoUrls.little
-    return logoUrls.original
+    var result = ""
+    if (logoUrls.medium != null) {
+        result = logoUrls.medium
+    } else if (logoUrls.little != null) {
+        result = logoUrls.little
+    } else {
+        result = logoUrls.original
+    }
+    return result
 }
 
 fun getSalaryAsStr(salary: Salary?): String {

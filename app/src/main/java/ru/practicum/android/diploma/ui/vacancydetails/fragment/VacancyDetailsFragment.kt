@@ -16,9 +16,9 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.databinding.FragmentVacancyDetailsBinding
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
-import ru.practicum.android.diploma.presentation.models.ScreenStateDetails
 import ru.practicum.android.diploma.presentation.vacancy.adapters.KeySkillsAdapter
 import ru.practicum.android.diploma.presentation.vacancy.adapters.PhonesAdtapter
+import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateDetails
 import ru.practicum.android.diploma.presentation.vacancy.viewmodel.DetailsViewModel
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.VACANCY_ID
@@ -27,10 +27,10 @@ import ru.practicum.android.diploma.util.debounce
 class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() {
     private val detailsViewModel by viewModel<DetailsViewModel>()
     private val phoneAdapter = PhonesAdtapter { phone ->
-        clickedPhoneDebounce.let { it(phone) }
+        clickedPhoneDebounce?.let { it(phone) }
     }
     private val keySkillsAdapter = KeySkillsAdapter()
-    private lateinit var clickedPhoneDebounce: (String) -> Unit
+    private var clickedPhoneDebounce: ((String) -> Unit)? = null
     private var vacancyId: String = EMPTY_PARAM_SRT
     override fun createBinding(
         inflater: LayoutInflater,
@@ -58,11 +58,11 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
                 findNavController().navigateUp()
             }
             email.setOnClickListener {
-//            TODO("обработка клика")
+//            ("обработка клика")
             }
             addToFavoriteButton.setOnClickListener {
                 detailsViewModel.changedInFavorite()
-//            TODO("обработка избранности")
+//            ("обработка избранности")
             }
         }
 
@@ -77,12 +77,12 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             keySkillsList.adapter = keySkillsAdapter
             keySkillsList.layoutManager = LinearLayoutManager(requireContext())
         }
-//        TODO("здесь запрос вакансий через вью модель из базы")
+//        ("здесь запрос вакансий через вью модель из базы")
     }
 
     private fun setOnPhoneClickListener() {
         debounce<String>(CLICK_DELAY, lifecycleScope, false) {
-//            TODO("здесь обработка клика по телефону")
+//            ("здесь обработка клика по телефону")
         }
     }
 
@@ -152,7 +152,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             serverError.root.isVisible = false
             progressBar.root.isVisible = false
         }
-//        TODO("если трек в избранных получаем из базы, если нет - ошибка")
+//        ("если трек в избранных получаем из базы, если нет - ошибка")
     }
 
     private fun setVisibilityContent() {
@@ -166,33 +166,29 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
 
     private fun setContacts(details: VacancyDetails) {
         with(binding) {
-            if (details.managerName == EMPTY_PARAM_SRT && details.email == EMPTY_PARAM_SRT && details.phones.isEmpty()) {
-                contactsHeader.isVisible = false
-                phoneHeader.isVisible = false
-                emailHeader.isVisible = false
-                commentHeader.isVisible = false
-            } else {
+            if (details.phones.isNotEmpty()) {
                 contactsHeader.isVisible = true
-                if (details.phones.isNotEmpty()) {
-                    phoneHeader.isVisible = true
-                    phoneList.isVisible = true
-                    phoneAdapter.submitList(details.phones)
-                }
-                if (details.email != EMPTY_PARAM_SRT) {
-                    emailHeader.isVisible = true
-                    email.isVisible = true
-                    email.text = details.email
-                }
-                if (details.managerName != EMPTY_PARAM_SRT) {
-                    contactsPersonHeader.isVisible = true
-                    contactsPerson.isVisible = true
-                    contactsPerson.text = details.managerName
-                }
-                if (details.comment != EMPTY_PARAM_SRT) {
-                    commentHeader.isVisible = true
-                    comment.isVisible = true
-                    comment.text = details.comment
-                }
+                phoneHeader.isVisible = true
+                phoneList.isVisible = true
+                phoneAdapter.submitList(details.phones)
+            }
+            if (details.email != EMPTY_PARAM_SRT) {
+                contactsHeader.isVisible = true
+                emailHeader.isVisible = true
+                email.isVisible = true
+                email.text = details.email
+            }
+            if (details.managerName != EMPTY_PARAM_SRT) {
+                contactsHeader.isVisible = true
+                contactsPersonHeader.isVisible = true
+                contactsPerson.isVisible = true
+                contactsPerson.text = details.managerName
+            }
+            if (details.comment != EMPTY_PARAM_SRT) {
+                contactsHeader.isVisible = true
+                commentHeader.isVisible = true
+                comment.isVisible = true
+                comment.text = details.comment
             }
         }
     }

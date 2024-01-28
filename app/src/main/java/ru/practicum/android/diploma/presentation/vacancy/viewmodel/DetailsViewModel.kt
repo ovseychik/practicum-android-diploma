@@ -50,6 +50,6 @@ class DetailsViewModel(
 
     fun changedInFavorite() {
         _currentVacancyInFavorite.postValue(false)
-//        TODO("изменение избранности")
+//        ("изменение избранности")
     }
 }
