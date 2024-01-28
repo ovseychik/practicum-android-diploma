@@ -9,6 +9,8 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
@@ -27,7 +29,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(vacancyItem) }
     }
     private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
-    private var currentQuery = ""
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -40,6 +41,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         super.onViewCreated(view, savedInstanceState)
         bind()
         setOnVacancyClickListener()
+        setOnScrollListener()
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
         }
@@ -52,10 +54,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
                     btnClear.setImageResource(R.drawable.ic_search)
                 } else {
                     btnClear.setImageResource(R.drawable.ic_close)
-                    if (text.toString() != currentQuery) {
-                        currentQuery = text.toString()
-                        viewModel.debounceSearch(currentQuery)
-                    }
+                    viewModel.debounceSearch(text.toString())
                 }
             }
 
@@ -114,7 +113,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
                 itemsFound,
                 itemsFound
             )
-
             vacancyAdapter.clearData()
             vacancyAdapter.addVacancies(vacanciesList)
         }
@@ -166,7 +164,24 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         }
     }
 
+    private fun setOnScrollListener() {
+        binding.rvSearchResult.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                // если dy > 0 список крутится вниз и наоборот
+                if (dy > 0) {
+                    val pos =
+                        (binding.rvSearchResult.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    val itemsCount = vacancyAdapter.itemCount
+                    if (pos >= itemsCount - 1) {
+                        viewModel.onLastItemReached()
+                    }
+                }
+            }
+        })
+    }
+
     companion object {
-        const val CLICK_DEBOUNCE_DELAY_MILLIS = 400L
+        const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
     }
 }

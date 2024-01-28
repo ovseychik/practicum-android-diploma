@@ -20,6 +20,8 @@ class SearhViewModel(
     private var _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
+    private var currentPage = 0
+    private var currentQuery = ""
 
     fun getVacancies(query: String, pageNum: Int = 0) {
         if (query.isNotEmpty()) {
@@ -33,10 +35,14 @@ class SearhViewModel(
     }
 
     fun debounceSearch(query: String) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
-            getVacancies(query)
+        if (query != currentQuery) {
+            currentPage = 0
+            currentQuery = query
+            searchJob?.cancel()
+            searchJob = viewModelScope.launch {
+                delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
+                getVacancies(query)
+            }
         }
     }
 
@@ -63,6 +69,11 @@ class SearhViewModel(
                 )
             }
         }
+    }
+
+    fun onLastItemReached() {
+        currentPage++
+        getVacancies(currentQuery, currentPage)
     }
 
     companion object {
