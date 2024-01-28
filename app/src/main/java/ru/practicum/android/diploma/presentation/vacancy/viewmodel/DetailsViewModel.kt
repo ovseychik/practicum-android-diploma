@@ -13,7 +13,7 @@ import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateDetai
 
 class DetailsViewModel(
     private val detailsInteractor: DetailsInteractor,
-    private val externalNavigator: ExternalNavigator,
+    private val externalNavigator: ExternalNavigator
 ) : ViewModel() {
     private var _screenState: MutableLiveData<ScreenStateDetails> = MutableLiveData()
     val screenState: LiveData<ScreenStateDetails> = _screenState
@@ -46,18 +46,6 @@ class DetailsViewModel(
 
             else -> {}
         }
-    }
-
-    fun sharingLink(vacancyUrl: String) {
-        externalNavigator.shareLink(vacancyUrl)
-    }
-
-    fun sendEmail(email: String) {
-        externalNavigator.openEmail(email)
-    }
-
-    fun openDial(number: String) {
-        externalNavigator.openDial(number)
     }
 
     fun changedInFavorite() {
