@@ -26,40 +26,34 @@ class SearchViewModel(
     val toastState: LiveData<PageLoadingState> = showToast
     private var currentPage = FIRST_PAGE
     private var isNextPageLoading = false
-    private var currentQuery = ""
-    private var foundItemsCount = 0
+    private var currentQuery = EMPTY_QUERY
+    private var foundItemsCount = ZERO_COUNT
 
     fun getVacancies(query: String, pageNum: Int = FIRST_PAGE) {
-        if (query.isNotEmpty()) {
-            if (pageNum != FIRST_PAGE && !isNextPageLoading) {
-                isNextPageLoading = true
-                _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
-                viewModelScope.launch(Dispatchers.IO) {
-                    vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
-                        processingResult(result)
-                    }
-                }
-            }
-
-            if (pageNum == FIRST_PAGE) {
-                _screenState.postValue(ScreenStateVacancies.IsLoading)
-                viewModelScope.launch(Dispatchers.IO) {
-                    vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
-                        processingResult(result)
-                    }
-                }
+        if (pageNum != FIRST_PAGE && !isNextPageLoading) {
+            isNextPageLoading = true
+            _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
+        }
+        if (pageNum == FIRST_PAGE) {
+            _screenState.postValue(ScreenStateVacancies.IsLoading)
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
+                processingResult(result)
             }
         }
     }
 
     fun debounceSearch(query: String) {
         if (query != currentQuery) {
+            currentQuery = query
             searchJob?.cancel()
-            searchJob = viewModelScope.launch {
-                delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
-                getVacancies(query)
-                currentPage = FIRST_PAGE
-                currentQuery = query
+            if (currentQuery.length > ONE_LETTER) {
+                searchJob = viewModelScope.launch {
+                    delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
+                    currentPage = FIRST_PAGE
+                    getVacancies(currentQuery)
+                }
             }
         }
     }
@@ -118,5 +112,8 @@ class SearchViewModel(
         const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
         const val ITEMS_PER_PAGE = 20
         const val FIRST_PAGE = 0
+        const val EMPTY_QUERY = ""
+        const val ZERO_COUNT = 0
+        const val ONE_LETTER = 1
     }
 }
