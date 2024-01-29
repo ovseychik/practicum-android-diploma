@@ -4,19 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteVacancyBinding
+import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 import ru.practicum.android.diploma.presentation.favorite.model.FavoriteScreenState
 import ru.practicum.android.diploma.presentation.favorite.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.presentation.vacancy.VacancyAdapter
 import ru.practicum.android.diploma.util.BindingFragment
+import ru.practicum.android.diploma.util.VACANCY_ID
+import ru.practicum.android.diploma.util.debounce
 
 class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>() {
     private val viewModel by viewModel<FavoriteViewModel>()
 
-    private val vacancyAdapter = VacancyAdapter {}
+    private val vacancyAdapter = VacancyAdapter { vacancyItem ->
+        vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(vacancyItem) }
+    }
+    private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -33,8 +42,7 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
             render(it)
         }
 
-        // Реализовать переход на детали по клику issue #77
-
+        setOnVacancyClickListener()
     }
 
     override fun onResume() {
@@ -42,33 +50,48 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
         viewModel.fillData()
     }
 
-    private fun render(state: FavoriteScreenState) {
-        when (state) {
-            is FavoriteScreenState.Content -> showContent()
-            FavoriteScreenState.Empty -> showEmpty()
-            FavoriteScreenState.Error -> shorError()
+    private fun setOnVacancyClickListener() {
+        vacancyClickDebounce = debounce(
+            CLICK_DEBOUNCE_DELAY_MILLIS,
+            viewLifecycleOwner.lifecycleScope,
+            false
+        ) { vacancyItem ->
+            val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
+            findNavController().navigate(R.id.action_favoriteVacancyFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
     }
 
-    private fun showContent() {
-        binding.rvSearchResult.isVisible = true
-        binding.llErrorPlaceholder.isVisible = false
+    private fun render(state: FavoriteScreenState) {
+        when (state) {
+            is FavoriteScreenState.Content -> showContent(state.vacancies)
+            is FavoriteScreenState.Empty -> showEmpty(state.messageRes.toString())
+            is FavoriteScreenState.Error -> shorError(state.messageRes.toString())
+        }
     }
 
-    private fun showEmpty() {
+    private fun showContent(vacancies: List<VacancyItem>) {
+        binding.rvSearchResult.isVisible = true
+        binding.llErrorPlaceholder.isVisible = false
+        vacancyAdapter.clearData()
+        vacancyAdapter.addVacancies(vacancies)
+        vacancyAdapter.notifyDataSetChanged()
+    }
+
+    private fun showEmpty(messageRes: String) {
         binding.rvSearchResult.isVisible = false
         binding.llErrorPlaceholder.isVisible = true
 
         binding.ivPicPlaceholder.setImageResource(R.drawable.ic_empty_list_favorite_pic)
-        binding.tvErrorPlaceholder.text = R.string.favorite_empty_list_error_text.toString()
     }
 
-    private fun shorError() {
+    private fun shorError(messageRes: String) {
         binding.rvSearchResult.isVisible = false
         binding.llErrorPlaceholder.isVisible = true
 
         binding.ivPicPlaceholder.setImageResource(R.drawable.ic_error_favorite_list_pic)
-        binding.tvErrorPlaceholder.text = R.string.favorite_db_error_text.toString()
     }
 
+    companion object {
+        const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
+    }
 }
