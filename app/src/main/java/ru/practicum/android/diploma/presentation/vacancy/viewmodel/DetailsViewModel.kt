@@ -49,7 +49,6 @@ class DetailsViewModel(
         }
     }
 
-
     fun getVacancyFromDb(vacancyId: String) {
         if (inFavorite) {
             viewModelScope.launch(Dispatchers.IO) {

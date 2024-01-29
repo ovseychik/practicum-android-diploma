@@ -32,7 +32,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
         clickedPhoneDebounce?.let { it(phone) }
     }
     private val keySkillsAdapter = KeySkillsAdapter()
-    private  var vacancyId: String = EMPTY_PARAM_SRT
+    private var vacancyId: String = EMPTY_PARAM_SRT
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -158,7 +158,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
         detailsViewModel.getVacancyFromDb(vacancyId)
     }
 
-    private fun showNoInternet(){
+    private fun showNoInternet() {
         with(binding) {
             vacancyDetailsList.isVisible = false
             noInternet.root.isVisible = true
