@@ -9,21 +9,26 @@
     android:paddingHorizontal="@dimen/fragment_padding_horizontal"
     tools:context="ui.favorite.fragment.FavoriteVacancyFragment">
 
-    <TextView
+    <FrameLayout
         android:id="@+id/tv_favorite_title"
-        style="@style/YsDisplayMedium22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_19dp"
-        android:text="@string/favorite_screen_title_text"
-        android:textColor="?attr/text_color" />
+        android:minHeight="64dp">
+
+        <TextView
+            style="@style/YsDisplayMedium22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_19dp"
+            android:text="@string/favorite_screen_title_text"
+            android:textColor="?attr/text_color" />
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_search_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_36dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/view_vacancy" />
 
