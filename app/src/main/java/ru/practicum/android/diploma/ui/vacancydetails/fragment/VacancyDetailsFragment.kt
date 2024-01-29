@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -62,7 +63,6 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
 //            ("обработка избранности")
             }
         }
-
     }
 
     private fun bind() {
@@ -80,6 +80,13 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     private fun setOnPhoneClickListener() {
         clickedPhoneDebounce = debounce<String>(CLICK_DELAY, lifecycleScope, false) {
             detailsViewModel.openDial(it)
+        }
+    }
+
+    private fun toastExceptionShowing() {
+        detailsViewModel.isToastShowing.observe(viewLifecycleOwner) {
+            if (it) Toast.makeText(context, requireContext().getString(R.string.app_not_found), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -179,6 +186,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
                 email.text = details.email
                 email.setOnClickListener {
                     detailsViewModel.sendEmail(details.email)
+                    toastExceptionShowing()
                 }
             }
             if (details.managerName != EMPTY_PARAM_SRT) {

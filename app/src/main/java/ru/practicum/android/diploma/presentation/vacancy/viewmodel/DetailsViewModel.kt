@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.DetailsInteractor
 import ru.practicum.android.diploma.domain.api.ExternalNavigator
+import ru.practicum.android.diploma.domain.api.START_PAGE
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateDetails
@@ -20,7 +21,8 @@ class DetailsViewModel(
     private var _currentVacancyInFavorite: MutableLiveData<Boolean> =
         MutableLiveData(false)
     val currentVacancyInFavorite: LiveData<Boolean> = _currentVacancyInFavorite
-
+    private var _isToastShowing: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isToastShowing: LiveData<Boolean> = _isToastShowing
     fun getVacancyDetails(vacancyId: String) {
         _screenState.postValue(ScreenStateDetails.IsLoading)
         viewModelScope.launch {
@@ -54,6 +56,9 @@ class DetailsViewModel(
 
     fun sendEmail(email: String) {
         externalNavigator.openEmail(email)
+        if (externalNavigator.getExceptionsList() != ZERO) {
+            _isToastShowing.postValue(true)
+        }
     }
 
     fun openDial(number: String) {
@@ -65,3 +70,5 @@ class DetailsViewModel(
 //        ("изменение избранности")
     }
 }
+
+private const val ZERO = 0

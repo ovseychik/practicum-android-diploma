@@ -9,7 +9,7 @@ import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.ExternalNavigator
 
 class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
-    var listExeption: ArrayList<in Throwable> = arrayListOf()
+    var listException: ArrayList<in Throwable> = arrayListOf()
     override fun shareLink(url: String?) {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.apply {
@@ -29,12 +29,11 @@ class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
             putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
+        listException.clear()
         try {
             context.startActivity(emailIntent)
         } catch (activityNotFound: ActivityNotFoundException) {
-            listExeption.add(activityNotFound)
-            Toast.makeText(context, context.getString(R.string.app_not_found), Toast.LENGTH_SHORT)
-                .show()
+            listException.add(activityNotFound)
         }
     }
 
@@ -46,4 +45,6 @@ class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
         }
         context.startActivity(dialIntent)
     }
+
+    override fun getExceptionsList(): Int = listException.size
 }
