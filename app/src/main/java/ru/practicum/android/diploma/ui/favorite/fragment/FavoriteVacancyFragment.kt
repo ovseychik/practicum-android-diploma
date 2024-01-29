@@ -45,8 +45,8 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
     private fun render(state: FavoriteScreenState) {
         when (state) {
             is FavoriteScreenState.Content -> showContent()
-            FavoriteScreenState.Empty -> showEmpty()
-            FavoriteScreenState.Error -> shorError()
+            is FavoriteScreenState.Empty -> showEmpty(state.messageRes.toString())
+            is FavoriteScreenState.Error -> shorError(state.messageRes.toString())
         }
     }
 
@@ -55,20 +55,18 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
         binding.llErrorPlaceholder.isVisible = false
     }
 
-    private fun showEmpty() {
+    private fun showEmpty(messageRes: String) {
         binding.rvSearchResult.isVisible = false
         binding.llErrorPlaceholder.isVisible = true
 
         binding.ivPicPlaceholder.setImageResource(R.drawable.ic_empty_list_favorite_pic)
-        binding.tvErrorPlaceholder.text = R.string.favorite_empty_list_error_text.toString()
     }
 
-    private fun shorError() {
+    private fun shorError(messageRes: String) {
         binding.rvSearchResult.isVisible = false
         binding.llErrorPlaceholder.isVisible = true
 
         binding.ivPicPlaceholder.setImageResource(R.drawable.ic_error_favorite_list_pic)
-        binding.tvErrorPlaceholder.text = R.string.favorite_db_error_text.toString()
     }
 
 }
