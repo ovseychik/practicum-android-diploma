@@ -32,7 +32,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
         clickedPhoneDebounce?.let { it(phone) }
     }
     private val keySkillsAdapter = KeySkillsAdapter()
-    private var vacancyId: String = EMPTY_PARAM_SRT
+    private  var vacancyId: String = EMPTY_PARAM_SRT
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -59,8 +59,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
                 findNavController().navigateUp()
             }
             addToFavoriteButton.setOnClickListener {
-                detailsViewModel.changedInFavorite()
-//            ("обработка избранности")
+                detailsViewModel.changedVacancyFavorite(vacancyId)
             }
         }
     }
@@ -74,7 +73,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             keySkillsList.adapter = keySkillsAdapter
             keySkillsList.layoutManager = LinearLayoutManager(requireContext())
         }
-//        ("здесь запрос вакансий через вью модель из базы")
+        detailsViewModel.changedVacancyFavorite(vacancyId)
     }
 
     private fun setOnPhoneClickListener() {
@@ -155,13 +154,13 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
 
     private fun processingNoInternet() {
+        detailsViewModel.getVacancyFromDb(vacancyId)
         with(binding) {
             vacancyDetailsList.isVisible = false
             noInternet.root.isVisible = true
             serverError.root.isVisible = false
             progressBar.root.isVisible = false
         }
-//        ("если трек в избранных получаем из базы, если нет - ошибка")
     }
 
     private fun setVisibilityContent() {
