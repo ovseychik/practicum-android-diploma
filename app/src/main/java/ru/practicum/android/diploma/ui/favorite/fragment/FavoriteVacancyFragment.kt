@@ -63,15 +63,18 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
 
     private fun render(state: FavoriteScreenState) {
         when (state) {
-            is FavoriteScreenState.Content -> showContent()
+            is FavoriteScreenState.Content -> showContent(state.vacancies)
             is FavoriteScreenState.Empty -> showEmpty(state.messageRes.toString())
             is FavoriteScreenState.Error -> shorError(state.messageRes.toString())
         }
     }
 
-    private fun showContent() {
+    private fun showContent(vacancies: List<VacancyItem>) {
         binding.rvSearchResult.isVisible = true
         binding.llErrorPlaceholder.isVisible = false
+        vacancyAdapter.clearData()
+        vacancyAdapter.addVacancies(vacancies)
+        vacancyAdapter.notifyDataSetChanged()
     }
 
     private fun showEmpty(messageRes: String) {
