@@ -58,9 +58,6 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             backButton.setOnClickListener {
                 findNavController().navigateUp()
             }
-            addToFavoriteButton.setOnClickListener {
-                detailsViewModel.changedVacancyFavorite(vacancyId)
-            }
         }
     }
 
@@ -73,7 +70,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             keySkillsList.adapter = keySkillsAdapter
             keySkillsList.layoutManager = LinearLayoutManager(requireContext())
         }
-        detailsViewModel.changedVacancyFavorite(vacancyId)
+        detailsViewModel.checkedVacancyForFavorite(vacancyId)
     }
 
     private fun setOnPhoneClickListener() {
@@ -97,6 +94,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             is ScreenStateDetails.Content -> showContent(screenStateDetails.details)
             is ScreenStateDetails.Error -> showError()
             is ScreenStateDetails.NoInternet -> processingNoInternet()
+            is ScreenStateDetails.NoVacansyFromDb -> showNoInternet()
         }
     }
 
@@ -133,6 +131,9 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
         }
         setEmployment(details)
         setContacts(details)
+        binding.addToFavoriteButton.setOnClickListener {
+            detailsViewModel.changedVacancyFavorite(details)
+        }
     }
 
     private fun showError() {
@@ -155,6 +156,9 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
 
     private fun processingNoInternet() {
         detailsViewModel.getVacancyFromDb(vacancyId)
+    }
+
+    private fun showNoInternet(){
         with(binding) {
             vacancyDetailsList.isVisible = false
             noInternet.root.isVisible = true
