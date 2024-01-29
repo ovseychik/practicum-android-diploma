@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -111,13 +112,13 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             contactsPerson.text = details.managerName
             Glide.with(requireContext())
                 .load(details.companyLogoLittle)
+                .placeholder(R.drawable.ic_vacancy_logo_placeholder)
                 .transform(
-                    CenterCrop(),
+                    FitCenter(),
                     RoundedCorners(
                         requireContext().resources.getDimensionPixelSize(R.dimen._12dp)
                     )
                 )
-                .placeholder(R.drawable.ic_vacancy_logo_placeholder)
                 .into(companyLogo)
             if (details.keySkills.isNullOrEmpty()) {
                 keySkillsBlock.isVisible = false
