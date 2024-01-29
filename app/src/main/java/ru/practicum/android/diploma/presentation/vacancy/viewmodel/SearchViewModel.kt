@@ -11,23 +11,27 @@ import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
+import ru.practicum.android.diploma.presentation.vacancy.models.PageLoadingState
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
+import ru.practicum.android.diploma.presentation.vacancy.models.SingleLiveEvent
 
-class SearhViewModel(
+class SearchViewModel(
     private val vacanciesInteractor: VacanciesInteractor
 ) : ViewModel() {
 
-    private var _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
+    private val _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
+    private val showToast = SingleLiveEvent<PageLoadingState>()
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
-    private var currentPage = 0
+    val toastState: LiveData<PageLoadingState> = showToast
+    private var currentPage = FIRST_PAGE
     private var isNextPageLoading = false
     private var currentQuery = ""
     private var foundItemsCount = 0
 
-    fun getVacancies(query: String, pageNum: Int = 0) {
+    fun getVacancies(query: String, pageNum: Int = FIRST_PAGE) {
         if (query.isNotEmpty()) {
-            if (pageNum != 0 && !isNextPageLoading) {
+            if (pageNum != FIRST_PAGE && !isNextPageLoading) {
                 isNextPageLoading = true
                 _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
                 viewModelScope.launch(Dispatchers.IO) {
@@ -37,7 +41,7 @@ class SearhViewModel(
                 }
             }
 
-            if (pageNum == 0) {
+            if (pageNum == FIRST_PAGE) {
                 _screenState.postValue(ScreenStateVacancies.IsLoading)
                 viewModelScope.launch(Dispatchers.IO) {
                     vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
@@ -54,7 +58,7 @@ class SearhViewModel(
             searchJob = viewModelScope.launch {
                 delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
                 getVacancies(query)
-                currentPage = 0
+                currentPage = FIRST_PAGE
                 currentQuery = query
             }
         }
@@ -63,11 +67,21 @@ class SearhViewModel(
     private fun processingResult(result: SearchResultData<Vacancies>) {
         when (result) {
             is SearchResultData.NoInternet -> {
-                _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
+                if (currentPage == FIRST_PAGE) {
+                    _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
+                } else {
+                    isNextPageLoading = false
+                    showToast.postValue(PageLoadingState.InternetError)
+                }
             }
 
             is SearchResultData.ErrorServer -> {
-                _screenState.postValue(ScreenStateVacancies.Error(result.message))
+                if (currentPage == FIRST_PAGE) {
+                    _screenState.postValue(ScreenStateVacancies.Error(result.message))
+                } else {
+                    isNextPageLoading = false
+                    showToast.postValue(PageLoadingState.ServerError)
+                }
             }
 
             is SearchResultData.Empty -> {
@@ -75,7 +89,7 @@ class SearhViewModel(
             }
 
             is SearchResultData.Data -> {
-                if (currentPage == 0) {
+                if (currentPage == FIRST_PAGE) {
                     _screenState.postValue(
                         ScreenStateVacancies.Content(
                             result.value?.foundItems!!,
@@ -97,13 +111,12 @@ class SearhViewModel(
         if (currentPage < foundItemsCount / ITEMS_PER_PAGE) {
             currentPage++
             getVacancies(currentQuery, currentPage)
-        } else {
-            // show toast
         }
     }
 
     companion object {
         const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
         const val ITEMS_PER_PAGE = 20
+        const val FIRST_PAGE = 0
     }
 }

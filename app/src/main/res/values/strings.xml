@@ -46,4 +46,6 @@
     <string name="email">Email</string>
     <string name="phone">Телефон</string>
     <string name="comment">Комментарий</string>
+    <string name="error_while_loading_page">Произошла ошибка</string>
+    <string name="no_internet_while_loading_page">Проверьте подключение к интернету</string>
 </resources>

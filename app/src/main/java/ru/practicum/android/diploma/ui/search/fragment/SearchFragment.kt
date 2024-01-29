@@ -11,20 +11,22 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentSearchBinding
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 import ru.practicum.android.diploma.presentation.vacancy.VacancyAdapter
+import ru.practicum.android.diploma.presentation.vacancy.models.PageLoadingState
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
-import ru.practicum.android.diploma.presentation.vacancy.viewmodel.SearhViewModel
+import ru.practicum.android.diploma.presentation.vacancy.viewmodel.SearchViewModel
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.VACANCY_ID
 import ru.practicum.android.diploma.util.debounce
 
 class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
-    private val viewModel by viewModel<SearhViewModel>()
+    private val viewModel by viewModel<SearchViewModel>()
     private val vacancyAdapter = VacancyAdapter { vacancyItem ->
         vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(vacancyItem) }
     }
@@ -45,6 +47,24 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
         }
+        viewModel.toastState.observe(viewLifecycleOwner) {
+            errorWhilePageLoadingNotification(it)
+        }
+    }
+
+    private fun errorWhilePageLoadingNotification(state: PageLoadingState) {
+        vacancyAdapter.removeLoading()
+        Snackbar.make(
+            binding.root,
+            if (state is PageLoadingState.ServerError) {
+                getString(
+                    R.string.error_while_loading_page
+                )
+            } else {
+                getString(R.string.no_internet_while_loading_page)
+            },
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     private fun bind() {
