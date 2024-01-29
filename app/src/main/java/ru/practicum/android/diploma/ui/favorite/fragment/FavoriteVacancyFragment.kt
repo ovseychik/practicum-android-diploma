@@ -78,17 +78,21 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
     }
 
     private fun showEmpty(messageRes: String) {
-        binding.rvSearchResult.isVisible = false
-        binding.llErrorPlaceholder.isVisible = true
-
-        binding.ivPicPlaceholder.setImageResource(R.drawable.ic_empty_list_favorite_pic)
+        with(binding) {
+            rvSearchResult.isVisible = false
+            llErrorPlaceholder.isVisible = true
+            tvErrorPlaceholder.text = getString(R.string.favorite_empty_list_error_text)
+            ivPicPlaceholder.setImageResource(R.drawable.ic_empty_list_favorite_pic)
+        }
     }
 
     private fun shorError(messageRes: String) {
-        binding.rvSearchResult.isVisible = false
-        binding.llErrorPlaceholder.isVisible = true
-
-        binding.ivPicPlaceholder.setImageResource(R.drawable.ic_error_favorite_list_pic)
+        with(binding) {
+            rvSearchResult.isVisible = false
+            llErrorPlaceholder.isVisible = true
+            tvErrorPlaceholder.text = getString(R.string.favorite_db_error_text)
+            ivPicPlaceholder.setImageResource(R.drawable.ic_error_favorite_list_pic)
+        }
     }
 
     companion object {
