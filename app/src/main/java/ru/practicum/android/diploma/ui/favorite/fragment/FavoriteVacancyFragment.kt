@@ -4,19 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteVacancyBinding
+import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 import ru.practicum.android.diploma.presentation.favorite.model.FavoriteScreenState
 import ru.practicum.android.diploma.presentation.favorite.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.presentation.vacancy.VacancyAdapter
 import ru.practicum.android.diploma.util.BindingFragment
+import ru.practicum.android.diploma.util.VACANCY_ID
+import ru.practicum.android.diploma.util.debounce
 
 class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>() {
     private val viewModel by viewModel<FavoriteViewModel>()
 
-    private val vacancyAdapter = VacancyAdapter {}
+    private val vacancyAdapter = VacancyAdapter { vacancyItem ->
+        vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(vacancyItem) }
+    }
+    private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -33,13 +42,23 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
             render(it)
         }
 
-        // Реализовать переход на детали по клику issue #77
-
+        setOnVacancyClickListener()
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.fillData()
+    }
+
+    private fun setOnVacancyClickListener() {
+        vacancyClickDebounce = debounce(
+            CLICK_DEBOUNCE_DELAY_MILLIS,
+            viewLifecycleOwner.lifecycleScope,
+            false
+        ) { vacancyItem ->
+            val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
+            findNavController().navigate(R.id.action_searchFragment_to_vacancyDetailsFragment, vacancyBundle)
+        }
     }
 
     private fun render(state: FavoriteScreenState) {
@@ -69,4 +88,7 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
         binding.ivPicPlaceholder.setImageResource(R.drawable.ic_error_favorite_list_pic)
     }
 
+    companion object {
+        const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
+    }
 }
