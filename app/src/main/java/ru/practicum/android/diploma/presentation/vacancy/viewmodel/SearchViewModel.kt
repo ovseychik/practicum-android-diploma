@@ -101,7 +101,7 @@ class SearchViewModel(
     }
 
     fun onLastItemReached() {
-        if (!isNextPageLoading){
+        if (!isNextPageLoading) {
             isNextPageLoading = true
             if (currentPage < foundItemsCount / ITEMS_PER_PAGE) {
                 currentPage++
