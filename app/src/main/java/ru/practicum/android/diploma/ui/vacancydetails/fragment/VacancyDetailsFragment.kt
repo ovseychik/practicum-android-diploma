@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -26,11 +27,11 @@ import ru.practicum.android.diploma.util.debounce
 
 class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() {
     private val detailsViewModel by viewModel<DetailsViewModel>()
+    private var clickedPhoneDebounce: ((String) -> Unit)? = null
     private val phoneAdapter = PhonesAdtapter { phone ->
         clickedPhoneDebounce?.let { it(phone) }
     }
     private val keySkillsAdapter = KeySkillsAdapter()
-    private var clickedPhoneDebounce: ((String) -> Unit)? = null
     private var vacancyId: String = EMPTY_PARAM_SRT
     override fun createBinding(
         inflater: LayoutInflater,
@@ -57,15 +58,11 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             backButton.setOnClickListener {
                 findNavController().navigateUp()
             }
-            email.setOnClickListener {
-//            ("обработка клика")
-            }
             addToFavoriteButton.setOnClickListener {
                 detailsViewModel.changedInFavorite()
 //            ("обработка избранности")
             }
         }
-
     }
 
     private fun bind() {
@@ -81,8 +78,17 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
 
     private fun setOnPhoneClickListener() {
-        debounce<String>(CLICK_DELAY, lifecycleScope, false) {
-//            ("здесь обработка клика по телефону")
+        clickedPhoneDebounce = debounce<String>(CLICK_DELAY, lifecycleScope, false) {
+            detailsViewModel.openDial(it)
+        }
+    }
+
+    private fun toastExceptionShowing() {
+        detailsViewModel.isToastShowing.observe(viewLifecycleOwner) {
+            if (it) {
+                Toast.makeText(context, requireContext().getString(R.string.app_not_found), Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 
@@ -121,6 +127,9 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             } else {
                 keySkillsBlock.isVisible = true
                 keySkillsAdapter.submitList(details.keySkills)
+            }
+            shareButton.setOnClickListener {
+                detailsViewModel.sharingLink(details.alternateUrl)
             }
         }
         setEmployment(details)
@@ -177,6 +186,10 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
                 emailHeader.isVisible = true
                 email.isVisible = true
                 email.text = details.email
+                email.setOnClickListener {
+                    detailsViewModel.sendEmail(details.email)
+                    toastExceptionShowing()
+                }
             }
             if (details.managerName != EMPTY_PARAM_SRT) {
                 contactsHeader.isVisible = true

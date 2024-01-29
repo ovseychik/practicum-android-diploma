@@ -14,18 +14,19 @@ class FavoriteVacanciesConvertors(private val json: Gson) {
             entity.address,
             entity.salary,
             entity.experience,
-            getListIatem(entity.keySkills),
+            getListItem(entity.keySkills),
             entity.vacancyDescription,
             entity.companyName,
             entity.companyLogoMedium,
             entity.companyLogoLittle,
             entity.email,
             entity.managerName,
-            getListIatem(entity.phones),
+            getListItem(entity.phones),
             entity.comment,
             entity.city,
             entity.employment,
             entity.schedule,
+            entity.alternateUrl
         )
     }
 
@@ -48,6 +49,7 @@ class FavoriteVacanciesConvertors(private val json: Gson) {
             details.city,
             details.employment,
             details.schedule,
+            details.alternateUrl
         )
     }
 
@@ -62,7 +64,7 @@ class FavoriteVacanciesConvertors(private val json: Gson) {
         )
     }
 
-    private fun getListIatem(pramStr: String): List<String> {
+    private fun getListItem(pramStr: String): List<String> {
         if (pramStr == "") return emptyList()
         return json.fromJson(pramStr, object : TypeToken<List<String>>() {}.type)
     }

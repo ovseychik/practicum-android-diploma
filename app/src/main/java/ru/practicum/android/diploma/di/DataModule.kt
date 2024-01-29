@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.db.AppDatabase
+import ru.practicum.android.diploma.data.db.convertors.FavoriteVacanciesConvertors
 import ru.practicum.android.diploma.data.network.HHApi
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
 import ru.practicum.android.diploma.util.GlobalConstant
@@ -41,5 +42,8 @@ val dataModule = module {
             GlobalConstant.SETTINGS_APP,
             AppCompatActivity.MODE_PRIVATE
         )
+    }
+    single {
+        FavoriteVacanciesConvertors(json = get())
     }
 }

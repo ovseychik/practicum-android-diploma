@@ -13,14 +13,15 @@ import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateDetai
 
 class DetailsViewModel(
     private val detailsInteractor: DetailsInteractor,
-    private val externalNavigator: ExternalNavigator
+    private val externalNavigator: ExternalNavigator,
 ) : ViewModel() {
     private var _screenState: MutableLiveData<ScreenStateDetails> = MutableLiveData()
     val screenState: LiveData<ScreenStateDetails> = _screenState
     private var _currentVacancyInFavorite: MutableLiveData<Boolean> =
         MutableLiveData(false)
     val currentVacancyInFavorite: LiveData<Boolean> = _currentVacancyInFavorite
-
+    private var _isToastShowing: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isToastShowing: LiveData<Boolean> = _isToastShowing
     fun getVacancyDetails(vacancyId: String) {
         _screenState.postValue(ScreenStateDetails.IsLoading)
         viewModelScope.launch {
@@ -48,8 +49,25 @@ class DetailsViewModel(
         }
     }
 
+    fun sharingLink(vacancyUrl: String) {
+        externalNavigator.shareLink(vacancyUrl)
+    }
+
+    fun sendEmail(email: String) {
+        externalNavigator.openEmail(email)
+        if (externalNavigator.getExceptionsList() != ZERO) {
+            _isToastShowing.postValue(true)
+        }
+    }
+
+    fun openDial(number: String) {
+        externalNavigator.openDial(number)
+    }
+
     fun changedInFavorite() {
         _currentVacancyInFavorite.postValue(false)
 //        ("изменение избранности")
     }
 }
+
+private const val ZERO = 0

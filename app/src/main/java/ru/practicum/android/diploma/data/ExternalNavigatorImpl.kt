@@ -1,11 +1,13 @@
 package ru.practicum.android.diploma.data
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import ru.practicum.android.diploma.domain.api.ExternalNavigator
 
 class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
+    var listException: ArrayList<in Throwable> = arrayListOf()
     override fun shareLink(url: String?) {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.apply {
@@ -22,10 +24,15 @@ class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
         val emailIntent = Intent(Intent.ACTION_SENDTO)
         emailIntent.apply {
             data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, email)
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
-        context.startActivity(emailIntent)
+        listException.clear()
+        try {
+            context.startActivity(emailIntent)
+        } catch (activityNotFound: ActivityNotFoundException) {
+            listException.add(activityNotFound)
+        }
     }
 
     override fun openDial(number: String?) {
@@ -36,4 +43,6 @@ class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {
         }
         context.startActivity(dialIntent)
     }
+
+    override fun getExceptionsList(): Int = listException.size
 }
