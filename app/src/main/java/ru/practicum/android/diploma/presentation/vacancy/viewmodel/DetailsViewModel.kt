@@ -23,7 +23,7 @@ class DetailsViewModel(
     private var _screenState: MutableLiveData<ScreenStateDetails> = MutableLiveData()
     val screenState: LiveData<ScreenStateDetails> = _screenState
     private var _currentVacancyInFavorite: MutableLiveData<Boolean> =
-        MutableLiveData(false)
+        MutableLiveData()
     val currentVacancyInFavorite: LiveData<Boolean> = _currentVacancyInFavorite
     private var _isToastShowing: MutableLiveData<Boolean> = MutableLiveData(false)
     val isToastShowing: LiveData<Boolean> = _isToastShowing
@@ -35,36 +35,36 @@ class DetailsViewModel(
         }
     }
 
-    fun changedVacancyFavorite(vacancyId: String) {
+    fun changedVacancyFavorite(vacancy: VacancyDetails) {
         viewModelScope.launch(Dispatchers.IO) {
-            val vacancy = favoritesInteractor.getVacancy(vacancyId)
-            if (vacancy != null){
-                if (inFavorite) {
-                    favoritesInteractor.deleteVacancyFromFavorite(vacancy)
-                    _currentVacancyInFavorite.postValue(false)
-                    inFavorite = false
-                } else {
-                    favoritesInteractor.addVacancyToFavorite(vacancy)
-                    _currentVacancyInFavorite.postValue(true)
-                    inFavorite = true
-                }
+            inFavorite = if (favoritesInteractor.isVacancyFavorite(vacancy.vacancyId)) {
+                favoritesInteractor.deleteVacancyFromFavorite(vacancy)
+                _currentVacancyInFavorite.postValue(false)
+                false
+            } else {
+                favoritesInteractor.addVacancyToFavorite(vacancy)
+                _currentVacancyInFavorite.postValue(true)
+                true
             }
         }
     }
 
 
-    fun getVacancyFromDb(vacancyId: String){
-        if (inFavorite){
-            viewModelScope.launch(Dispatchers.IO){
-               val vacancy = favoritesInteractor.getVacancy(vacancyId)
-                if (vacancy != null){
+    fun getVacancyFromDb(vacancyId: String) {
+        if (inFavorite) {
+            viewModelScope.launch(Dispatchers.IO) {
+                val vacancy = favoritesInteractor.getVacancy(vacancyId)
+                if (vacancy != null) {
                     _screenState.postValue(ScreenStateDetails.Content(vacancy))
                 } else {
                     _screenState.postValue(ScreenStateDetails.Error(R.string.server_error))
                 }
             }
+        } else {
+            _screenState.postValue(ScreenStateDetails.NoVacansyFromDb)
         }
     }
+
     fun getVacancyDetails(vacancyId: String) {
         _screenState.postValue(ScreenStateDetails.IsLoading)
         viewModelScope.launch {
