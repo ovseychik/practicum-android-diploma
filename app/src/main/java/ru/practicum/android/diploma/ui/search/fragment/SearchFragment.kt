@@ -31,6 +31,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(vacancyItem) }
     }
     private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
+    private var currentItemsFound = ZERO_ITEMS
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -143,6 +144,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             )
             vacancyAdapter.clearData()
             vacancyAdapter.addVacancies(vacanciesList)
+            currentItemsFound = tvResultCountChips.text.toString()
         }
     }
 
@@ -232,7 +234,13 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.tvResultCountChips.text = currentItemsFound
+    }
+
     companion object {
         const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
+        const val ZERO_ITEMS = ""
     }
 }
