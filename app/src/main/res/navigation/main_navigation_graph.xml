@@ -40,7 +40,11 @@
         android:id="@+id/favoriteVacancyFragment"
         android:name="ru.practicum.android.diploma.ui.favorite.fragment.FavoriteVacancyFragment"
         android:label="FavoriteVacancyFragment"
-        tools:layout="@layout/fragment_favorite_vacancy"/>
+        tools:layout="@layout/fragment_favorite_vacancy">
+        <action
+            android:id="@+id/action_favoriteVacancyFragment_to_vacancyDetailsFragment"
+            app:destination="@id/vacancyDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/similarVacancyFragment"
         android:name="ru.practicum.android.diploma.ui.similarvacancy.fragment.SimilarVacancyFragment"

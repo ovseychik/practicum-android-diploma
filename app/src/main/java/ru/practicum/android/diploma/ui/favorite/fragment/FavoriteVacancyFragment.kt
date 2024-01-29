@@ -57,7 +57,7 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
             false
         ) { vacancyItem ->
             val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
-            findNavController().navigate(R.id.action_searchFragment_to_vacancyDetailsFragment, vacancyBundle)
+            findNavController().navigate(R.id.action_favoriteVacancyFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
     }
 
