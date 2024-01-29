@@ -4,8 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
-import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.api.ExternalNavigator
 
 class ExternalNavigatorImpl(val context: Context) : ExternalNavigator {

@@ -85,8 +85,10 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
 
     private fun toastExceptionShowing() {
         detailsViewModel.isToastShowing.observe(viewLifecycleOwner) {
-            if (it) Toast.makeText(context, requireContext().getString(R.string.app_not_found), Toast.LENGTH_SHORT)
-                .show()
+            if (it) {
+                Toast.makeText(context, requireContext().getString(R.string.app_not_found), Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 
