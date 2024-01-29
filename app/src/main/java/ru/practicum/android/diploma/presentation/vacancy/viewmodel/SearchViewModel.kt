@@ -30,8 +30,7 @@ class SearchViewModel(
     private var foundItemsCount = ZERO_COUNT
 
     fun getVacancies(query: String, pageNum: Int = FIRST_PAGE) {
-        if (pageNum != FIRST_PAGE && !isNextPageLoading) {
-            isNextPageLoading = true
+        if (pageNum != FIRST_PAGE) {
             _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
         }
         if (pageNum == FIRST_PAGE) {
@@ -102,9 +101,12 @@ class SearchViewModel(
     }
 
     fun onLastItemReached() {
-        if (currentPage < foundItemsCount / ITEMS_PER_PAGE) {
-            currentPage++
-            getVacancies(currentQuery, currentPage)
+        if (!isNextPageLoading){
+            isNextPageLoading = true
+            if (currentPage < foundItemsCount / ITEMS_PER_PAGE) {
+                currentPage++
+                getVacancies(currentQuery, currentPage)
+            }
         }
     }
 
