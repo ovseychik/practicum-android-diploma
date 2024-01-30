@@ -32,8 +32,7 @@ class SearchViewModel(
     fun getVacancies(query: String, pageNum: Int = FIRST_PAGE) {
         if (pageNum != FIRST_PAGE) {
             _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
-        }
-        if (pageNum == FIRST_PAGE) {
+        } else {
             _screenState.postValue(ScreenStateVacancies.IsLoading)
         }
         viewModelScope.launch(Dispatchers.IO) {

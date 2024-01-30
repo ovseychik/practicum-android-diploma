@@ -66,6 +66,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             },
             Snackbar.LENGTH_SHORT
         ).show()
+        vacancyAdapter.removeLoading()
     }
 
     private fun bind() {
