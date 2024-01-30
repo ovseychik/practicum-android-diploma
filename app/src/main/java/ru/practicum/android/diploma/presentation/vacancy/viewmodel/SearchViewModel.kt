@@ -20,21 +20,19 @@ class SearchViewModel(
 ) : ViewModel() {
 
     private val _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
-    private val showToast = SingleLiveEvent<PageLoadingState>()
+    private val _showToastState = SingleLiveEvent<PageLoadingState>()
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
-    val toastState: LiveData<PageLoadingState> = showToast
+    val toastState: LiveData<PageLoadingState> = _showToastState
     private var currentPage = FIRST_PAGE
     private var isNextPageLoading = false
     private var currentQuery = EMPTY_QUERY
     private var foundItemsCount = ZERO_COUNT
 
     fun getVacancies(query: String, pageNum: Int = FIRST_PAGE) {
-        if (pageNum != FIRST_PAGE && !isNextPageLoading) {
-            isNextPageLoading = true
+        if (pageNum != FIRST_PAGE) {
             _screenState.postValue(ScreenStateVacancies.NextPageIsLoading)
-        }
-        if (pageNum == FIRST_PAGE) {
+        } else {
             _screenState.postValue(ScreenStateVacancies.IsLoading)
         }
         viewModelScope.launch(Dispatchers.IO) {
@@ -64,8 +62,7 @@ class SearchViewModel(
                 if (currentPage == FIRST_PAGE) {
                     _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
                 } else {
-                    isNextPageLoading = false
-                    showToast.postValue(PageLoadingState.InternetError)
+                    _showToastState.postValue(PageLoadingState.InternetError)
                 }
             }
 
@@ -73,8 +70,8 @@ class SearchViewModel(
                 if (currentPage == FIRST_PAGE) {
                     _screenState.postValue(ScreenStateVacancies.Error(result.message))
                 } else {
-                    isNextPageLoading = false
-                    showToast.postValue(PageLoadingState.ServerError)
+                    _showToastState.postValue(PageLoadingState.ServerError)
+                    _screenState.postValue(ScreenStateVacancies.NextPageLoadingError)
                 }
             }
 
@@ -95,14 +92,15 @@ class SearchViewModel(
                     _screenState.postValue(
                         result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) }
                     )
-                    isNextPageLoading = false
                 }
             }
         }
+        isNextPageLoading = false
     }
 
     fun onLastItemReached() {
-        if (currentPage < foundItemsCount / ITEMS_PER_PAGE) {
+        if (currentPage < foundItemsCount / ITEMS_PER_PAGE && !isNextPageLoading) {
+            isNextPageLoading = true
             currentPage++
             getVacancies(currentQuery, currentPage)
         }

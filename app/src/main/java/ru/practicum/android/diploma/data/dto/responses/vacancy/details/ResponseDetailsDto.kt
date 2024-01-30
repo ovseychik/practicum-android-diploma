@@ -106,7 +106,7 @@ fun getPhones(phones: List<Phone>): List<String> {
 }
 
 private fun getAddress(address: Address?): String {
-    if (address == null) return EMPTY_PARAM_SRT
+    if (address?.city == null || address.street == null || address.building == null) return EMPTY_PARAM_SRT
     val resultStr = StringBuilder("")
     resultStr.append("${address.city}, ").append("${address.street}, ").append(address.building)
     return resultStr.toString()

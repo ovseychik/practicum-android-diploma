@@ -26,7 +26,7 @@
     <string name="empty_salary">Зарплата не указана</string>
     <string name="favorite_screen_title_text">Избранное</string>
     <string name="favorite_empty_list_error_text">Список пуст</string>
-    <string name="favorite_db_error_text">Не удалось получить\nсписок вакансии</string>
+    <string name="favorite_db_error_text">Не удалось получить\nсписок вакансий</string>
     <string name="employer_title_plus_city">%1$s, %2$s</string>
     <plurals name="items_found_number">
         <item quantity="zero">Найдено %1$d вакансий</item>

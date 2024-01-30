@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -24,6 +24,9 @@ import ru.practicum.android.diploma.presentation.vacancy.viewmodel.DetailsViewMo
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.VACANCY_ID
 import ru.practicum.android.diploma.util.debounce
+import ru.practicum.android.diploma.util.dpToPx
+
+private const val RADIUS_ICON_DP = 12.0f
 
 class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() {
     private val detailsViewModel by viewModel<DetailsViewModel>()
@@ -33,6 +36,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
     private val keySkillsAdapter = KeySkillsAdapter()
     private var vacancyId: String = EMPTY_PARAM_SRT
+
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -99,6 +103,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
 
     private fun showContent(details: VacancyDetails) {
+        val radiusIconVacancyPx = dpToPx(RADIUS_ICON_DP, requireContext())
         with(binding) {
             setVisibilityContent()
             vacancyName.text = details.vacancyName
@@ -111,12 +116,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             contactsPerson.text = details.managerName
             Glide.with(requireContext())
                 .load(details.companyLogoLittle)
-                .transform(
-                    CenterCrop(),
-                    RoundedCorners(
-                        requireContext().resources.getDimensionPixelSize(R.dimen._12dp)
-                    )
-                )
+                .transform(FitCenter(), RoundedCorners(radiusIconVacancyPx))
                 .placeholder(R.drawable.ic_vacancy_logo_placeholder)
                 .into(companyLogo)
             if (details.keySkills.isNullOrEmpty()) {

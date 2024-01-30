@@ -11,4 +11,5 @@ sealed interface ScreenStateVacancies {
     data class NoInternet(@StringRes val message: Int) : ScreenStateVacancies
     object NextPageIsLoading : ScreenStateVacancies
     data class NextPageIsLoaded(val listVacancies: List<VacancyItem>) : ScreenStateVacancies
+    object NextPageLoadingError : ScreenStateVacancies
 }
