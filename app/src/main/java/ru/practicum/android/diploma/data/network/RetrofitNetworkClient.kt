@@ -5,108 +5,108 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.practicum.android.diploma.data.NetworkClient
+import ru.practicum.android.diploma.data.dto.DetailsRequest
 import ru.practicum.android.diploma.data.dto.GuideRequest
 import ru.practicum.android.diploma.data.dto.SearchRequest
-import ru.practicum.android.diploma.data.dto.responses.Response
-import ru.practicum.android.diploma.data.dto.responses.ResponseGuide
+import ru.practicum.android.diploma.data.dto.responses.guides.areas.ResponseAreaGuideDto
 import ru.practicum.android.diploma.data.dto.responses.guides.countries.ResponseCountriesGuideItem
 import ru.practicum.android.diploma.data.dto.responses.guides.inustries.ResponseIndustriesGuideItem
-import ru.practicum.android.diploma.util.GlobalConstant
+import ru.practicum.android.diploma.data.dto.responses.vacancy.details.ResponseDetailsDto
+import ru.practicum.android.diploma.data.dto.responses.vacancy.list.ResponseListDto
 import ru.practicum.android.diploma.util.isConnected
-import java.net.HttpURLConnection
+import java.net.ConnectException
 
 class RetrofitNetworkClient(private val hhService: HHApi, private val context: Context) : NetworkClient {
-    override suspend fun getVacancies(request: SearchRequest): Response {
+    override suspend fun getVacancies(request: SearchRequest): Result<ResponseListDto> {
         if (!isConnected(context)) {
-            return Response().apply { resultCode = GlobalConstant.NO_INTERNET }
+            return Result.failure(ConnectException())
         }
         val response = withContext(Dispatchers.IO) {
             try {
-                val result = hhService.getVacancies(request.searchOptions)
-                result.apply { resultCode = HttpURLConnection.HTTP_OK }
+                val result =
+                    hhService.getVacancies(
+                        searchOptionsStr = request.searchOptionsStr,
+                        searchOptionsNum = request.searchOptionsNum,
+                        isSalarySpecified = request.onlyWithSalary
+                    )
+                Result.success(result)
             } catch (e: HttpException) {
-                Response().apply { resultCode = HttpURLConnection.HTTP_INTERNAL_ERROR; error = e }
+                Result.failure(e)
             }
         }
         return response
     }
 
-    override suspend fun getCurrentVacancy(request: SearchRequest): Response {
+    override suspend fun getCurrentVacancy(request: DetailsRequest): Result<ResponseDetailsDto> {
         if (!isConnected(context)) {
-            return Response().apply { resultCode = GlobalConstant.NO_INTERNET }
+            return Result.failure(ConnectException())
         }
         val response = withContext(Dispatchers.IO) {
             try {
                 val result = hhService.getVacancy(request.vacancyId)
-                result.apply { resultCode = HttpURLConnection.HTTP_OK }
+                Result.success(result)
             } catch (e: HttpException) {
-                Response().apply { resultCode = HttpURLConnection.HTTP_INTERNAL_ERROR; error = e }
+                Result.failure(e)
             }
         }
         return response
     }
 
-    override suspend fun getSimilarVacancies(request: SearchRequest): Response {
+    override suspend fun getIndustries(): Result<List<ResponseIndustriesGuideItem>> {
         if (!isConnected(context)) {
-            return Response().apply { resultCode = GlobalConstant.NO_INTERNET }
-        }
-        val response = withContext(Dispatchers.IO) {
-            try {
-                val result = hhService.getSimilarVacancies(request.vacancyId, request.searchOptions)
-                result.apply { resultCode = HttpURLConnection.HTTP_OK }
-            } catch (e: HttpException) {
-                Response().apply { resultCode = HttpURLConnection.HTTP_INTERNAL_ERROR; error = e }
-            }
-        }
-        return response
-    }
-
-    override suspend fun getIndustries(): ResponseGuide<ResponseIndustriesGuideItem> {
-        if (!isConnected(context)) {
-            return ResponseGuide<ResponseIndustriesGuideItem>().apply { resultCode = GlobalConstant.NO_INTERNET }
+            return Result.failure(ConnectException())
         }
         val response = withContext(Dispatchers.IO) {
             try {
                 val resultList = hhService.getIndustries()
-                val result = ResponseGuide<ResponseIndustriesGuideItem>().apply { listItem.addAll(resultList) }
-                result.apply { resultCode = HttpURLConnection.HTTP_OK }
+                Result.success(resultList)
             } catch (e: HttpException) {
-                ResponseGuide<ResponseIndustriesGuideItem>().apply {
-                    resultCode = HttpURLConnection.HTTP_INTERNAL_ERROR; error = e
-                }
+                Result.failure(e)
             }
         }
         return response
     }
 
-    override suspend fun getAreas(request: GuideRequest): Response {
+    override suspend fun getAreas(request: GuideRequest): Result<ResponseAreaGuideDto> {
         if (!isConnected(context)) {
-            return Response().apply { resultCode = GlobalConstant.NO_INTERNET }
+            return Result.failure(ConnectException())
         }
         val response = withContext(Dispatchers.IO) {
             try {
                 val result = hhService.getAreas(request.id)
-                result.apply { resultCode = HttpURLConnection.HTTP_OK }
+                Result.success(result)
             } catch (e: HttpException) {
-                Response().apply { resultCode = HttpURLConnection.HTTP_INTERNAL_ERROR; error = e }
+                Result.failure(e)
             }
         }
         return response
     }
 
-    override suspend fun getCountries(): ResponseGuide<ResponseCountriesGuideItem> {
+    override suspend fun getAllAreas(): Result<List<ResponseAreaGuideDto>> {
         if (!isConnected(context)) {
-            return ResponseGuide<ResponseCountriesGuideItem>().apply { resultCode = GlobalConstant.NO_INTERNET }
+            return Result.failure(ConnectException())
+        }
+        val response = withContext(Dispatchers.IO) {
+            try {
+                val resultList = hhService.getAllAreas()
+                Result.success(resultList)
+            } catch (e: HttpException) {
+                Result.failure(e)
+            }
+        }
+        return response
+    }
+
+    override suspend fun getCountries(): Result<List<ResponseCountriesGuideItem>> {
+        if (!isConnected(context)) {
+            return Result.failure(ConnectException())
         }
         val response = withContext(Dispatchers.IO) {
             try {
                 val resultList = hhService.getCountries()
-                val result = ResponseGuide<ResponseCountriesGuideItem>().apply { listItem.addAll(resultList) }
-                result.apply { resultCode = HttpURLConnection.HTTP_OK }
+                Result.success(resultList)
             } catch (e: HttpException) {
-                ResponseGuide<ResponseCountriesGuideItem>().apply {
-                    resultCode = HttpURLConnection.HTTP_INTERNAL_ERROR; error = e
-                }
+                Result.failure(e)
             }
         }
         return response
