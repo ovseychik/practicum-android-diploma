@@ -16,8 +16,8 @@ class VacancyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val tvVacancyTitle: TextView = itemView.findViewById(R.id.tv_vacancy_title)
     private val tvCompanyName: TextView = itemView.findViewById(R.id.tv_company_name)
     private val tvSalary: TextView = itemView.findViewById(R.id.tv_salary)
-    private val radiusIconTrackPx =
-        dpToPx(itemView.context.resources.getDimensionPixelSize(R.dimen._12dp).toFloat(), itemView.context)
+    private val radiusIconDp = 12.0f
+    private val radiusIconTrackPx = dpToPx(radiusIconDp, itemView.context)
 
     fun bind(vacancyItem: VacancyItem) {
         tvVacancyTitle.text =

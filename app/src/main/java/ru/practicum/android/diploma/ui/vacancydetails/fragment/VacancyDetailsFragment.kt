@@ -102,8 +102,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
 
     private fun showContent(details: VacancyDetails) {
-        val radiusIconTrackPx =
-            dpToPx(radiusIconDp, requireContext())
+        val radiusIconTrackPx = dpToPx(radiusIconDp, requireContext())
         with(binding) {
             setVisibilityContent()
             vacancyName.text = details.vacancyName
