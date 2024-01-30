@@ -15,6 +15,10 @@ import ru.practicum.android.diploma.data.dto.responses.vacancy.list.ResponseList
 const val HH_USER_AGENT: String = "HH-User-Agent: Get a job! (morozov@rtr.spb.ru)"
 
 interface HHApi {
+    @Headers(
+        "Authorization: Bearer ${BuildConfig.HH_ACCESS_TOKEN}",
+        HH_USER_AGENT
+    )
     @GET("/vacancies")
     suspend fun getVacancies(
         @QueryMap searchOptionsStr: Map<String, String>,
