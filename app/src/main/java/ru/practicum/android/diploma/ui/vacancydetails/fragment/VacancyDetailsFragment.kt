@@ -24,6 +24,7 @@ import ru.practicum.android.diploma.presentation.vacancy.viewmodel.DetailsViewMo
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.VACANCY_ID
 import ru.practicum.android.diploma.util.debounce
+import ru.practicum.android.diploma.util.dpToPx
 
 class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() {
     private val detailsViewModel by viewModel<DetailsViewModel>()
@@ -33,6 +34,8 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
     private val keySkillsAdapter = KeySkillsAdapter()
     private var vacancyId: String = EMPTY_PARAM_SRT
+    private val radiusIconDp = 12.0f
+
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -99,6 +102,8 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
 
     private fun showContent(details: VacancyDetails) {
+        val radiusIconTrackPx =
+            dpToPx(radiusIconDp, requireContext())
         with(binding) {
             setVisibilityContent()
             vacancyName.text = details.vacancyName
@@ -111,13 +116,8 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             contactsPerson.text = details.managerName
             Glide.with(requireContext())
                 .load(details.companyLogoLittle)
+                .transform(FitCenter(), RoundedCorners(radiusIconTrackPx))
                 .placeholder(R.drawable.ic_vacancy_logo_placeholder)
-                .transform(
-                    FitCenter(),
-                    RoundedCorners(
-                        requireContext().resources.getDimensionPixelSize(R.dimen._12dp)
-                    )
-                )
                 .into(companyLogo)
             if (details.keySkills.isNullOrEmpty()) {
                 keySkillsBlock.isVisible = false

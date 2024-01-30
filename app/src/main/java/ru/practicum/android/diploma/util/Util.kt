@@ -3,10 +3,13 @@ package ru.practicum.android.diploma.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.TypedValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
+private const val CORRECTION = 0.5f
 
 fun <T> debounce(
     delayMillis: Long,
@@ -58,4 +61,12 @@ fun getCurrencySymbol(currency: String): String {
         "UZS" -> "so'm" // Узбекский сум
         else -> currency
     }
+}
+
+fun dpToPx(dp: Float, context: Context): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp + CORRECTION,
+        context.resources.displayMetrics
+    ).toInt()
 }

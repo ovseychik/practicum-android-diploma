@@ -9,12 +9,15 @@ import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
+import ru.practicum.android.diploma.util.dpToPx
 
 class VacancyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val ivLogo: ImageView = itemView.findViewById(R.id.iv_company_logo)
     private val tvVacancyTitle: TextView = itemView.findViewById(R.id.tv_vacancy_title)
     private val tvCompanyName: TextView = itemView.findViewById(R.id.tv_company_name)
     private val tvSalary: TextView = itemView.findViewById(R.id.tv_salary)
+    private val radiusIconTrackPx =
+        dpToPx(itemView.context.resources.getDimensionPixelSize(R.dimen._12dp).toFloat(), itemView.context)
 
     fun bind(vacancyItem: VacancyItem) {
         tvVacancyTitle.text =
@@ -24,12 +27,7 @@ class VacancyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         Glide.with(itemView)
             .load(vacancyItem.logo)
-            .transform(
-                FitCenter(),
-                RoundedCorners(
-                    itemView.context.resources.getDimensionPixelSize(R.dimen._8dp)
-                )
-            )
+            .transform(FitCenter(), RoundedCorners(radiusIconTrackPx))
             .placeholder(R.drawable.ic_vacancy_logo_placeholder)
             .into(ivLogo)
     }
