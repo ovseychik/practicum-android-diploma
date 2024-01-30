@@ -55,12 +55,12 @@ class FavoriteVacanciesConvertors(private val json: Gson) {
 
     fun mapToVacansyItem(entity: VacancyEntity): VacancyItem {
         return VacancyItem(
-            entity.vacancyId,
-            entity.vacancyName,
-            entity.companyLogoLittle,
-            entity.vacancyName,
-            entity.companyName,
-            entity.salary
+            id = entity.vacancyId,
+            city = entity.city,
+            logo = entity.companyLogoLittle,
+            nameVacancy = entity.vacancyName,
+            nameCompany = entity.companyName,
+            salary = entity.salary
         )
     }
 
