@@ -66,7 +66,6 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             },
             Snackbar.LENGTH_SHORT
         ).show()
-        vacancyAdapter.removeLoading()
     }
 
     private fun bind() {
@@ -128,6 +127,20 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             is ScreenStateVacancies.NextPageIsLoaded -> {
                 showNextPageLoaded(state.listVacancies)
             }
+
+            ScreenStateVacancies.NextPageLoadingError -> {
+                showNextPageLoadingError()
+            }
+        }
+    }
+
+    private fun showNextPageLoadingError() {
+        with(binding) {
+            rvSearchResult.isVisible = true
+            tvResultCountChips.isVisible = true
+            tvErrorPlaceholder.isVisible = false
+            ivPicPlaceholder.isVisible = false
+            pbCircle.isVisible = false
         }
     }
 

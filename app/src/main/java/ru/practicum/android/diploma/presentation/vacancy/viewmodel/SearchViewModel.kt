@@ -20,10 +20,10 @@ class SearchViewModel(
 ) : ViewModel() {
 
     private val _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
-    private val showToast = SingleLiveEvent<PageLoadingState>()
+    private val _showToastState = SingleLiveEvent<PageLoadingState>()
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
-    val toastState: LiveData<PageLoadingState> = showToast
+    val toastState: LiveData<PageLoadingState> = _showToastState
     private var currentPage = FIRST_PAGE
     private var isNextPageLoading = false
     private var currentQuery = EMPTY_QUERY
@@ -62,8 +62,7 @@ class SearchViewModel(
                 if (currentPage == FIRST_PAGE) {
                     _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
                 } else {
-                    isNextPageLoading = false
-                    showToast.postValue(PageLoadingState.InternetError)
+                    _showToastState.postValue(PageLoadingState.InternetError)
                 }
             }
 
@@ -71,8 +70,8 @@ class SearchViewModel(
                 if (currentPage == FIRST_PAGE) {
                     _screenState.postValue(ScreenStateVacancies.Error(result.message))
                 } else {
-                    isNextPageLoading = false
-                    showToast.postValue(PageLoadingState.ServerError)
+                    _showToastState.postValue(PageLoadingState.ServerError)
+                    _screenState.postValue(ScreenStateVacancies.NextPageLoadingError)
                 }
             }
 
@@ -93,10 +92,10 @@ class SearchViewModel(
                     _screenState.postValue(
                         result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) }
                     )
-                    isNextPageLoading = false
                 }
             }
         }
+        isNextPageLoading = false
     }
 
     fun onLastItemReached() {
