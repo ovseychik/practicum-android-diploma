@@ -26,6 +26,8 @@ import ru.practicum.android.diploma.util.VACANCY_ID
 import ru.practicum.android.diploma.util.debounce
 import ru.practicum.android.diploma.util.dpToPx
 
+private const val RADIUS_ICON_DP = 12.0f
+
 class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() {
     private val detailsViewModel by viewModel<DetailsViewModel>()
     private var clickedPhoneDebounce: ((String) -> Unit)? = null
@@ -34,7 +36,6 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
     private val keySkillsAdapter = KeySkillsAdapter()
     private var vacancyId: String = EMPTY_PARAM_SRT
-    private val radiusIconDp = 12.0f
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -102,7 +103,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
 
     private fun showContent(details: VacancyDetails) {
-        val radiusIconTrackPx = dpToPx(radiusIconDp, requireContext())
+        val radiusIconTrackPx = dpToPx(RADIUS_ICON_DP, requireContext())
         with(binding) {
             setVisibilityContent()
             vacancyName.text = details.vacancyName
