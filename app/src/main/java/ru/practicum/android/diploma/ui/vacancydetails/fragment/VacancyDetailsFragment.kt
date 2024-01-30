@@ -103,7 +103,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
     }
 
     private fun showContent(details: VacancyDetails) {
-        val radiusIconTrackPx = dpToPx(RADIUS_ICON_DP, requireContext())
+        val radiusIconVacancyPx = dpToPx(RADIUS_ICON_DP, requireContext())
         with(binding) {
             setVisibilityContent()
             vacancyName.text = details.vacancyName
@@ -116,7 +116,7 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
             contactsPerson.text = details.managerName
             Glide.with(requireContext())
                 .load(details.companyLogoLittle)
-                .transform(FitCenter(), RoundedCorners(radiusIconTrackPx))
+                .transform(FitCenter(), RoundedCorners(radiusIconVacancyPx))
                 .placeholder(R.drawable.ic_vacancy_logo_placeholder)
                 .into(companyLogo)
             if (details.keySkills.isNullOrEmpty()) {
