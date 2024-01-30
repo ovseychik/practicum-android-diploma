@@ -102,8 +102,8 @@ class SearchViewModel(
 
     fun onLastItemReached() {
         if (!isNextPageLoading) {
-            isNextPageLoading = true
             if (currentPage < foundItemsCount / ITEMS_PER_PAGE) {
+                isNextPageLoading = true
                 currentPage++
                 getVacancies(currentQuery, currentPage)
             }
