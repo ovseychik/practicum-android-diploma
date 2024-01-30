@@ -18,7 +18,7 @@ class VacancyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val tvVacancyTitle: TextView = itemView.findViewById(R.id.tv_vacancy_title)
     private val tvCompanyName: TextView = itemView.findViewById(R.id.tv_company_name)
     private val tvSalary: TextView = itemView.findViewById(R.id.tv_salary)
-    private val radiusIconTrackPx = dpToPx(RADIUS_ICON_DP, itemView.context)
+    private val radiusIconVacancyPx = dpToPx(RADIUS_ICON_DP, itemView.context)
 
     fun bind(vacancyItem: VacancyItem) {
         tvVacancyTitle.text =
@@ -28,7 +28,7 @@ class VacancyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         Glide.with(itemView)
             .load(vacancyItem.logo)
-            .transform(FitCenter(), RoundedCorners(radiusIconTrackPx))
+            .transform(FitCenter(), RoundedCorners(radiusIconVacancyPx))
             .placeholder(R.drawable.ic_vacancy_logo_placeholder)
             .into(ivLogo)
     }
