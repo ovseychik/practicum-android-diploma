@@ -14,6 +14,7 @@
         android:layout_width="@dimen/iv_item_vacancy_size"
         android:layout_height="@dimen/iv_item_vacancy_size"
         android:layout_marginEnd="@dimen/item_vacancy_to_text_tab"
+        android:padding="2dp"
         android:background="@drawable/frame_vacancy_small_icon"
         android:scaleType="center"
         tools:src="@drawable/ic_vacancy_logo_placeholder" />
