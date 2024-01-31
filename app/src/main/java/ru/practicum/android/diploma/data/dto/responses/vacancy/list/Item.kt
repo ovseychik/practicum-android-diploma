@@ -24,7 +24,7 @@ fun Item.mapToVacancyItem(): VacancyItem {
     return VacancyItem(
         id = this.id,
         city = this.area.name,
-        logo = this.employer.logoUrls?.little ?: EMPTY_PARAM_SRT,
+        logo = this.employer.logoUrls?.original ?: EMPTY_PARAM_SRT,
         nameVacancy = this.name,
         nameCompany = this.employer.name,
         salary = getSalaryAsStr(this.salary)

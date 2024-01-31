@@ -16,5 +16,6 @@ fun ResponseListDto.mapToVacancies(): Vacancies {
     return Vacancies(
         listVacancies = this.items.map { it.mapToVacancyItem() },
         page = this.page,
+        foundItems = this.found
     )
 }

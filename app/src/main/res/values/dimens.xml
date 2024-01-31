@@ -2,6 +2,8 @@
 <resources>
     <!-- dimensions -->
     <dimen name="fragment_padding_horizontal">16dp</dimen>
+    <dimen name="iv_item_vacancy_size">48dp</dimen>
+    <dimen name="item_vacancy_to_text_tab">12dp</dimen>
 
     <!-- picture corners -->
     <dimen name="corner_radius_employer_icon_small_list">12dp</dimen>
@@ -13,4 +15,25 @@
     <dimen name="_16sp">16sp</dimen>
     <dimen name="_12sp">12sp</dimen>
     <dimen name="_0">0</dimen>
+
+    <dimen name="_1dp">1dp</dimen>
+    <dimen name="_0dp">0dp</dimen>
+    <dimen name="_16dp">16dp</dimen>
+    <dimen name="_18dp">18dp</dimen>
+    <dimen name="_24dp">24dp</dimen>
+    <dimen name="_12dp">12dp</dimen>
+    <dimen name="_48dp">48dp</dimen>
+    <dimen name="_56dp">56dp</dimen>
+    <dimen name="_68dp">68dp</dimen>
+    <dimen name="_4dp">4dp</dimen>
+    <dimen name="_8dp">8dp</dimen>
+    <dimen name="_28dp">28dp</dimen>
+    <dimen name="_32dp">32dp</dimen>
+    <dimen name="_328dp">328dp</dimen>
+    <dimen name="_223dp">223dp</dimen>
+    <dimen name="_2dp">2dp</dimen>
+    <dimen name="_19dp">19dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_31dp">31dp</dimen>
+    <dimen name="_36dp">36dp</dimen>
 </resources>

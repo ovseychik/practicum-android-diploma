@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/white"
+    android:background="?attr/screen_background_color"
+    android:orientation="vertical"
     android:paddingHorizontal="@dimen/fragment_padding_horizontal"
     tools:context="ui.favorite.fragment.FavoriteVacancyFragment">
 
-    <TextView
-        android:id="@+id/text_view_industry_fragment_title"
+    <FrameLayout
+        android:id="@+id/tv_favorite_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="64dp">
+
+        <TextView
+            style="@style/YsDisplayMedium22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_19dp"
+            android:text="@string/favorite_screen_title_text"
+            android:textColor="?attr/text_color" />
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/view_vacancy" />
+
+    <LinearLayout
+        android:id="@+id/ll_error_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Favorite vacancies fragment"
-        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="80dp" />
+        <ImageView
+            android:id="@+id/iv_pic_placeholder"
+            android:layout_width="@dimen/_328dp"
+            android:layout_height="@dimen/_223dp"
+            android:src="@drawable/ic_empty_list_favorite_pic" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_error_placeholder"
+            style="@style/YsDisplayMedium22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16dp"
+            android:gravity="center"
+            android:text="@string/favorite_empty_list_error_text"
+            android:textColor="?attr/text_color" />
+
+    </LinearLayout>
+
+</LinearLayout>

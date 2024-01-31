@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="black" format="reference" />
-    <attr name="white" format="reference" />
+    <attr name="text_color" format="reference" />
+    <attr name="screen_background_color" format="reference" />
     <attr name="black_universal" format="reference" />
     <attr name="white_universal" format="reference" />
     <attr name="blue" format="reference" />
     <attr name="red" format="reference" />
     <attr name="gray" format="reference" />
     <attr name="light_gray" format="reference" />
-    <attr name="background" format="reference" />
+    <attr name="input_field_background_color" format="reference" />
+    <attr name="hint_text_color" format="reference" />
 </resources>
