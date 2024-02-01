@@ -9,10 +9,12 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.practicum.android.diploma.data.NetworkClient
+import ru.practicum.android.diploma.data.SettingsStorage
 import ru.practicum.android.diploma.data.db.AppDatabase
 import ru.practicum.android.diploma.data.db.convertors.FavoriteVacanciesConvertors
 import ru.practicum.android.diploma.data.network.HHApi
 import ru.practicum.android.diploma.data.network.RetrofitNetworkClient
+import ru.practicum.android.diploma.data.settings.SettingsStorageSharedPref
 import ru.practicum.android.diploma.util.GlobalConstant
 
 const val BASE_URL = "https://api.hh.ru"
@@ -45,5 +47,8 @@ val dataModule = module {
     }
     single {
         FavoriteVacanciesConvertors(json = get())
+    }
+    single<SettingsStorage> {
+        SettingsStorageSharedPref(json = get(), settingssharedPref = get())
     }
 }
