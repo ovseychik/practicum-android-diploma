@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data.network.vacancies
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

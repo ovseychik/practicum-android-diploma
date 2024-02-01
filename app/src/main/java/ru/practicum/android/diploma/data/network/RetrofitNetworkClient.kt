@@ -10,7 +10,7 @@ import ru.practicum.android.diploma.data.dto.GuideRequest
 import ru.practicum.android.diploma.data.dto.SearchRequest
 import ru.practicum.android.diploma.data.dto.responses.guides.areas.ResponseAreaGuideDto
 import ru.practicum.android.diploma.data.dto.responses.guides.countries.ResponseCountriesGuideItem
-import ru.practicum.android.diploma.data.dto.responses.guides.inustries.ResponseIndustriesGuideItem
+import ru.practicum.android.diploma.data.dto.responses.guides.industries.ResponseIndustriesGuideItem
 import ru.practicum.android.diploma.data.dto.responses.vacancy.details.ResponseDetailsDto
 import ru.practicum.android.diploma.data.dto.responses.vacancy.list.ResponseListDto
 import ru.practicum.android.diploma.util.isConnected
