@@ -2,7 +2,7 @@ package ru.practicum.android.diploma.data.dto
 
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
-import ru.practicum.android.diploma.data.models.SearchSettings
+import ru.practicum.android.diploma.data.models.SearchSettingsData
 
 data class SearchRequest(
     val searchOptionsStr: Map<String, String>,
@@ -21,12 +21,12 @@ data class SearchRequest(
         fun setSearchOptions(
             text: String = "",
             page: Int = 0,
-            searchSettings: SearchSettings
+            searchSettings: SearchSettingsData
         ): SearchRequest {
             val mapStr = mutableMapOf<String, String>()
             if (text != "") mapStr[KEY_TEXT] = text
-            if (searchSettings.areaId != EMPTY_PARAM_SRT) mapStr[KEY_AREA] = searchSettings.areaId
-            if (searchSettings.industry != EMPTY_PARAM_SRT) mapStr[KEY_INDUSTRY] = searchSettings.industry
+            if (searchSettings.placeId != EMPTY_PARAM_SRT) mapStr[KEY_AREA] = searchSettings.placeId
+            if (searchSettings.industryName != EMPTY_PARAM_SRT) mapStr[KEY_INDUSTRY] = searchSettings.industryName
             val mapNum = mutableMapOf<String, Int>()
             mapNum[KEY_PER_PAGE] = ITEMS_PER_SHEET
             if (page >= 0) mapNum[KEY_PAGE] = page

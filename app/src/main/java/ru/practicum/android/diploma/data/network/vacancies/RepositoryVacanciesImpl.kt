@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.network
+package ru.practicum.android.diploma.data.network.vacancies
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
@@ -10,15 +10,13 @@ import ru.practicum.android.diploma.data.NetworkClient
 import ru.practicum.android.diploma.data.dto.SearchRequest
 import ru.practicum.android.diploma.data.dto.responses.vacancy.list.mapToVacancies
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
-import ru.practicum.android.diploma.data.models.SearchSettings
-import ru.practicum.android.diploma.data.models.ValuesSearchId
+import ru.practicum.android.diploma.data.models.SearchSettingsData
+import ru.practicum.android.diploma.data.settings.SEARCHING_OPTIONS
 import ru.practicum.android.diploma.domain.api.RepositoryVacancies
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import java.net.ConnectException
 import java.net.SocketTimeoutException
-
-const val SEARCHING_OPTIONS = "searching_options" // заглушка до реализации фичи фильтрации
 
 class RepositoryVacanciesImpl(
     private val client: NetworkClient,
@@ -53,13 +51,11 @@ class RepositoryVacanciesImpl(
         }
     }
 
-    private fun updateSearchSettings(): SearchSettings {
+    private fun updateSearchSettings(): SearchSettingsData {
         val settingsStr = settingsPref.getString(SEARCHING_OPTIONS, EMPTY_PARAM_SRT)
         return if (settingsStr != EMPTY_PARAM_SRT) {
-            json.fromJson(settingsStr, SearchSettings::class.java)
-        } else {
-            SearchSettings(settingsId = ValuesSearchId.BASE)
-        }
+            json.fromJson(settingsStr, SearchSettingsData::class.java)
+        } else SearchSettingsData()
 
     }
 }
