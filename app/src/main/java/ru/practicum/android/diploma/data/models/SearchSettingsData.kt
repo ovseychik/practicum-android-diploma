@@ -1,6 +1,5 @@
 package ru.practicum.android.diploma.data.models
 
-import ru.practicum.android.diploma.data.dto.responses.guides.inustries.Industry
 import ru.practicum.android.diploma.domain.models.guides.Country
 import ru.practicum.android.diploma.domain.models.guides.IndustryItem
 import ru.practicum.android.diploma.domain.models.guides.PlaceItem
@@ -10,7 +9,7 @@ const val EMPTY_PARAM_NUM = -101
 const val EMPTY_PARAM_SRT = ""
 
 data class SearchSettingsData(
-    val settingsId: ValuesSearchId = ValuesSearchId.BASE, // id настроек для определения способа выхода с экрана настроек
+    val settingsId: ValuesSearchId = ValuesSearchId.BASE,
     val salary: Int = EMPTY_PARAM_NUM,
     val isSalarySpecified: Boolean = false,
     val countryId: String = EMPTY_PARAM_SRT,
@@ -20,7 +19,7 @@ data class SearchSettingsData(
     val industryName: String = EMPTY_PARAM_SRT
 )
 
-fun mapToSearchSetting(settings: SearchSettingsData): SearchSettings{
+fun mapToSearchSetting(settings: SearchSettingsData): SearchSettings {
     return SearchSettings(
         settingsId = settings.settingsId,
         salary = settings.salary,
@@ -31,7 +30,7 @@ fun mapToSearchSetting(settings: SearchSettingsData): SearchSettings{
     )
 }
 
-fun mapToSearchSettingsData(settings: SearchSettings): SearchSettingsData{
+fun mapToSearchSettingsData(settings: SearchSettings): SearchSettingsData {
     return SearchSettingsData(
         settingsId = settings.settingsId,
         salary = settings.salary,

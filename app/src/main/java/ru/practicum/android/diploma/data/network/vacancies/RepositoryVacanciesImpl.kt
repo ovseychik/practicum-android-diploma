@@ -55,7 +55,9 @@ class RepositoryVacanciesImpl(
         val settingsStr = settingsPref.getString(SEARCHING_OPTIONS, EMPTY_PARAM_SRT)
         return if (settingsStr != EMPTY_PARAM_SRT) {
             json.fromJson(settingsStr, SearchSettingsData::class.java)
-        } else SearchSettingsData()
+        } else {
+            SearchSettingsData()
+        }
 
     }
 }
