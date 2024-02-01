@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.dto.responses.guides.inustries
+package ru.practicum.android.diploma.data.dto.responses.guides.industries
 
 import ru.practicum.android.diploma.domain.models.guides.IndustryItem
 

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.NetworkClient
-import ru.practicum.android.diploma.data.dto.responses.guides.inustries.mapToListIndustriesItem
+import ru.practicum.android.diploma.data.dto.responses.guides.industries.mapToListIndustriesItem
 import ru.practicum.android.diploma.domain.api.guides.IndustriesRepository
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.guides.IndustryItem

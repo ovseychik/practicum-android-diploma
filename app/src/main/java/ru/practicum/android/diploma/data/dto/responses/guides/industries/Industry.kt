@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.data.dto.responses.guides.inustries
+package ru.practicum.android.diploma.data.dto.responses.guides.industries
 
 data class Industry(
     val id: String,
