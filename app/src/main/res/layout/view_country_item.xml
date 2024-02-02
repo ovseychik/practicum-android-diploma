@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -18,7 +19,8 @@
     <ImageView
         android:layout_width="@dimen/_24dp"
         android:layout_height="@dimen/_24dp"
-        android:src="@drawable/ic_arrow_forward" />
+        android:src="@drawable/ic_arrow_forward"
+        app:tint="?attr/text_color" />
 
 </LinearLayout>
 
