@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/screen_background_color"
     android:paddingHorizontal="@dimen/fragment_padding_horizontal"
-    tools:context="ui.filter.fragment.LocalityPickerFragment">
+    tools:context=".ui.filter.fragment.citypicker.CityPickerFragment">
 
     <TextView
         android:id="@+id/text_view_locality_fragment_title"
