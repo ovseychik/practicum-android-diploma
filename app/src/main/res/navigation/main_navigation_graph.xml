@@ -68,5 +68,13 @@
         <action
             android:id="@+id/action_localityTypeFragment_to_localityPickerFragment"
             app:destination="@id/localityPickerFragment" />
+        <action
+            android:id="@+id/action_localityTypeFragment_to_countryPickerFragment"
+            app:destination="@id/countryPickerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/countryPickerFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.fragment.countrypicker.CountryPickerFragment"
+        android:label="fragment_country_picker"
+        tools:layout="@layout/fragment_country_picker" />
 </navigation>
