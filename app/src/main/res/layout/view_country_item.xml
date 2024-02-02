@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="start"
+    android:layout_marginVertical="@dimen/_20dp"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/tv_country"
         style="@style/YsDisplayRegular16"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_16dp"
         android:layout_weight="1"
         android:textColor="?attr/text_color"
         tools:text="Грузия" />
@@ -18,7 +18,6 @@
     <ImageView
         android:layout_width="@dimen/_24dp"
         android:layout_height="@dimen/_24dp"
-        android:layout_marginVertical="@dimen/_16dp"
         android:src="@drawable/ic_arrow_forward" />
 
 </LinearLayout>
