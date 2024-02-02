@@ -1,0 +1,356 @@
+Index: app/src/main/res/values/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <!-- dimensions -->\r\n    <dimen name=\"fragment_padding_horizontal\">16dp</dimen>\r\n    <dimen name=\"iv_item_vacancy_size\">48dp</dimen>\r\n    <dimen name=\"item_vacancy_to_text_tab\">12dp</dimen>\r\n\r\n    <!-- picture corners -->\r\n    <dimen name=\"corner_radius_employer_icon_small_list\">12dp</dimen>\r\n\r\n    <!-- text sizes -->\r\n    <dimen name=\"text_sp_fragment_title\">22sp</dimen>\r\n    <dimen name=\"_32sp\">32sp</dimen>\r\n    <dimen name=\"_22sp\">22sp</dimen>\r\n    <dimen name=\"_16sp\">16sp</dimen>\r\n    <dimen name=\"_12sp\">12sp</dimen>\r\n    <dimen name=\"_0\">0</dimen>\r\n\r\n    <dimen name=\"_1dp\">1dp</dimen>\r\n    <dimen name=\"_0dp\">0dp</dimen>\r\n    <dimen name=\"_16dp\">16dp</dimen>\r\n    <dimen name=\"_18dp\">18dp</dimen>\r\n    <dimen name=\"_24dp\">24dp</dimen>\r\n    <dimen name=\"_12dp\">12dp</dimen>\r\n    <dimen name=\"_48dp\">48dp</dimen>\r\n    <dimen name=\"_56dp\">56dp</dimen>\r\n    <dimen name=\"_68dp\">68dp</dimen>\r\n    <dimen name=\"_4dp\">4dp</dimen>\r\n    <dimen name=\"_8dp\">8dp</dimen>\r\n    <dimen name=\"_28dp\">28dp</dimen>\r\n    <dimen name=\"_32dp\">32dp</dimen>\r\n    <dimen name=\"_328dp\">328dp</dimen>\r\n    <dimen name=\"_223dp\">223dp</dimen>\r\n    <dimen name=\"_2dp\">2dp</dimen>\r\n    <dimen name=\"_19dp\">19dp</dimen>\r\n    <dimen name=\"_20dp\">20dp</dimen>\r\n    <dimen name=\"_31dp\">31dp</dimen>\r\n    <dimen name=\"_36dp\">36dp</dimen>\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/dimens.xml b/app/src/main/res/values/dimens.xml
+--- a/app/src/main/res/values/dimens.xml	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
++++ b/app/src/main/res/values/dimens.xml	(date 1706894252276)
+@@ -36,4 +36,7 @@
+     <dimen name="_20dp">20dp</dimen>
+     <dimen name="_31dp">31dp</dimen>
+     <dimen name="_36dp">36dp</dimen>
++    <dimen name="_64dp">64dp</dimen>
++    <dimen name="_44dp">44dp</dimen>
++    <dimen name="_42dp">42dp</dimen>
+ </resources>
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Practicum-Android-Diploma</string>\r\n\r\n    <!-- bottom navigation (bn) menu items-->\r\n    <string name=\"bn_main\">Главная</string>\r\n    <string name=\"bn_favorites\">Избранное</string>\r\n    <string name=\"bn_team\">Команда</string>\r\n\r\n    <!-- team members screen (alphabetically) -->\r\n    <string name=\"fragment_team_title\">Команда</string>\r\n\r\n    <string name=\"made_by\">Над приложением работали</string>\r\n\r\n    <string name=\"member1\">Александр Корытин</string>\r\n    <string name=\"member2\">Данила Морозов</string>\r\n    <string name=\"member3\">Сергей Овсейчик</string>\r\n    <string name=\"member4\">Аслан Шкахов</string>\r\n    <string name=\"search_screen_title_text\">Поиск вакансий</string>\r\n    <string name=\"search_hint_text\">Введите запрос</string>\r\n    <string name=\"vacancy_count_chips_text\">Найдено 213 вакансий</string>\r\n    <string name=\"no_internet_error_text\">Нет интернета</string>\r\n    <string name=\"app_not_found\">Приложение не найдено</string>\r\n    <string name=\"no_internet\">Нет интернета</string>\r\n    <string name=\"server_error\">Ошибка сервера</string>\r\n    <string name=\"empty\">Не удалось получить\\nсписок вакансий</string>\r\n    <string name=\"empty_salary\">Зарплата не указана</string>\r\n    <string name=\"favorite_screen_title_text\">Избранное</string>\r\n    <string name=\"favorite_empty_list_error_text\">Список пуст</string>\r\n    <string name=\"favorite_db_error_text\">Не удалось получить\\nсписок вакансий</string>\r\n    <string name=\"employer_title_plus_city\">%1$s, %2$s</string>\r\n    <plurals name=\"items_found_number\">\r\n        <item quantity=\"zero\">Найдено %1$d вакансий</item>\r\n        <item quantity=\"one\">Найдена %1$d вакансия</item>\r\n        <item quantity=\"two\">Найдено %1$d вакансии</item>\r\n        <item quantity=\"few\">Найдено %1$d вакансий</item>\r\n        <item quantity=\"many\">Найдено %1$d вакансий</item>\r\n        <item quantity=\"other\">Найдено %1$d вакансий</item>\r\n    </plurals>\r\n\r\n    <string name=\"vacancy\">Вакансия</string>\r\n    <string name=\"experience\">Требуемый опыт</string>\r\n    <string name=\"vacancy_description\">Описание вакансии</string>\r\n    <string name=\"key_skills\">Ключевые навыки</string>\r\n    <string name=\"contacts\">Контакты</string>\r\n    <string name=\"contact_person\">Контактное лицо</string>\r\n    <string name=\"email\">Email</string>\r\n    <string name=\"phone\">Телефон</string>\r\n    <string name=\"comment\">Комментарий</string>\r\n    <string name=\"error_while_loading_page\">Произошла ошибка</string>\r\n    <string name=\"no_internet_while_loading_page\">Проверьте подключение к интернету</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
++++ b/app/src/main/res/values/strings.xml	(date 1706894549215)
+@@ -48,6 +48,8 @@
+     <string name="comment">Комментарий</string>
+     <string name="error_while_loading_page">Произошла ошибка</string>
+     <string name="no_internet_while_loading_page">Проверьте подключение к интернету</string>
+-    <!-- TODO: Remove or change this placeholder text -->
+-    <string name="hello_blank_fragment">Hello blank fragment</string>
++    <string name="locality_type_fragment_title">Выбор места работы</string>
++    <string name="hint_region_text">Регион</string>
++    <string name="hint_country_text">Страна</string>
++    <string name="btn_apply_text">Выбрать</string>
+ </resources>
+Index: app/src/main/res/values/styles.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n\r\n    <style name=\"TextStyle\">\r\n        <item name=\"android:letterSpacing\">@dimen/_0</item>\r\n    </style>\r\n\r\n    <style name=\"YsDisplayBold32\" parent=\"TextStyle\">\r\n        <item name=\"fontFamily\">@font/ys_display_bold</item>\r\n        <item name=\"android:textSize\">@dimen/_32sp</item>\r\n    </style>\r\n\r\n    <style name=\"YsDisplayMedium22\" parent=\"TextStyle\">\r\n        <item name=\"fontFamily\">@font/ys_display_medium</item>\r\n        <item name=\"android:textSize\">@dimen/_22sp</item>\r\n    </style>\r\n\r\n    <style name=\"YsDisplayMedium16\" parent=\"TextStyle\">\r\n        <item name=\"fontFamily\">@font/ys_display_medium</item>\r\n        <item name=\"android:textSize\">@dimen/_16sp</item>\r\n    </style>\r\n\r\n    <style name=\"YsDisplayRegular16\" parent=\"TextStyle\">\r\n        <item name=\"fontFamily\">@font/ys_display_regular</item>\r\n        <item name=\"android:textSize\">@dimen/_16sp</item>\r\n    </style>\r\n\r\n    <style name=\"YsDisplayRegular12\" parent=\"TextStyle\">\r\n        <item name=\"fontFamily\">@font/ys_display_regular</item>\r\n        <item name=\"android:textSize\">@dimen/_12sp</item>\r\n    </style>\r\n\r\n    <!-- team fragment -->\r\n    <style name=\"team_fragment_tv_members\">\r\n        <item name=\"fontFamily\">@font/ys_display_medium</item>\r\n        <item name=\"android:textSize\">@dimen/_16sp</item>\r\n        <item name=\"android:textColor\">?attr/text_color</item>\r\n        <item name=\"android:gravity\">center_vertical</item>\r\n        <item name=\"android:layout_width\">match_parent</item>\r\n        <item name=\"android:layout_height\">wrap_content</item>\r\n    </style>\r\n\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/styles.xml b/app/src/main/res/values/styles.xml
+--- a/app/src/main/res/values/styles.xml	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
++++ b/app/src/main/res/values/styles.xml	(date 1706894252277)
+@@ -40,4 +40,17 @@
+         <item name="android:layout_height">wrap_content</item>
+     </style>
+ 
++    <style name="apply_button_style">
++        <item name="android:layout_gravity">center</item>
++        <item name="android:fontFamily">@font/ys_display_medium</item>
++        <item name="android:gravity">center</item>
++        <item name="android:letterSpacing">0</item>
++        <item name="android:textAlignment">center</item>
++        <item name="android:textAllCaps">false</item>
++        <item name="android:textColor">?attr/white_universal</item>
++        <item name="android:textSize">@dimen/_16sp</item>
++        <item name="android:backgroundTint">?attr/blue</item>
++        <item name="cornerRadius">@dimen/_12dp</item>
++    </style>
++
+ </resources>
+Index: app/src/main/res/layout/fragment_locality_type.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"?attr/screen_background_color\"\r\n    android:paddingHorizontal=\"@dimen/fragment_padding_horizontal\"\r\n    tools:context=\"ui.filter.fragment.LocalityTypeFragment\">\r\n\r\n    <TextView\r\n        android:id=\"@+id/text_view_locality_type_fragment_title\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:gravity=\"center\"\r\n        android:text=\"Locality type (страна / город) fragment\"\r\n        app:layout_constraintBottom_toTopOf=\"@id/guideline_bottom\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <androidx.constraintlayout.widget.Guideline\r\n        android:id=\"@+id/guideline_bottom\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"horizontal\"\r\n        app:layout_constraintGuide_end=\"80dp\" />\r\n\r\n    <com.google.android.material.button.MaterialButton\r\n        android:id=\"@+id/button_to_filters\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"To Filters Fragment\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@id/guideline_bottom\" />\r\n\r\n    <com.google.android.material.button.MaterialButton\r\n        android:id=\"@+id/button_to_locality_picker\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"To Locality Picker Fragment\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toEndOf=\"@id/button_to_filters\"\r\n        app:layout_constraintTop_toBottomOf=\"@id/guideline_bottom\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_locality_type.xml b/app/src/main/res/layout/fragment_locality_type.xml
+--- a/app/src/main/res/layout/fragment_locality_type.xml	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
++++ b/app/src/main/res/layout/fragment_locality_type.xml	(date 1706894252275)
+@@ -1,46 +1,113 @@
+-<?xml version="1.0" encoding="utf-8"?>
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="?attr/screen_background_color"
+-    android:paddingHorizontal="@dimen/fragment_padding_horizontal"
+     tools:context="ui.filter.fragment.LocalityTypeFragment">
+ 
+-    <TextView
+-        android:id="@+id/text_view_locality_type_fragment_title"
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:gravity="center"
+-        android:text="Locality type (страна / город) fragment"
+-        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+     <androidx.constraintlayout.widget.Guideline
+-        android:id="@+id/guideline_bottom"
++        android:id="@+id/left_guideline"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:orientation="horizontal"
+-        app:layout_constraintGuide_end="80dp" />
++        android:orientation="vertical"
++        app:layout_constraintGuide_begin="@dimen/_16dp" />
+ 
+-    <com.google.android.material.button.MaterialButton
+-        android:id="@+id/button_to_filters"
++    <androidx.constraintlayout.widget.Guideline
++        android:id="@+id/right_guideline"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:text="To Filters Fragment"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
++        android:orientation="vertical"
++        app:layout_constraintGuide_end="@dimen/_16dp" />
+ 
+-    <com.google.android.material.button.MaterialButton
+-        android:id="@+id/button_to_locality_picker"
++    <ImageButton
++        android:id="@+id/btn_back"
++        android:layout_width="@dimen/_24dp"
++        android:layout_height="@dimen/_24dp"
++        android:layout_marginTop="@dimen/_20dp"
++        android:background="@android:color/transparent"
++        app:layout_constraintStart_toEndOf="@id/left_guideline"
++        app:layout_constraintTop_toTopOf="parent"
++        app:srcCompat="@drawable/ic_arrow_back"
++        app:tint="?attr/text_color" />
++
++    <TextView
++        android:id="@+id/tv_locality_type_title"
++        style="@style/YsDisplayMedium22"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:text="To Locality Picker Fragment"
++        android:layout_marginStart="@dimen/_8dp"
++        android:layout_marginTop="@dimen/_20dp"
++        android:text="@string/locality_type_fragment_title"
++        android:textColor="?attr/text_color"
++        app:layout_constraintStart_toEndOf="@id/btn_back"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/et_country"
++        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
++        android:layout_width="@dimen/_0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="@dimen/_48dp"
++        android:hint="@string/hint_country_text"
++        android:textAppearance="@style/YsDisplayRegular16"
++        android:textColor="?attr/text_color"
++        app:boxBackgroundMode="none"
++        app:endIconDrawable="@drawable/ic_arrow_forward"
++        app:endIconMode="custom"
++        app:endIconTint="?attr/text_color"
++        app:hintTextAppearance="@style/YsDisplayRegular12"
++        app:hintTextColor="?attr/text_color"
++        app:layout_constraintEnd_toStartOf="@id/right_guideline"
++        app:layout_constraintStart_toEndOf="@id/left_guideline"
++        app:layout_constraintTop_toBottomOf="@id/tv_locality_type_title">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:id="@+id/et_country_layout"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:focusable="false"
++            android:textAppearance="@style/YsDisplayRegular16" />
++
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/et_region"
++        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
++        android:layout_width="@dimen/_0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="@dimen/_16dp"
++        android:hint="@string/hint_region_text"
++        android:textAppearance="@style/YsDisplayRegular16"
++        android:textColor="?attr/text_color"
++        app:boxBackgroundMode="none"
++        app:endIconDrawable="@drawable/ic_arrow_forward"
++        app:endIconMode="custom"
++        app:endIconTint="?attr/text_color"
++        app:hintTextAppearance="@style/YsDisplayRegular12"
++        app:hintTextColor="?attr/text_color"
++        app:layout_constraintEnd_toStartOf="@id/right_guideline"
++        app:layout_constraintStart_toEndOf="@id/left_guideline"
++        app:layout_constraintTop_toBottomOf="@id/et_country">
++
++        <com.google.android.material.textfield.TextInputEditText
++            android:id="@+id/et_region_layout"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:focusable="false"
++            android:textAppearance="@style/YsDisplayRegular16" />
++    </com.google.android.material.textfield.TextInputLayout>
++
++    <com.google.android.material.button.MaterialButton
++        android:id="@+id/btn_apply"
++        style="@style/apply_button_style"
++        android:layout_width="@dimen/_0dp"
++        android:layout_height="@dimen/_64dp"
++        android:layout_marginBottom="@dimen/_24dp"
++        android:text="@string/btn_apply_text"
++        android:visibility="gone"
+         app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toEndOf="@id/button_to_filters"
+-        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
++        app:layout_constraintEnd_toStartOf="@id/right_guideline"
++        app:layout_constraintStart_toEndOf="@id/left_guideline" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+Index: .idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
++++ /dev/null	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
+@@ -1,18 +0,0 @@
+-Index: app/src/main/res/layout/fragment_search.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:background=\"?attr/screen_background_color\"\n    tools:context=\"ui.search.fragment.SearchFragment\">\n\n    <androidx.constraintlayout.widget.Guideline\n        android:id=\"@+id/left_guideline\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:orientation=\"vertical\"\n        app:layout_constraintGuide_begin=\"@dimen/_16dp\" />\n\n    <androidx.constraintlayout.widget.Guideline\n        android:id=\"@+id/right_guideline\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:orientation=\"vertical\"\n        app:layout_constraintGuide_end=\"@dimen/_16dp\" />\n\n    <TextView\n        android:id=\"@+id/tv_search_title\"\n        style=\"@style/YsDisplayMedium22\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"@dimen/_19dp\"\n        android:text=\"@string/search_screen_title_text\"\n        android:textColor=\"?attr/text_color\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toTopOf=\"parent\" />\n\n    <ImageButton\n        android:id=\"@+id/btn_filter\"\n        android:layout_width=\"@dimen/_24dp\"\n        android:layout_height=\"@dimen/_24dp\"\n        android:layout_gravity=\"end\"\n        android:layout_marginTop=\"@dimen/_20dp\"\n        android:background=\"@null\"\n        android:src=\"@drawable/ic_filter_off\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintTop_toTopOf=\"parent\"\n        app:tint=\"?attr/text_color\" />\n\n    <EditText\n        android:id=\"@+id/et_search\"\n        style=\"@style/YsDisplayregular16\"\n        android:layout_width=\"@dimen/_0dp\"\n        android:layout_height=\"@dimen/_56dp\"\n        android:layout_marginTop=\"@dimen/_31dp\"\n        android:layout_weight=\"1\"\n        android:background=\"@drawable/search_input_field_bg_shape\"\n        android:hint=\"@string/search_hint_text\"\n        android:imeOptions=\"actionDone\"\n        android:inputType=\"text\"\n        android:maxLines=\"1\"\n        android:paddingHorizontal=\"@dimen/_16dp\"\n        android:singleLine=\"true\"\n        android:textColor=\"?attr/text_color\"\n        android:textColorHint=\"?attr/hint_text_color\"\n        android:textCursorDrawable=\"@drawable/color_cursor\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/tv_search_title\" />\n\n    <ImageView\n        android:id=\"@+id/btn_clear\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_gravity=\"center\"\n        android:layout_marginEnd=\"@dimen/_16dp\"\n        android:src=\"@drawable/ic_search\"\n        android:visibility=\"visible\"\n        app:layout_constraintBottom_toBottomOf=\"@id/et_search\"\n        app:layout_constraintEnd_toEndOf=\"@id/et_search\"\n        app:layout_constraintTop_toTopOf=\"@id/et_search\"\n        app:tint=\"?attr/black_universal\" />\n\n    <TextView\n        android:id=\"@+id/tv_result_count_chips\"\n        style=\"@style/YsDisplayregular16\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"@dimen/_12dp\"\n        android:background=\"@drawable/result_count_chip_shape\"\n        android:paddingHorizontal=\"@dimen/_12dp\"\n        android:paddingVertical=\"@dimen/_4dp\"\n        android:textColor=\"?attr/white_universal\"\n        android:visibility=\"gone\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/et_search\"\n        tools:text=\"@string/vacancy_count_chips_text\" />\n\n    <androidx.recyclerview.widget.RecyclerView\n        android:id=\"@+id/rv_search_result\"\n        android:layout_width=\"@dimen/_0dp\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"@dimen/_12dp\"\n        android:visibility=\"visible\"\n        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/et_search\" />\n\n    <ImageView\n        android:id=\"@+id/iv_pic_placeholder\"\n        android:layout_width=\"@dimen/_328dp\"\n        android:layout_height=\"@dimen/_223dp\"\n        android:src=\"@drawable/ic_default_search_placeholder_pic\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/et_search\" />\n\n    <ProgressBar\n        android:id=\"@+id/pb_circle\"\n        android:layout_width=\"@dimen/_48dp\"\n        android:layout_height=\"@dimen/_48dp\"\n        android:indeterminate=\"true\"\n        android:indeterminateTint=\"?attr/blue\"\n        android:visibility=\"gone\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/et_search\" />\n\n    <TextView\n        android:id=\"@+id/tv_error_placeholder\"\n        style=\"@style/YsDisplayMedium22\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"@dimen/_16dp\"\n        android:visibility=\"gone\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/iv_pic_placeholder\"\n        tools:text=\"@string/no_internet_error_text\" />\n\n</androidx.constraintlayout.widget.ConstraintLayout>\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/res/layout/fragment_search.xml b/app/src/main/res/layout/fragment_search.xml
+---- a/app/src/main/res/layout/fragment_search.xml	(revision 57710eab4525866eb9b2a49b0445b6f6c217ff08)
+-+++ b/app/src/main/res/layout/fragment_search.xml	(date 1706254701158)
+-@@ -36,7 +36,6 @@
+-         android:id="@+id/btn_filter"
+-         android:layout_width="@dimen/_24dp"
+-         android:layout_height="@dimen/_24dp"
+--        android:layout_gravity="end"
+-         android:layout_marginTop="@dimen/_20dp"
+-         android:background="@null"
+-         android:src="@drawable/ic_filter_off"
+Index: .idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
++++ /dev/null	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_rebase_[Changes]" date="1706254701175" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before rebase [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
++++ /dev/null	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
+@@ -1,18 +0,0 @@
+-Index: app/src/main/res/layout/fragment_search.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:background=\"?attr/screen_background_color\"\n    tools:context=\"ui.search.fragment.SearchFragment\">\n\n    <androidx.constraintlayout.widget.Guideline\n        android:id=\"@+id/left_guideline\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:orientation=\"vertical\"\n        app:layout_constraintGuide_begin=\"@dimen/_16dp\" />\n\n    <androidx.constraintlayout.widget.Guideline\n        android:id=\"@+id/right_guideline\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:orientation=\"vertical\"\n        app:layout_constraintGuide_end=\"@dimen/_16dp\" />\n\n    <TextView\n        android:id=\"@+id/tv_search_title\"\n        style=\"@style/YsDisplayMedium22\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"@dimen/_19dp\"\n        android:text=\"@string/search_screen_title_text\"\n        android:textColor=\"?attr/text_color\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toTopOf=\"parent\" />\n\n    <ImageButton\n        android:id=\"@+id/btn_filter\"\n        android:layout_width=\"@dimen/_24dp\"\n        android:layout_height=\"@dimen/_24dp\"\n        android:layout_gravity=\"end\"\n        android:layout_marginTop=\"@dimen/_20dp\"\n        android:background=\"@null\"\n        android:src=\"@drawable/ic_filter_off\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintTop_toTopOf=\"parent\"\n        app:tint=\"?attr/text_color\" />\n\n    <EditText\n        android:id=\"@+id/et_search\"\n        style=\"@style/YsDisplayregular16\"\n        android:layout_width=\"@dimen/_0dp\"\n        android:layout_height=\"@dimen/_56dp\"\n        android:layout_marginTop=\"@dimen/_31dp\"\n        android:layout_weight=\"1\"\n        android:background=\"@drawable/search_input_field_bg_shape\"\n        android:hint=\"@string/search_hint_text\"\n        android:imeOptions=\"actionDone\"\n        android:inputType=\"text\"\n        android:maxLines=\"1\"\n        android:paddingHorizontal=\"@dimen/_16dp\"\n        android:singleLine=\"true\"\n        android:textColor=\"?attr/text_color\"\n        android:textColorHint=\"?attr/hint_text_color\"\n        android:textCursorDrawable=\"@drawable/color_cursor\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/tv_search_title\" />\n\n    <ImageView\n        android:id=\"@+id/btn_clear\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_gravity=\"center\"\n        android:layout_marginEnd=\"@dimen/_16dp\"\n        android:src=\"@drawable/ic_search\"\n        android:visibility=\"visible\"\n        app:layout_constraintBottom_toBottomOf=\"@id/et_search\"\n        app:layout_constraintEnd_toEndOf=\"@id/et_search\"\n        app:layout_constraintTop_toTopOf=\"@id/et_search\"\n        app:tint=\"?attr/black_universal\" />\n\n    <TextView\n        android:id=\"@+id/tv_result_count_chips\"\n        style=\"@style/YsDisplayregular16\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"@dimen/_12dp\"\n        android:background=\"@drawable/result_count_chip_shape\"\n        android:paddingHorizontal=\"@dimen/_12dp\"\n        android:paddingVertical=\"@dimen/_4dp\"\n        android:textColor=\"?attr/white_universal\"\n        android:visibility=\"gone\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/et_search\"\n        tools:text=\"@string/vacancy_count_chips_text\" />\n\n    <androidx.recyclerview.widget.RecyclerView\n        android:id=\"@+id/rv_search_result\"\n        android:layout_width=\"@dimen/_0dp\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"@dimen/_12dp\"\n        android:visibility=\"visible\"\n        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/et_search\" />\n\n    <ImageView\n        android:id=\"@+id/iv_pic_placeholder\"\n        android:layout_width=\"@dimen/_328dp\"\n        android:layout_height=\"@dimen/_223dp\"\n        android:src=\"@drawable/ic_default_search_placeholder_pic\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/et_search\" />\n\n    <ProgressBar\n        android:id=\"@+id/pb_circle\"\n        android:layout_width=\"@dimen/_48dp\"\n        android:layout_height=\"@dimen/_48dp\"\n        android:indeterminate=\"true\"\n        android:indeterminateTint=\"?attr/blue\"\n        android:visibility=\"gone\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/et_search\" />\n\n    <TextView\n        android:id=\"@+id/tv_error_placeholder\"\n        style=\"@style/YsDisplayMedium22\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"@dimen/_16dp\"\n        android:visibility=\"gone\"\n        app:layout_constraintEnd_toStartOf=\"@id/right_guideline\"\n        app:layout_constraintStart_toEndOf=\"@id/left_guideline\"\n        app:layout_constraintTop_toBottomOf=\"@id/iv_pic_placeholder\"\n        tools:text=\"@string/no_internet_error_text\" />\n\n</androidx.constraintlayout.widget.ConstraintLayout>\n
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/res/layout/fragment_search.xml b/app/src/main/res/layout/fragment_search.xml
+---- a/app/src/main/res/layout/fragment_search.xml	(revision bab639df737d2127bdda2609c7ada2628b6f1572)
+-+++ b/app/src/main/res/layout/fragment_search.xml	(date 1706254473938)
+-@@ -36,7 +36,6 @@
+-         android:id="@+id/btn_filter"
+-         android:layout_width="@dimen/_24dp"
+-         android:layout_height="@dimen/_24dp"
+--        android:layout_gravity="end"
+-         android:layout_marginTop="@dimen/_20dp"
+-         android:background="@null"
+-         android:src="@drawable/ic_filter_off"
+Index: .idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
++++ /dev/null	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_rebase_[Changes]1" date="1706254910387" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before rebase [Changes]" />
+-</changelist>
+\ No newline at end of file
+Index: app/src/main/java/ru/practicum/android/diploma/ui/filter/fragment/LocalityTypeFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package ru.practicum.android.diploma.ui.filter.fragment\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport ru.practicum.android.diploma.databinding.FragmentLocalityTypeBinding\r\nimport ru.practicum.android.diploma.util.BindingFragment\r\n\r\nclass LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {\r\n    override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocalityTypeBinding {\r\n        return FragmentLocalityTypeBinding.inflate(inflater, container, false)\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/ru/practicum/android/diploma/ui/filter/fragment/LocalityTypeFragment.kt b/app/src/main/java/ru/practicum/android/diploma/ui/filter/fragment/LocalityTypeFragment.kt
+--- a/app/src/main/java/ru/practicum/android/diploma/ui/filter/fragment/LocalityTypeFragment.kt	(revision 5addde69a6bd8bb03049a1c68637019f818f0ea6)
++++ b/app/src/main/java/ru/practicum/android/diploma/ui/filter/fragment/LocalityTypeFragment.kt	(date 1706894252275)
+@@ -1,7 +1,12 @@
+ package ru.practicum.android.diploma.ui.filter.fragment
+ 
++import android.os.Bundle
+ import android.view.LayoutInflater
++import android.view.View
+ import android.view.ViewGroup
++import androidx.core.widget.doOnTextChanged
++import androidx.navigation.fragment.findNavController
++import ru.practicum.android.diploma.R
+ import ru.practicum.android.diploma.databinding.FragmentLocalityTypeBinding
+ import ru.practicum.android.diploma.util.BindingFragment
+ 
+@@ -9,4 +14,41 @@
+     override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocalityTypeBinding {
+         return FragmentLocalityTypeBinding.inflate(inflater, container, false)
+     }
++
++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
++        super.onViewCreated(view, savedInstanceState)
++        bind()
++    }
++
++    private fun bind() {
++        with(binding) {
++            etCountryLayout.doOnTextChanged { text, _, _, _ ->
++                if (text.isNullOrEmpty()) {
++                    binding.etCountry.setEndIconDrawable(R.drawable.ic_arrow_forward)
++                } else {
++                    binding.etCountry.setEndIconDrawable(R.drawable.ic_close)
++                }
++            }
++            etCountry.setEndIconOnClickListener {
++                binding.etCountryLayout.text?.clear()
++            }
++            etCountryLayout.setOnClickListener {
++                // to country picker fragment
++            }
++            etRegionLayout.doOnTextChanged { text, _, _, _ ->
++                if (text.isNullOrEmpty()) {
++                    binding.etRegion.setEndIconDrawable(R.drawable.ic_arrow_forward)
++                } else {
++                    binding.etRegion.setEndIconDrawable(R.drawable.ic_close)
++                }
++            }
++            etRegion.setEndIconOnClickListener {
++                binding.etRegionLayout.text?.clear()
++            }
++            etRegionLayout.setOnClickListener {
++                findNavController().navigate(R.id.action_localityTypeFragment_to_localityPickerFragment)
++            }
++        }
++
++    }
+ }
