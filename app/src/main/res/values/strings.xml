@@ -52,4 +52,5 @@
     <string name="hint_region_text">Регион</string>
     <string name="hint_country_text">Страна</string>
     <string name="btn_apply_text">Выбрать</string>
+    <string name="country_choose_title_text">Выбор страны</string>
 </resources>
