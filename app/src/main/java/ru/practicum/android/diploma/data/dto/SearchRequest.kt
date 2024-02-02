@@ -25,7 +25,11 @@ data class SearchRequest(
         ): SearchRequest {
             val mapStr = mutableMapOf<String, String>()
             if (text != "") mapStr[KEY_TEXT] = text
-            if (searchSettings.placeId != EMPTY_PARAM_SRT) mapStr[KEY_AREA] = searchSettings.placeId
+            if (searchSettings.placeId != EMPTY_PARAM_SRT) {
+                mapStr[KEY_AREA] = searchSettings.placeId
+            } else if (searchSettings.countryId != EMPTY_PARAM_SRT) {
+                mapStr[KEY_AREA] = searchSettings.countryId
+            }
             if (searchSettings.industryName != EMPTY_PARAM_SRT) mapStr[KEY_INDUSTRY] = searchSettings.industryName
             val mapNum = mutableMapOf<String, Int>()
             mapNum[KEY_PER_PAGE] = ITEMS_PER_SHEET

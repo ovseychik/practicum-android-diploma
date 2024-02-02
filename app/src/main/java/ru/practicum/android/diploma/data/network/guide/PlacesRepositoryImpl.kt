@@ -97,4 +97,28 @@ class PlacesRepositoryImpl(private val client: NetworkClient) : PlacesRepository
         }
     }
 
+    override suspend fun getCountries(): Flow<SearchResultData<Set<Country>>> = flow {
+        val searchResult = client.getAllAreas()
+        val data = searchResult.getOrNull()
+        val error = searchResult.exceptionOrNull()
+        when {
+            data != null -> {
+                val mapPlaces = mapToListPlacesItem(data)
+                emit(SearchResultData.Data(mapPlaces.keys))
+            }
+
+            error is ConnectException -> {
+                emit(SearchResultData.NoInternet(R.string.no_internet))
+            }
+
+            error is SocketTimeoutException -> {
+                emit(SearchResultData.NoInternet(R.string.no_internet))
+            }
+
+            error is HttpException -> {
+                emit(SearchResultData.ErrorServer(R.string.server_error))
+            }
+        }
+    }
+
 }
