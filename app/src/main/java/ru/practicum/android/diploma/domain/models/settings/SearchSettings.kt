@@ -14,3 +14,14 @@ data class SearchSettings(
     val place: PlaceItem,
     val industry: IndustryItem
 )
+
+fun setDefault(): SearchSettings {
+    return SearchSettings(
+        settingsId = ValuesSearchId.BASE,
+        salary = EMPTY_PARAM_NUM,
+        isSalarySpecified = false,
+        country = Country("", ""),
+        place = PlaceItem("", ""),
+        industry = IndustryItem(""),
+    )
+}
