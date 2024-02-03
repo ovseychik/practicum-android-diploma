@@ -24,8 +24,10 @@
     <dimen name="_12dp">12dp</dimen>
     <dimen name="_48dp">48dp</dimen>
     <dimen name="_56dp">56dp</dimen>
+    <dimen name="_59dp">59dp</dimen>
     <dimen name="_68dp">68dp</dimen>
     <dimen name="_4dp">4dp</dimen>
+    <dimen name="_6dp">6dp</dimen>
     <dimen name="_8dp">8dp</dimen>
     <dimen name="_28dp">28dp</dimen>
     <dimen name="_32dp">32dp</dimen>

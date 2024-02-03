@@ -55,4 +55,13 @@
     <string name="city_picker_title">Выбор региона</string>
     <string name="choose_region_hint">Введите регион</string>
     <string name="country_choose_title_text">Выбор страны</string>
+
+    <string name="filter_settings">Настройки фильтрации</string>
+    <string name="workplace">Место работы</string>
+    <string name="industry">Отрасль</string>
+    <string name="expected_salary">Ожидаемая зарплата</string>
+    <string name="input_salary">Введите сумму</string>
+    <string name="do_not_show__without_salary">Не показывать без зарплаты</string>
+    <string name="apply">Применить</string>
+    <string name="clear">Сбросить</string>
 </resources>
