@@ -63,7 +63,6 @@ class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewMode
         }
     }
 
-
     private fun processingResult(result: SearchResultData<List<PlaceItem>>) {
         when (result) {
             is SearchResultData.Data -> {
