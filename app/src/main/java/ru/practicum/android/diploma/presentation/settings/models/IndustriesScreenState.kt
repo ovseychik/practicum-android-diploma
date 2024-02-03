@@ -8,6 +8,5 @@ sealed interface IndustriesScreenState {
     data class Error(@StringRes val message: Int) : IndustriesScreenState
     data class NoInternet(@StringRes val message: Int) : IndustriesScreenState
     object Empty : IndustriesScreenState
-
-    object Loading: IndustriesScreenState
+    object Loading : IndustriesScreenState
 }
