@@ -52,4 +52,7 @@
     <string name="hint_region_text">Регион</string>
     <string name="hint_country_text">Страна</string>
     <string name="btn_apply_text">Выбрать</string>
+    <string name="city_picker_title">Выбор региона</string>
+    <string name="choose_region_hint">Введите регион</string>
+    <string name="country_choose_title_text">Выбор страны</string>
 </resources>

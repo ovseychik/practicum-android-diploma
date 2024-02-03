@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.data.settings
 
 import ru.practicum.android.diploma.data.SettingsStorage
+import ru.practicum.android.diploma.data.models.ValuesSearchId
 import ru.practicum.android.diploma.data.models.mapToSearchSetting
 import ru.practicum.android.diploma.data.models.mapToSearchSettingsData
 import ru.practicum.android.diploma.domain.api.settings.SettingsRepository
@@ -32,17 +33,44 @@ class SettingsRepositoryImpl(private val storage: SettingsStorage) : SettingsRep
 
     override fun setCountryInSettings(country: Country) {
         val settings = mapToSearchSetting(storage.getSettings())
-        storage.saveSettings(mapToSearchSettingsData(settings.copy(country = country)))
+        if (settings.country.countryId != country.countryId) {
+            storage.saveSettings(
+                mapToSearchSettingsData(
+                    settings.copy(
+                        country = country,
+                        settingsId = ValuesSearchId.MODIFIED
+                    )
+                )
+            )
+        }
     }
 
     override fun setPlaceInSettings(place: PlaceItem) {
         val settings = mapToSearchSetting(storage.getSettings())
-        storage.saveSettings(mapToSearchSettingsData(settings.copy(place = place)))
+        if (settings.place.areaId != place.areaId) {
+            storage.saveSettings(
+                mapToSearchSettingsData(
+                    settings.copy(
+                        place = place,
+                        settingsId = ValuesSearchId.MODIFIED
+                    )
+                )
+            )
+        }
     }
 
     override fun setIndustryInSettings(industry: IndustryItem) {
         val settings = mapToSearchSetting(storage.getSettings())
-        storage.saveSettings(mapToSearchSettingsData(settings.copy(industry = industry)))
+        if (settings.industry.industryName != industry.industryName) {
+            storage.saveSettings(
+                mapToSearchSettingsData(
+                    settings.copy(
+                        industry = industry,
+                        settingsId = ValuesSearchId.MODIFIED
+                    )
+                )
+            )
+        }
     }
 
 }
