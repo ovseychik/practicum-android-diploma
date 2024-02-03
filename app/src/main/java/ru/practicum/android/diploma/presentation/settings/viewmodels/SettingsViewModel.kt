@@ -18,7 +18,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     private var _screenState: MutableLiveData<SearchSettings> = MutableLiveData()
     val screenState: LiveData<SearchSettings> = _screenState
     private var _isSettingsModifed: MutableLiveData<Boolean> = MutableLiveData(false)
-    val isSettingsModifed: LiveData<Boolean> = _isSettingsModifed
+    val isSettingsModified: LiveData<Boolean> = _isSettingsModifed
     private var currentSettings = setDefault()
     fun getSettings() {
         currentSettings = settingsInteractor.getSettings()
