@@ -53,4 +53,21 @@
         <item name="cornerRadius">@dimen/_12dp</item>
     </style>
 
+    <style name="FilterFilledBoxStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:paddingLeft">@dimen/_0dp</item>
+        <item name="android:paddingStart">@dimen/_0dp</item>
+        <item name="android:paddingRight">@dimen/_0dp</item>
+        <item name="android:paddingEnd">@dimen/_0dp</item>
+    </style>
+
+    <style name="check_mark">
+        <item name="colorAccent">?attr/black_universal</item>
+        <item name="buttonTint">?attr/blue</item>
+    </style>
+
+    <style name="ThemeFilterMenuItemSalaryOverlay.AppTheme.TextInputEditText.FilledBox" parent="">
+        <item name="colorControlActivated">@color/blue</item>
+        <item name="colorAccent">@color/blue</item>
+    </style>
+
 </resources>
