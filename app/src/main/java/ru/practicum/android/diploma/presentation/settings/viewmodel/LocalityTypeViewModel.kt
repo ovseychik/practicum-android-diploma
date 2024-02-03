@@ -42,4 +42,12 @@ class LocalityTypeViewModel(private val placesInteractor: PlacesInteractor) : Vi
             _screenState.postValue(LocalityTypeScreenState.Empty)
         }
     }
+
+    fun savePlaceToSettings(placeItem: PlaceItem) {
+        placesInteractor.setPlaceInSettings(placeItem)
+    }
+
+    fun saveCountryToSettings(countryItem: Country) {
+        placesInteractor.setCountryInSettings(countryItem)
+    }
 }
