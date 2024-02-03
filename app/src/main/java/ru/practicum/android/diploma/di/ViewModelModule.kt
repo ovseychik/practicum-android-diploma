@@ -3,7 +3,6 @@ package ru.practicum.android.diploma.di
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.practicum.android.diploma.presentation.favorite.viewmodel.FavoriteViewModel
-import ru.practicum.android.diploma.presentation.settings.IndustriesViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodel.LocalityTypeViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodels.IndustriesViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodels.SettingsViewModel
@@ -29,7 +28,7 @@ val viewModelModule = module {
 
     viewModel<LocalityTypeViewModel> {
         LocalityTypeViewModel(placesInteractor = get())
-    {
+    }
 
     viewModel<SettingsViewModel> {
         SettingsViewModel(settingsInteractor = get())
