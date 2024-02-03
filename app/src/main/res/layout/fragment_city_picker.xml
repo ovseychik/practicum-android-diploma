@@ -106,22 +106,6 @@
         app:layout_constraintTop_toBottomOf="@id/et_search"
         tools:listitem="@layout/view_country_item" />
 
-    <TextView
-        android:id="@+id/tv_result_count_chips"
-        style="@style/YsDisplayRegular16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12dp"
-        android:background="@drawable/result_count_chip_shape"
-        android:paddingHorizontal="@dimen/_12dp"
-        android:paddingVertical="@dimen/_4dp"
-        android:textColor="?attr/white_universal"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@id/right_guideline"
-        app:layout_constraintStart_toEndOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/et_search"
-        tools:text="@string/vacancy_count_chips_text" />
-
     <ImageView
         android:id="@+id/iv_pic_placeholder"
         android:layout_width="@dimen/_328dp"
