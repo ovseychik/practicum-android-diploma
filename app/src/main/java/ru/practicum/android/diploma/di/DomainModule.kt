@@ -35,7 +35,7 @@ val domainModule = module {
     }
 
     single<RepositoryVacancies> {
-        RepositoryVacanciesImpl(client = get(), settingsPref = get(), json = get())
+        RepositoryVacanciesImpl(client = get(), settingsStorage = get(), json = get())
     }
 
     single<DetailsInteractor> {
@@ -74,7 +74,7 @@ val domainModule = module {
         IndustriesInteractorImpl(industriesRepository = get(), settingsRepository = get())
     }
 
-    factory<SettingsInteractor> {
+    single<SettingsInteractor> {
         SettingInteractorImpl(settingsRepository = get())
     }
 
