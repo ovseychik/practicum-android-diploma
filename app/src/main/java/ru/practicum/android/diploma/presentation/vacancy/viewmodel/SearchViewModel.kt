@@ -8,7 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.data.models.ValuesSearchId
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
+import ru.practicum.android.diploma.domain.api.settings.SettingsInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import ru.practicum.android.diploma.presentation.vacancy.models.PageLoadingState
@@ -16,8 +18,14 @@ import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacan
 import ru.practicum.android.diploma.presentation.vacancy.models.SingleLiveEvent
 
 class SearchViewModel(
-    private val vacanciesInteractor: VacanciesInteractor
+    private val vacanciesInteractor: VacanciesInteractor,
+    private val settingsInteractor: SettingsInteractor
 ) : ViewModel() {
+
+    init {
+        val settings = settingsInteractor.getSettings()
+        settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
+    }
 
     private val _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
     private val _showToastState = SingleLiveEvent<PageLoadingState>()
