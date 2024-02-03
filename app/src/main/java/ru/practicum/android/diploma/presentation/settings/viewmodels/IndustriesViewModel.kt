@@ -22,6 +22,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     private var selectedIndustry = industriesInteractor.getIndustryFromSettings()
     private val industriesList = mutableListOf<IndustryItem>()
     fun getIndustries() {
+        _screenState.postValue(IndustriesScreenState.Loading)
         viewModelScope.launch {
             industriesInteractor.getIndustries().collect {
                 industriesList.clear()
