@@ -46,7 +46,7 @@ class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
 
     private fun bind() {
         with(binding) {
-            rvCountry.adapter = countriesAdapter
+            rvCountries.adapter = countriesAdapter
             btnBack.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -67,13 +67,13 @@ class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
     }
 
     private fun showContent(countries: List<Country>) {
-        binding.rvCountry.isVisible = true
+        binding.rvCountries.isVisible = true
         countriesAdapter.addCountries(countries)
     }
 
     private fun showErrorState(message: String) {
         with(binding) {
-            rvCountry.isVisible = false
+            rvCountries.isVisible = false
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             // добавить в верстку error (на макете нет)
         }
@@ -81,7 +81,7 @@ class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
 
     private fun showNoInternetState(message: String) {
         with(binding) {
-            rvCountry.isVisible = false
+            rvCountries.isVisible = false
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             // добавить в верстку no internet(на макете нет)
         }
@@ -89,7 +89,7 @@ class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
 
     private fun showLoading() {
         with(binding) {
-            rvCountry.isVisible = false
+            rvCountries.isVisible = false
             Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
             // добавить в верстку loading (на макете нет)
         }
