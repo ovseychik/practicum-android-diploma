@@ -10,5 +10,5 @@ interface PlacesRepository {
     suspend fun getPlacesById(countryId: String): Flow<SearchResultData<List<PlaceItem>>>
     suspend fun getCountryById(placeId: String): Flow<SearchResultData<Country>>
     suspend fun getCountries(): Flow<SearchResultData<Set<Country>>>
-
+    fun getCountryById(placeId: String, allPlaces: Map<Country, List<PlaceItem>>): Country
 }
