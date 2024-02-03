@@ -29,6 +29,11 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateState()
+    }
+
     private fun render(screenState: LocalityTypeScreenState) {
         when (screenState) {
             is LocalityTypeScreenState.Content -> {
@@ -62,12 +67,12 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 setButtonVisibility(text)
             }
             etCountry.setEndIconOnClickListener {
-                binding.etCountryLayout.text?.clear()
                 viewModel.deleteCountryFromSettings()
+                viewModel.updateState()
             }
             etRegion.setEndIconOnClickListener {
-                binding.etRegionLayout.text?.clear()
                 viewModel.deleteCityFromSettings()
+                viewModel.updateState()
             }
             etCountryLayout.setOnClickListener {
                 findNavController().navigate(R.id.action_localityTypeFragment_to_countryPickerFragment2)

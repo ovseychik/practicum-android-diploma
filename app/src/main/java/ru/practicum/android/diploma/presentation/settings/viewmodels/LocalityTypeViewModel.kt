@@ -36,6 +36,8 @@ class LocalityTypeViewModel(private val placesInteractor: PlacesInteractor) : Vi
     }
 
     fun updateState() {
+        place = placesInteractor.getPlaceFromSettings()
+        setCountryByPlaceId(place)
         if (place.areaId.isNotEmpty()) {
             _screenState.postValue(LocalityTypeScreenState.Content(place, country))
         } else {
