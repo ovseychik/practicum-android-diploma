@@ -59,7 +59,7 @@
         android:label="TeamFragment" />
     <fragment
         android:id="@+id/localityTypeFragment"
-        android:name="ru.practicum.android.diploma.ui.filter.fragment.LocalityTypeFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.fragment.placeofwork.LocalityTypeFragment"
         android:label="LocalityTypeFragment" >
         <action
             android:id="@+id/action_localityTypeFragment_to_cityPickerFragment"
