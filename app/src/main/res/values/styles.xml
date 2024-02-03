@@ -53,4 +53,10 @@
         <item name="cornerRadius">@dimen/_12dp</item>
     </style>
 
+    <style name="FilterFilledBoxStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    <item name="android:paddingLeft">@dimen/_0dp</item>
+    <item name="android:paddingStart">@dimen/_0dp</item>
+    <item name="android:paddingRight">@dimen/_0dp</item>
+    <item name="android:paddingEnd">@dimen/_0dp</item>
+    </style>
 </resources>
