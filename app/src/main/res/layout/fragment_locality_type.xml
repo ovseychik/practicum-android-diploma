@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/screen_background_color"
-    tools:context="ui.filter.fragment.LocalityTypeFragment">
+    tools:context=".ui.filter.fragment.placeofwork.LocalityTypeFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_guideline"

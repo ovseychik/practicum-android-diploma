@@ -59,15 +59,23 @@
         android:label="TeamFragment" />
     <fragment
         android:id="@+id/localityTypeFragment"
-        android:name="ru.practicum.android.diploma.ui.filter.fragment.LocalityTypeFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.fragment.placeofwork.LocalityTypeFragment"
         android:label="LocalityTypeFragment" >
         <action
             android:id="@+id/action_localityTypeFragment_to_cityPickerFragment"
             app:destination="@id/cityPickerFragment" />
+        <action
+            android:id="@+id/action_localityTypeFragment_to_countryPickerFragment2"
+            app:destination="@id/countryPickerFragment2" />
     </fragment>
     <fragment
         android:id="@+id/cityPickerFragment"
         android:name="ru.practicum.android.diploma.ui.filter.fragment.citypicker.CityPickerFragment"
         android:label="fragment_city_picker"
         tools:layout="@layout/fragment_city_picker" />
+    <fragment
+        android:id="@+id/countryPickerFragment2"
+        android:name="ru.practicum.android.diploma.ui.filter.fragment.countrypicker.CountryPickerFragment"
+        android:label="fragment_country_picker"
+        tools:layout="@layout/fragment_country_picker" />
 </navigation>
