@@ -13,6 +13,10 @@ import ru.practicum.android.diploma.presentation.settings.models.IndustriesScree
 
 class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor) : ViewModel() {
 
+    init {
+        getIndustries()
+    }
+
     private var _screenState: MutableLiveData<IndustriesScreenState> = MutableLiveData()
     val screenState: LiveData<IndustriesScreenState> = _screenState
     private val industriesList = mutableListOf<IndustryItem>()
