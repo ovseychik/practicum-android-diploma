@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/screen_background_color"
-    tools:context="ui.vacancydetails.fragment.VacancyDetailsFragment">
+    tools:context="ui.filter.fragment.FilterFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_guideline"
