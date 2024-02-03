@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ViewCountryItemBinding
+import ru.practicum.android.diploma.domain.models.guides.Country
 import ru.practicum.android.diploma.domain.models.guides.PlaceItem
 import ru.practicum.android.diploma.presentation.settings.viewholders.LocalityViewHolder
 
@@ -29,6 +30,13 @@ class LocalityAdapter(private val onClick: (LocalityAdapterItem) -> Unit) :
             items.add(LocalityAdapterItem.City(it))
         }
         notifyItemRangeInserted(items.size - places.size, places.size)
+    }
+
+    fun addCountries(countries: List<Country>) {
+        countries.forEach {
+            items.add(LocalityAdapterItem.CountryItem(it))
+        }
+        notifyDataSetChanged()
     }
 
     fun clearData() {
