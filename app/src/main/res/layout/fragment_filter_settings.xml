@@ -86,7 +86,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/industry"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        style="@style/FilterFilledBoxStyle"
         android:layout_width="@dimen/_0dp"
         android:layout_height="wrap_content"
         android:hint="@string/industry"
@@ -184,8 +184,8 @@
         android:backgroundTint="?attr/blue"
         android:minHeight="@dimen/_59dp"
         android:text="@string/apply"
-        android:textColor="?attr/white_universal"
         android:textAppearance="@style/YsDisplayMedium16"
+        android:textColor="?attr/white_universal"
         app:cornerRadius="@dimen/_12dp"
         app:layout_constraintBottom_toTopOf="@id/clear_filter_settings_button"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
