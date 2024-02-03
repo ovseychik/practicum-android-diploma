@@ -64,7 +64,6 @@
         android:paddingEnd="@dimen/_4dp"
         android:textAppearance="@style/YsDisplayRegular16"
         android:textColor="?attr/text_color"
-        android:textColorHint="?attr/text_color"
         app:boxStrokeWidth="@dimen/_0dp"
         app:endIconDrawable="@drawable/ic_arrow_forward"
         app:endIconMode="custom"
@@ -94,7 +93,6 @@
         android:paddingEnd="@dimen/_4dp"
         android:textAppearance="@style/YsDisplayRegular16"
         android:textColor="?attr/text_color"
-        android:textColorHint="?attr/text_color"
         app:boxStrokeWidth="@dimen/_0dp"
         app:endIconDrawable="@drawable/ic_arrow_forward"
         app:endIconMode="custom"
@@ -175,7 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:checked="true" />
+            android:checked="false" />
     </LinearLayout>
 
     <Button
@@ -186,6 +184,7 @@
         android:backgroundTint="?attr/blue"
         android:minHeight="@dimen/_59dp"
         android:text="@string/apply"
+        android:textColor="?attr/white_universal"
         android:textAppearance="@style/YsDisplayMedium16"
         app:cornerRadius="@dimen/_12dp"
         app:layout_constraintBottom_toTopOf="@id/clear_filter_settings_button"
