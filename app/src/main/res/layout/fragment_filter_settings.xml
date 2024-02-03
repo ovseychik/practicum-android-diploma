@@ -61,28 +61,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16dp"
         android:hint="@string/workplace"
-        android:textColorHint="?attr/text_color"
+        android:paddingEnd="@dimen/_4dp"
         android:textAppearance="@style/YsDisplayRegular16"
         android:textColor="?attr/text_color"
+        android:textColorHint="?attr/text_color"
+        app:boxStrokeWidth="@dimen/_0dp"
         app:endIconDrawable="@drawable/ic_arrow_forward"
         app:endIconMode="custom"
         app:endIconTint="?attr/text_color"
-        app:boxStrokeWidth="@dimen/_0dp"
-        android:paddingEnd="@dimen/_4dp"
         app:hintTextAppearance="@style/YsDisplayRegular12"
-        app:layout_constraintStart_toEndOf="@id/left_guideline"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@id/filter_settings_header">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/workplace_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_0dp"
             android:background="@android:color/transparent"
             android:focusable="false"
+            android:paddingStart="@dimen/_0dp"
             android:textAppearance="@style/YsDisplayRegular16"
-            tools:text="Россия"/>
+            tools:text="Россия" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,29 +92,28 @@
         android:layout_width="@dimen/_0dp"
         android:layout_height="wrap_content"
         android:hint="@string/industry"
-        android:textColorHint="?attr/text_color"
+        android:paddingEnd="@dimen/_4dp"
         android:textAppearance="@style/YsDisplayRegular16"
         android:textColor="?attr/text_color"
+        android:textColorHint="?attr/text_color"
+        app:boxStrokeWidth="@dimen/_0dp"
         app:endIconDrawable="@drawable/ic_arrow_forward"
         app:endIconMode="custom"
         app:endIconTint="?attr/text_color"
-        app:boxStrokeWidth="@dimen/_0dp"
-        android:paddingEnd="@dimen/_4dp"
         app:hintTextAppearance="@style/YsDisplayRegular12"
-        app:layout_constraintStart_toEndOf="@id/left_guideline"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@id/workplace">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/industry_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_0dp"
             android:background="@android:color/transparent"
             android:focusable="false"
+            android:paddingStart="@dimen/_0dp"
             android:textAppearance="@style/YsDisplayRegular16"
-            tools:text="IT"
-            />
+            tools:text="IT" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -173,42 +172,40 @@
 
         <CheckBox
             android:id="@+id/do_not_show_without_salary_checkbox"
+            style="@style/check_mark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:buttonTint="@color/blue"
-            android:checked="false" />
+            android:checked="true" />
     </LinearLayout>
 
     <Button
         android:id="@+id/apply_filter_settings_button"
         android:layout_width="@dimen/_0dp"
         android:layout_height="wrap_content"
-        android:text="@string/apply"
-        android:minHeight="@dimen/_59dp"
-        app:cornerRadius="@dimen/_12dp"
-        app:layout_constraintEnd_toStartOf="@id/right_guideline"
-        app:layout_constraintStart_toEndOf="@id/left_guideline"
-        android:backgroundTint="?attr/blue"
-        android:textAppearance="@style/YsDisplayMedium16"
         android:layout_marginBottom="@dimen/_8dp"
+        android:backgroundTint="?attr/blue"
+        android:minHeight="@dimen/_59dp"
+        android:text="@string/apply"
+        android:textAppearance="@style/YsDisplayMedium16"
+        app:cornerRadius="@dimen/_12dp"
         app:layout_constraintBottom_toTopOf="@id/clear_filter_settings_button"
-        />
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline" />
 
     <Button
         android:id="@+id/clear_filter_settings_button"
         android:layout_width="@dimen/_0dp"
         android:layout_height="wrap_content"
-        android:text="@string/clear"
-        android:textColor="?attr/red"
-        android:textAppearance="@style/YsDisplayMedium16"
+        android:layout_marginBottom="@dimen/_24dp"
         android:backgroundTint="@android:color/transparent"
         android:minHeight="@dimen/_59dp"
-        android:layout_marginBottom="@dimen/_24dp"
-        app:layout_constraintEnd_toStartOf="@id/right_guideline"
-        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        android:text="@string/clear"
+        android:textAppearance="@style/YsDisplayMedium16"
+        android:textColor="?attr/red"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

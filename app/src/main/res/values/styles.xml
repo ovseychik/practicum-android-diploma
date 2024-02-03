@@ -59,4 +59,9 @@
     <item name="android:paddingRight">@dimen/_0dp</item>
     <item name="android:paddingEnd">@dimen/_0dp</item>
     </style>
+
+    <style name="check_mark">
+        <item name="colorAccent">?attr/black_universal</item>
+        <item name="buttonTint">?attr/blue</item>
+    </style>
 </resources>
