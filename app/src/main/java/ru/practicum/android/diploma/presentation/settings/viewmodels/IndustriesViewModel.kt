@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.presentation.settings
+package ru.practicum.android.diploma.presentation.settings.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,6 +19,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
 
     private var _screenState: MutableLiveData<IndustriesScreenState> = MutableLiveData()
     val screenState: LiveData<IndustriesScreenState> = _screenState
+    private var selectedIndustry = industriesInteractor.getIndustryFromSettings()
     private val industriesList = mutableListOf<IndustryItem>()
     fun getIndustries() {
         viewModelScope.launch {
@@ -37,7 +38,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
         if (filteredList.isEmpty()) {
             _screenState.postValue(IndustriesScreenState.Empty)
         } else {
-            _screenState.postValue(IndustriesScreenState.Content(filteredList))
+            _screenState.postValue(IndustriesScreenState.Content(filteredList, selectedIndustry.industryName))
         }
     }
 
@@ -50,7 +51,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
             is SearchResultData.Data -> {
                 industriesList.addAll(result.value!!)
                 industriesList.sortBy { it.industryName }
-                _screenState.postValue(IndustriesScreenState.Content(industriesList))
+                _screenState.postValue(IndustriesScreenState.Content(industriesList, selectedIndustry.industryName))
             }
 
             is SearchResultData.ErrorServer -> {
