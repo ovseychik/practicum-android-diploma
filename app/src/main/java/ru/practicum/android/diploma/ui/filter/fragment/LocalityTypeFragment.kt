@@ -46,7 +46,7 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 binding.etRegionLayout.text?.clear()
             }
             etRegionLayout.setOnClickListener {
-                findNavController().navigate(R.id.action_localityTypeFragment_to_localityPickerFragment)
+                findNavController().navigate(R.id.action_localityTypeFragment_to_cityPickerFragment)
             }
         }
 
