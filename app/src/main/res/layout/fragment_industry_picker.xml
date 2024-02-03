@@ -50,7 +50,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_4dp"
-            android:layout_marginEnd="@dimen/_4dp"
             android:layout_weight="1"
             android:text="@string/industry_choose_title_text"
             android:textColor="?attr/text_color" />
