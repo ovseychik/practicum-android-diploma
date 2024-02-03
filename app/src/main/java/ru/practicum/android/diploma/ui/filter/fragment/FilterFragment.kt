@@ -52,12 +52,17 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             binding.applyFilterSettingsButton.isVisible = it
         }
         val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                val text = s.toString()
+            }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 settingsViewModel.updateSalary(s.toString())
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString()
+            }
         }
         binding.expectedSalaryLayout.addTextChangedListener(textWatcher)
         setOnClicks()
@@ -68,7 +73,9 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         if (isSettingsEmpty(settings)) {
             val salary = if (settings.salary == EMPTY_PARAM_NUM) {
                 EMPTY_PARAM_SRT
-            } else settings.salary.toString()
+            } else {
+                settings.salary.toString()
+            }
             with(binding) {
                 doNotShowWithoutSalaryCheckbox.isChecked = settings.isSalarySpecified
                 expectedSalaryLayout.setText(salary)
