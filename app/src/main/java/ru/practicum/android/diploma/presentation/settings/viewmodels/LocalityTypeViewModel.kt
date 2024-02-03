@@ -50,4 +50,16 @@ class LocalityTypeViewModel(private val placesInteractor: PlacesInteractor) : Vi
     fun saveCountryToSettings(countryItem: Country) {
         placesInteractor.setCountryInSettings(countryItem)
     }
+
+    fun deleteCountryFromSettings() {
+        placesInteractor.setCountryInSettings(Country(EMPTY_VALUE, EMPTY_VALUE))
+    }
+
+    fun deleteCityFromSettings() {
+        placesInteractor.setPlaceInSettings(PlaceItem(EMPTY_VALUE, EMPTY_VALUE))
+    }
+
+    companion object {
+        private const val EMPTY_VALUE = ""
+    }
 }

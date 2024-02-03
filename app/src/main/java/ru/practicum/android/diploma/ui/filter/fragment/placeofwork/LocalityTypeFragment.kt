@@ -32,12 +32,17 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
     private fun render(screenState: LocalityTypeScreenState) {
         when (screenState) {
             is LocalityTypeScreenState.Content -> {
-                binding.etCountryLayout.setText(screenState.country.countryName)
-                binding.etRegionLayout.setText(screenState.place.areaName)
+                with(binding) {
+                    etCountryLayout.setText(screenState.country.countryName)
+                    etRegionLayout.setText(screenState.place.areaName)
+                }
             }
 
             LocalityTypeScreenState.Empty -> {
-
+                with(binding) {
+                    etCountryLayout.text?.clear()
+                    etRegionLayout.text?.clear()
+                }
             }
         }
     }
@@ -58,14 +63,14 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
             }
             etCountry.setEndIconOnClickListener {
                 binding.etCountryLayout.text?.clear()
-                // viewModel.deleteCountry
+                viewModel.deleteCountryFromSettings()
             }
             etRegion.setEndIconOnClickListener {
                 binding.etRegionLayout.text?.clear()
-                // viewmodel.deleteCity
+                viewModel.deleteCityFromSettings()
             }
             etCountryLayout.setOnClickListener {
-                // findNavController().navigate(R.id.action_localityTypeFragment_to_countryPickerFragment)
+                findNavController().navigate(R.id.action_localityTypeFragment_to_countryPickerFragment2)
             }
             etRegionLayout.setOnClickListener {
                 findNavController().navigate(R.id.action_localityTypeFragment_to_cityPickerFragment)
@@ -73,7 +78,9 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
             btnApply.setOnClickListener {
                 findNavController().popBackStack()
             }
+            btnBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
-
     }
 }
