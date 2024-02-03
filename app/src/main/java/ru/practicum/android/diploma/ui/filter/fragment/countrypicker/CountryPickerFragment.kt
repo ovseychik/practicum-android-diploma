@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCountryPickerBinding
 import ru.practicum.android.diploma.domain.models.guides.Country
 import ru.practicum.android.diploma.presentation.settings.adapters.LocalityAdapter
@@ -74,24 +75,31 @@ class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
     private fun showErrorState(message: String) {
         with(binding) {
             rvCountries.isVisible = false
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-            // добавить в верстку error (на макете нет)
+            ivPicPlaceholder.isVisible = true
+            tvErrorPlaceholder.isVisible = true
+            pbCircle.isVisible = false
+            ivPicPlaceholder.setImageResource(R.drawable.ic_server_error)
+            tvErrorPlaceholder.text = message
         }
     }
 
     private fun showNoInternetState(message: String) {
         with(binding) {
             rvCountries.isVisible = false
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-            // добавить в верстку no internet(на макете нет)
+            ivPicPlaceholder.isVisible = true
+            tvErrorPlaceholder.isVisible = true
+            pbCircle.isVisible = false
+            ivPicPlaceholder.setImageResource(R.drawable.ic_no_internet_pic)
+            tvErrorPlaceholder.text = message
         }
     }
 
     private fun showLoading() {
         with(binding) {
             rvCountries.isVisible = false
-            Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
-            // добавить в верстку loading (на макете нет)
+            ivPicPlaceholder.isVisible = false
+            tvErrorPlaceholder.isVisible = false
+            pbCircle.isVisible = true
         }
     }
 
