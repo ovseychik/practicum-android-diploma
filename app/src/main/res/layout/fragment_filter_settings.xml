@@ -81,8 +81,7 @@
             android:background="@android:color/transparent"
             android:focusable="false"
             android:paddingStart="@dimen/_0dp"
-            android:textAppearance="@style/YsDisplayRegular16"
-            tools:text="Россия" />
+            android:textAppearance="@style/YsDisplayRegular16" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,8 +111,7 @@
             android:background="@android:color/transparent"
             android:focusable="false"
             android:paddingStart="@dimen/_0dp"
-            android:textAppearance="@style/YsDisplayRegular16"
-            tools:text="IT" />
+            android:textAppearance="@style/YsDisplayRegular16" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,6 +123,7 @@
         android:layout_marginTop="@dimen/_24dp"
         android:hint="@string/expected_salary"
         android:textColorHint="?attr/hint_text_color"
+        android:theme="@style/ThemeFilterMenuItemSalaryOverlay.AppTheme.TextInputEditText.FilledBox"
         app:boxStrokeWidth="@dimen/_0dp"
         app:endIconMode="custom"
         app:endIconTint="?attr/text_color"
