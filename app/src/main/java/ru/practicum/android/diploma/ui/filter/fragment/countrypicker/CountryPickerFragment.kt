@@ -39,6 +39,7 @@ class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind()
+        viewModel.getCountries()
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
         }
@@ -67,7 +68,12 @@ class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
     }
 
     private fun showContent(countries: List<Country>) {
-        binding.rvCountries.isVisible = true
+        with(binding) {
+            rvCountries.isVisible = true
+            ivPicPlaceholder.isVisible = false
+            tvErrorPlaceholder.isVisible = false
+            pbCircle.isVisible = false
+        }
         countriesAdapter.addCountries(countries)
     }
 
