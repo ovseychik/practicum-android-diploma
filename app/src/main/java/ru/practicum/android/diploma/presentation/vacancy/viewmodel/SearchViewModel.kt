@@ -50,6 +50,20 @@ class SearchViewModel(
         }
     }
 
+    fun newSearch() {
+        if (currentQuery != EMPTY_QUERY) {
+            val settings = settingsInteractor.getSettings()
+            if (settings.settingsId == ValuesSearchId.BASE) {
+                viewModelScope.launch {
+                    currentPage = FIRST_PAGE
+                    getVacancies(currentQuery, currentPage)
+                }
+            } else {
+                settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
+            }
+        }
+    }
+
     fun debounceSearch(query: String) {
         if (query != currentQuery) {
             currentQuery = query
@@ -112,6 +126,11 @@ class SearchViewModel(
             currentPage++
             getVacancies(currentQuery, currentPage)
         }
+    }
+
+    fun updateSettingsToBase() {
+        val settings = settingsInteractor.getSettings()
+        settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
     }
 
     companion object {
