@@ -97,6 +97,18 @@ class PlacesRepositoryImpl(private val client: NetworkClient) : PlacesRepository
         }
     }
 
+    override fun getCountryById(placeId: String, allPlaces: Map<Country, List<PlaceItem>>): Country {
+        var resultCountry = Country("", "")
+        allPlaces.forEach { key, items ->
+            for (element in items) {
+                if (element.areaId == placeId) {
+                    resultCountry = key
+                }
+            }
+        }
+        return resultCountry
+    }
+
     override suspend fun getCountries(): Flow<SearchResultData<Set<Country>>> = flow {
         val searchResult = client.getAllAreas()
         val data = searchResult.getOrNull()

@@ -9,6 +9,7 @@ interface PlacesInteractor {
     suspend fun getAllPlaces(): Flow<SearchResultData<Map<Country, List<PlaceItem>>>>
     suspend fun getPlacesById(countryId: String): Flow<SearchResultData<List<PlaceItem>>>
     suspend fun getCountryById(placeId: String): Flow<SearchResultData<Country>>
+    fun getCountryById(placeId: String, allPlaces: Map<Country, List<PlaceItem>>): Country
     suspend fun getCountries(): Flow<SearchResultData<Set<Country>>>
     fun getCountryFromSettings(): Country
     fun getPlaceFromSettings(): PlaceItem

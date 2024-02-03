@@ -6,6 +6,7 @@ import ru.practicum.android.diploma.presentation.favorite.viewmodel.FavoriteView
 import ru.practicum.android.diploma.presentation.settings.viewmodels.CountriesViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodels.IndustriesViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodels.LocalityTypeViewModel
+import ru.practicum.android.diploma.presentation.settings.viewmodels.PlacesViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodels.SettingsViewModel
 import ru.practicum.android.diploma.presentation.vacancy.viewmodel.DetailsViewModel
 import ru.practicum.android.diploma.presentation.vacancy.viewmodel.SearchViewModel
@@ -37,5 +38,8 @@ val viewModelModule = module {
 
     viewModel<CountriesViewModel> {
         CountriesViewModel(placesInteractor = get())
+    }
+    viewModel<PlacesViewModel> {
+        PlacesViewModel(placesInteractor = get())
     }
 }

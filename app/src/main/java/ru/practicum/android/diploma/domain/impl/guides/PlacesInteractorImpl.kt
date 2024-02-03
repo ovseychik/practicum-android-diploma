@@ -24,6 +24,10 @@ class PlacesInteractorImpl(
         return placesRepository.getCountryById(placeId)
     }
 
+    override fun getCountryById(placeId: String, allPlaces: Map<Country, List<PlaceItem>>): Country {
+        return placesRepository.getCountryById(placeId, allPlaces)
+    }
+
     override suspend fun getCountries(): Flow<SearchResultData<Set<Country>>> {
         return placesRepository.getCountries()
     }
