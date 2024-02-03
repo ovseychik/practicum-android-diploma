@@ -105,6 +105,7 @@
         app:layout_constraintStart_toEndOf="@id/left_guideline"
         app:layout_constraintTop_toBottomOf="@id/et_search"
         tools:listitem="@layout/view_industry"
+        tools:itemCount="20"
         tools:visibility="visible" />
 
     <ImageView
@@ -143,18 +144,20 @@
         app:layout_constraintTop_toBottomOf="@id/iv_pic_placeholder"
         tools:text="@string/no_internet_error_text" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_select"
         style="@style/YsDisplayMedium16"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_56dp"
         android:layout_marginBottom="@dimen/_24dp"
         android:background="@drawable/rounded_button"
-        android:backgroundTint="?attr/blue"
         android:clickable="true"
+        android:gravity="center"
         android:text="@string/btn_apply_text"
+        android:textAlignment="center"
         android:textColor="?attr/white_universal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/left_guideline" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
