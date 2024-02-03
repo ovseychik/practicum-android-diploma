@@ -52,13 +52,4 @@
     <string name="hint_region_text">Регион</string>
     <string name="hint_country_text">Страна</string>
     <string name="btn_apply_text">Выбрать</string>
-
-    <string name="filter_settings">Настройки фильтрации</string>
-    <string name="workplace">Место работы</string>
-    <string name="industry">Отрасль</string>
-    <string name="expected_salary">Ожидаемая зарплата</string>
-    <string name="input_salary">Введите сумму</string>
-    <string name="do_not_show__without_salary">Не показывать без зарплаты</string>
-    <string name="apply">Применить</string>
-    <string name="clear">Сбросить</string>
 </resources>
