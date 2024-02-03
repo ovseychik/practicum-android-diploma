@@ -54,10 +54,8 @@
     </style>
 
     <style name="FilterFilledBoxStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="android:paddingLeft">@dimen/_0dp</item>
-        <item name="android:paddingStart">@dimen/_0dp</item>
-        <item name="android:paddingRight">@dimen/_0dp</item>
-        <item name="android:paddingEnd">@dimen/_0dp</item>
+        <item name="hintTextColor">?attr/text_color</item>
+        <item name="android:textColorHint">?attr/gray</item>
     </style>
 
     <style name="check_mark">
