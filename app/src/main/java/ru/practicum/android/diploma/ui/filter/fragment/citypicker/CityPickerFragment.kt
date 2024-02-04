@@ -114,9 +114,10 @@ class CityPickerFragment : BindingFragment<FragmentCityPickerBinding>() {
             etSearch.doAfterTextChanged { query ->
                 if (query.isNullOrEmpty()) {
                     btnClear.setImageResource(R.drawable.ic_search)
+                    viewModel.getPlaces()
                 } else {
                     btnClear.setImageResource(R.drawable.ic_close)
-                    viewModel.filteredPlaces(query.toString())
+                    viewModel.getFilteredPlaces(query.toString())
                 }
             }
             btnClear.setOnClickListener {

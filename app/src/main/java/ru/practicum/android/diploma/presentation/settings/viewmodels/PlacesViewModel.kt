@@ -39,11 +39,11 @@ class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewMode
         }
     }
 
-    fun filteredPlaces(query: String) {
+    fun getFilteredPlaces(query: String) {
         val filteredList = listPlaces
-        filteredList
             .filter { query.length <= it.areaName.length }
-            .filter { it.areaName.substring(0, query.length) == query }
+            .filter { it.areaName.substring(0, query.length).lowercase() == query.lowercase() }
+        _screenState.postValue(PlacesScreenState.Loading)
         if (filteredList.isEmpty()) {
             _screenState.postValue(PlacesScreenState.Empty(R.string.region_not_found))
         } else {
