@@ -20,19 +20,26 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     private var _isSettingsModifed: MutableLiveData<Boolean> = MutableLiveData(false)
     val isSettingsModified: LiveData<Boolean> = _isSettingsModifed
     private var currentSettings = setDefault()
-    private var currentSalary = ""
+    private var baseSettings = settingsInteractor.getSettings()
+    private var currentSalary = if (baseSettings.salary == EMPTY_PARAM_NUM) {
+        EMPTY_PARAM_SRT
+    } else {
+        baseSettings.salary.toString()
+    }
+
     fun getSettings() {
         currentSettings = settingsInteractor.getSettings()
-        if (currentSettings.salary == EMPTY_PARAM_NUM) {
-            currentSalary = EMPTY_PARAM_SRT
-        } else {
-            currentSalary = currentSettings.salary.toString()
-        }
         compareSettings()
         _screenState.postValue(currentSettings)
     }
 
     private fun compareSettings() {
+        if (baseSettings.country.countryId != currentSettings.country.countryId
+            || baseSettings.place.areaId != currentSettings.place.areaId
+        ) {
+            currentSettings = currentSettings.copy(settingsId = ValuesSearchId.MODIFIED)
+            settingsInteractor.saveSettings(currentSettings)
+        }
         if (currentSettings.settingsId == ValuesSearchId.MODIFIED) {
             _isSettingsModifed.postValue(true)
         } else {
@@ -41,33 +48,41 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     }
 
     fun savedIsSalarySpecified(newValue: Boolean) {
-        if (currentSettings.isSalarySpecified != newValue) {
+        if (baseSettings.isSalarySpecified != newValue) {
+            val modified = ValuesSearchId.MODIFIED
             currentSettings = currentSettings.copy(
                 isSalarySpecified = newValue,
-                settingsId = ValuesSearchId.MODIFIED
+                settingsId = modified
             )
             settingsInteractor.saveSettings(currentSettings)
-            compareSettings()
+        } else {
+            val modified = ValuesSearchId.BASE
+            currentSettings = currentSettings.copy(settingsId = modified)
         }
+        compareSettings()
     }
 
     fun saveSalary(newSalary: String) {
         if (currentSalary != newSalary) {
+            val modified = ValuesSearchId.MODIFIED
             if (newSalary == EMPTY_PARAM_SRT) {
                 currentSettings = currentSettings.copy(
                     salary = EMPTY_PARAM_NUM,
-                    settingsId = ValuesSearchId.MODIFIED
+                    settingsId = modified
                 )
                 settingsInteractor.saveSettings(currentSettings)
             } else {
                 currentSettings = currentSettings.copy(
                     salary = newSalary.toInt(),
-                    settingsId = ValuesSearchId.MODIFIED
+                    settingsId = modified
                 )
                 settingsInteractor.saveSettings(currentSettings)
             }
-            compareSettings()
+        } else {
+            val modified = ValuesSearchId.BASE
+            currentSettings = currentSettings.copy(settingsId = modified)
         }
+        compareSettings()
     }
 
     fun deletePlace() {

@@ -164,6 +164,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         applyFilterSettingsButton.setOnClickListener(listener)
         clearFilterSettingsButton.setOnClickListener(listener)
         backButton.setOnClickListener(listener)
+        doNotShowWithoutSalaryCheckbox.setOnClickListener(listener)
     }
 
     private fun onClick(): View.OnClickListener {
@@ -179,7 +180,6 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
 
                 R.id.do_not_show_without_salary -> {
                     binding.expectedSalaryLayout.clearFocus()
-                    val focus = binding.expectedSalaryLayout.hasFocus()
                     boxChecked = !boxChecked
                     binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
                     settingsViewModel.savedIsSalarySpecified(binding.doNotShowWithoutSalaryCheckbox.isChecked)
@@ -197,6 +197,14 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
 
                 R.id.back_button -> {
                     findNavController().navigateUp()
+                }
+
+                R.id.do_not_show_without_salary_checkbox -> {
+                    binding.expectedSalaryLayout.clearFocus()
+                    boxChecked = !boxChecked
+                    binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
+                    settingsViewModel.savedIsSalarySpecified(binding.doNotShowWithoutSalaryCheckbox.isChecked)
+                    setVisibilityCloseIcon(currentSalary)
                 }
             }
         }
