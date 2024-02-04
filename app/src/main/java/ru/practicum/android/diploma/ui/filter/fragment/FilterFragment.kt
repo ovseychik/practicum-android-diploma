@@ -74,13 +74,18 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
 
     private fun processingState(settings: SearchSettings) {
         binding.clearFilterSettingsButton.isVisible = isSettingsNotEmpty(settings)
+        val locate = StringBuilder("")
         with(binding) {
             boxChecked = settings.isSalarySpecified
             doNotShowWithoutSalaryCheckbox.isChecked = settings.isSalarySpecified
             industryLayout.setText(settings.industry.industryName)
             if (settings.country.countryId.isNotEmpty()) {
-                workplaceLayout.setText("${settings.country.countryName}, ${settings.place.areaName}")
+                locate.append(settings.country.countryName)
             }
+            if (settings.place.areaId.isNotEmpty()) {
+                locate.append(", ${settings.place.areaName}")
+            }
+            workplaceLayout.setText(locate)
             setSalary(settings)
         }
     }
