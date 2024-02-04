@@ -25,7 +25,6 @@ class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
     private val countriesAdapter = LocalityAdapter { country ->
         countryClickDebounce?.let {
             it(country as LocalityAdapterItem.CountryItem)
-            findNavController().popBackStack()
         }
     }
 
@@ -55,6 +54,7 @@ class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
         countryClickDebounce =
             debounce(CLICK_DEBOUNCE_DELAY_MILLIS, lifecycleScope, false) {
                 viewModel.saveCountry(it.country)
+                findNavController().popBackStack()
             }
     }
 
