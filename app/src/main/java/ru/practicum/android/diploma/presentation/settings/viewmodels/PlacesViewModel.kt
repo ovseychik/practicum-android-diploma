@@ -53,8 +53,6 @@ class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewMode
 
     fun savePlace(place: PlaceItem) {
         placesInteractor.setPlaceInSettings(place)
-        selectedCountry = placesInteractor.getCountryById(place.areaId, mapPlaces)
-        placesInteractor.setCountryInSettings(selectedCountry)
     }
 
     private fun processingResult(result: SearchResultData<List<PlaceItem>>) {
