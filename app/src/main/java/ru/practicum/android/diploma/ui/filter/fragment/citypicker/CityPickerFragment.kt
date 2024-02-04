@@ -1,7 +1,6 @@
 package ru.practicum.android.diploma.ui.filter.fragment.citypicker
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCityPickerBinding
 import ru.practicum.android.diploma.domain.models.guides.PlaceItem
-import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 import ru.practicum.android.diploma.presentation.settings.adapters.LocalityAdapter
 import ru.practicum.android.diploma.presentation.settings.adapters.LocalityAdapterItem
 import ru.practicum.android.diploma.presentation.settings.models.PlacesScreenState
@@ -64,7 +62,6 @@ class CityPickerFragment : BindingFragment<FragmentCityPickerBinding>() {
             tvErrorPlaceholder.isVisible = false
             ivPicPlaceholder.isVisible = false
             pbCircle.isVisible = false
-            Log.d("WTF", placesList.toString())
         }
         placesAdapter.clearData()
         placesAdapter.addPlaces(placesList)
