@@ -126,7 +126,7 @@
         app:boxStrokeWidthFocused="0dp"
         app:endIconDrawable="@drawable/ic_close"
         app:endIconMode="custom"
-        app:endIconTint="?attr/text_color"
+        app:endIconTint="?attr/black_universal"
         app:expandedHintEnabled="false"
         app:hintTextAppearance="@style/YsDisplayRegular12"
         app:hintTextColor="@color/blue"
@@ -142,7 +142,7 @@
             android:hint="@string/input_salary"
             android:inputType="number"
             android:textAppearance="@style/YsDisplayRegular16"
-            android:textColor="?attr/text_color"
+            android:textColor="?attr/black_universal"
             android:textColorHint="?attr/hint_text_color"
             android:textCursorDrawable="@drawable/color_cursor" />
 
