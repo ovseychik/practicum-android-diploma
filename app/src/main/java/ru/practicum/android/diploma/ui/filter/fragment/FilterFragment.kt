@@ -96,7 +96,8 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     }
 
     private fun setVisibilityCloseIcon(text: String) {
-        binding.expectedSalary.isEndIconVisible = text.isNotEmpty()
+        val hasFocus = binding.expectedSalaryLayout.hasFocus()
+        binding.expectedSalary.isEndIconVisible = text.isNotEmpty() && hasFocus
     }
 
     private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
@@ -120,6 +121,9 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         applyFilterSettingsButton.setOnClickListener(listener)
         clearFilterSettingsButton.setOnClickListener(listener)
         backButton.setOnClickListener(listener)
+        expectedSalaryLayout.setOnFocusChangeListener { vies, hasFocus ->
+            setVisibilityCloseIcon(currentSalary)
+        }
     }
 
     private fun onClick(): View.OnClickListener {
@@ -134,9 +138,12 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
                 }
 
                 R.id.do_not_show_without_salary -> {
+                    binding.expectedSalaryLayout.clearFocus()
+                    val focus = binding.expectedSalaryLayout.hasFocus()
                     boxChecked = !boxChecked
                     binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
                     settingsViewModel.savedIsSalarySpecified(binding.doNotShowWithoutSalaryCheckbox.isChecked)
+                    setVisibilityCloseIcon(currentSalary)
                 }
 
                 R.id.apply_filter_settings_button -> {
@@ -151,7 +158,6 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
                 R.id.back_button -> {
                     findNavController().navigateUp()
                 }
-
             }
         }
     }
