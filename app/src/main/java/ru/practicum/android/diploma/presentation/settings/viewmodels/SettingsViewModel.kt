@@ -87,13 +87,16 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     }
 
     fun deletePlace() {
-        currentSettings = currentSettings.copy(country = Country("", ""), place = PlaceItem("", ""))
+        currentSettings = currentSettings.copy(
+            country = Country(EMPTY_PARAM_SRT, EMPTY_PARAM_SRT),
+            place = PlaceItem(EMPTY_PARAM_SRT, EMPTY_PARAM_SRT)
+        )
         settingsInteractor.saveSettings(currentSettings)
         getSettings()
     }
 
     fun deleteIndustry() {
-        currentSettings = currentSettings.copy(industry = IndustryItem(""))
+        currentSettings = currentSettings.copy(industry = IndustryItem(EMPTY_PARAM_SRT))
         settingsInteractor.saveSettings(currentSettings)
         getSettings()
     }
