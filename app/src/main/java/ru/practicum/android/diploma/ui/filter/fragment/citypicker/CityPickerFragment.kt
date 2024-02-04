@@ -26,7 +26,6 @@ class CityPickerFragment : BindingFragment<FragmentCityPickerBinding>() {
     private val placesAdapter = LocalityAdapter { city ->
         cityClickDebounce?.let {
             it(city as LocalityAdapterItem.City)
-            findNavController().popBackStack()
         }
     }
 
@@ -130,6 +129,7 @@ class CityPickerFragment : BindingFragment<FragmentCityPickerBinding>() {
         }
         cityClickDebounce = debounce(CLICK_DEBOUNCE_DELAY_MILLIS, lifecycleScope, false) {
             viewModel.savePlace(it.place)
+            findNavController().popBackStack()
         }
     }
 
