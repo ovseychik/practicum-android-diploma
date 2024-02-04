@@ -61,9 +61,9 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
         with(binding) {
             etCountryLayout.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrEmpty()) {
-                    etCountryLayout.text?.clear()
-                } else {
                     etCountry.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                } else {
+                    etCountry.setEndIconDrawable(R.drawable.ic_close)
                 }
                 setButtonVisibility(text)
             }
