@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_searchFragment_to_vacancyDetailsFragment"
             app:destination="@id/vacancyDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_localityTypeFragment"
+            app:destination="@id/localityTypeFragment" />
     </fragment>
     <fragment
         android:id="@+id/vacancyDetailsFragment"

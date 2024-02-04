@@ -16,10 +16,6 @@ import ru.practicum.android.diploma.presentation.settings.models.PlacesScreenSta
 
 class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewModel() {
 
-    init {
-        getPlaces()
-    }
-
     private var _screenState: MutableLiveData<PlacesScreenState> = MutableLiveData()
     val screenState: LiveData<PlacesScreenState> = _screenState
     private val listPlaces = mutableListOf<PlaceItem>()
@@ -49,7 +45,7 @@ class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewMode
             .filter { query.length <= it.areaName.length }
             .filter { it.areaName.substring(0, query.length) == query }
         if (filteredList.isEmpty()) {
-            _screenState.postValue(PlacesScreenState.Empty)
+            _screenState.postValue(PlacesScreenState.Empty(R.string.region_not_found))
         } else {
             _screenState.postValue(PlacesScreenState.Content(filteredList))
         }
@@ -79,7 +75,9 @@ class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewMode
                 _screenState.postValue(PlacesScreenState.Error(R.string.server_error))
             }
 
-            else -> {}
+            is SearchResultData.Empty -> {
+                _screenState.postValue(PlacesScreenState.Empty(R.string.region_not_found))
+            }
         }
     }
 
@@ -102,7 +100,9 @@ class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewMode
                 _screenState.postValue(PlacesScreenState.Error(R.string.server_error))
             }
 
-            else -> {}
+            is SearchResultData.Empty -> {
+                _screenState.postValue(PlacesScreenState.Empty(R.string.region_not_found))
+            }
         }
     }
 }
