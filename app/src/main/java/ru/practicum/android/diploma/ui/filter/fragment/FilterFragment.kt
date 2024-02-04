@@ -22,6 +22,7 @@ import ru.practicum.android.diploma.util.BindingFragment
 class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
 
     private val settingsViewModel by viewModel<SettingsViewModel>()
+    private var currentSalary = EMPTY_PARAM_SRT
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -57,7 +58,9 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                settingsViewModel.updateSalary(s.toString())
+                currentSalary = s.toString()
+                settingsViewModel.updateSalary(currentSalary)
+                setVisibilityCloseIcon(currentSalary)
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -69,23 +72,38 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     }
 
     private fun processingState(settings: SearchSettings) {
-        binding.clearFilterSettingsButton.isVisible = isSettingsEmpty(settings)
-        if (isSettingsEmpty(settings)) {
-            val salary = if (settings.salary == EMPTY_PARAM_NUM) {
-                EMPTY_PARAM_SRT
-            } else {
-                settings.salary.toString()
-            }
+        binding.clearFilterSettingsButton.isVisible = isSettingsNotEmpty(settings)
+        if (isSettingsNotEmpty(settings)) {
             with(binding) {
+                setSalary(settings)
                 doNotShowWithoutSalaryCheckbox.isChecked = settings.isSalarySpecified
-                expectedSalaryLayout.setText(salary)
                 industryLayout.setText(settings.industry.industryName)
-                workplaceLayout.setText("${settings.country.countryName}, ${settings.place.areaName}")
+                if (settings.country.countryId.isNotEmpty()) {
+                    workplaceLayout.setText("${settings.country.countryName}, ${settings.place.areaName}")
+                }
             }
+        } else {
+            setVisibilityCloseIcon(EMPTY_PARAM_SRT)
         }
     }
 
-    private fun isSettingsEmpty(settings: SearchSettings): Boolean {
+
+    private fun setSalary(setting: SearchSettings) {
+        val newSalary = if (setting.salary == EMPTY_PARAM_NUM) {
+            EMPTY_PARAM_SRT
+        } else {
+            setting.salary.toString()
+        }
+        if (newSalary != currentSalary) {
+            binding.expectedSalaryLayout.setText(newSalary)
+        }
+    }
+
+    private fun setVisibilityCloseIcon(text: String) {
+        binding.expectedSalary.isEndIconVisible = text.isNotEmpty()
+    }
+
+    private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
         val result = !(
             !settings.isSalarySpecified
                 && settings.salary == EMPTY_PARAM_NUM
