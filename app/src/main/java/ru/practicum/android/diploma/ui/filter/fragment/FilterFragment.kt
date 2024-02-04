@@ -23,6 +23,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
 
     private val settingsViewModel by viewModel<SettingsViewModel>()
     private var currentSalary = EMPTY_PARAM_SRT
+    private var boxChecked = false
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -74,6 +75,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     private fun processingState(settings: SearchSettings) {
         binding.clearFilterSettingsButton.isVisible = isSettingsNotEmpty(settings)
         with(binding) {
+            boxChecked = settings.isSalarySpecified
             doNotShowWithoutSalaryCheckbox.isChecked = settings.isSalarySpecified
             industryLayout.setText(settings.industry.industryName)
             if (settings.country.countryId.isNotEmpty()) {
@@ -114,7 +116,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         }
         workplaceLayout.setOnClickListener(listener)
         industryLayout.setOnClickListener(listener)
-        doNotShowWithoutSalaryCheckbox.setOnClickListener(listener)
+        doNotShowWithoutSalary.setOnClickListener(listener)
         applyFilterSettingsButton.setOnClickListener(listener)
         clearFilterSettingsButton.setOnClickListener(listener)
         backButton.setOnClickListener(listener)
@@ -131,7 +133,9 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
                     findNavController().navigate(R.id.action_filterFragment_to_industryPickerFragment)
                 }
 
-                R.id.do_not_show_without_salary_checkbox -> {
+                R.id.do_not_show_without_salary -> {
+                    boxChecked = !boxChecked
+                    binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
                     settingsViewModel.savedIsSalarySpecified(binding.doNotShowWithoutSalaryCheckbox.isChecked)
                 }
 
