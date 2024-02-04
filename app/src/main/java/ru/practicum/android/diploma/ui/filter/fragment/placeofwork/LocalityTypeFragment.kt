@@ -24,6 +24,7 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind()
+        viewModel.updateState()
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
         }
@@ -59,19 +60,29 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
     private fun bind() {
         with(binding) {
             etCountryLayout.doOnTextChanged { text, _, _, _ ->
-                etCountry.setEndIconDrawable(R.drawable.ic_close)
+                if (text.isNullOrEmpty()) {
+                    etCountry.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                } else {
+                    etCountry.setEndIconDrawable(R.drawable.ic_close)
+                }
                 setButtonVisibility(text)
             }
             etRegionLayout.doOnTextChanged { text, _, _, _ ->
-                etRegion.setEndIconDrawable(R.drawable.ic_close)
+                if (text.isNullOrEmpty()) {
+                    etRegion.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                } else {
+                    etRegion.setEndIconDrawable(R.drawable.ic_close)
+                }
                 setButtonVisibility(text)
             }
             etCountry.setEndIconOnClickListener {
                 viewModel.deleteCountryFromSettings()
+                etCountryLayout.text?.clear()
                 viewModel.updateState()
             }
             etRegion.setEndIconOnClickListener {
                 viewModel.deleteCityFromSettings()
+                etRegionLayout.text?.clear()
                 viewModel.updateState()
             }
             etCountryLayout.setOnClickListener {
