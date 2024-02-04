@@ -24,6 +24,8 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     private val settingsViewModel by viewModel<SettingsViewModel>()
     private var currentSalary = EMPTY_PARAM_SRT
     private var boxChecked = false
+    private var isPlaceCanDelete = false
+    private var isIndustryCanDelete = false
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -78,12 +80,21 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         with(binding) {
             boxChecked = settings.isSalarySpecified
             doNotShowWithoutSalaryCheckbox.isChecked = settings.isSalarySpecified
-            industryLayout.setText(settings.industry.industryName)
+            if (settings.industry.industryName.isNotEmpty()) {
+                industryLayout.setText(settings.industry.industryName)
+                industry.setEndIconDrawable(R.drawable.ic_close)
+                isIndustryCanDelete = true
+            } else {
+                industry.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                isIndustryCanDelete = false
+            }
             if (settings.country.countryId.isNotEmpty()) {
                 workplace.setEndIconDrawable(R.drawable.ic_close)
                 locate.append(settings.country.countryName)
+                isPlaceCanDelete = true
             } else {
                 workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                isPlaceCanDelete = false
             }
             if (settings.place.areaId.isNotEmpty()) {
                 workplace.setEndIconDrawable(R.drawable.ic_close)
@@ -126,15 +137,33 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         expectedSalary.setEndIconOnClickListener {
             binding.expectedSalaryLayout.setText(EMPTY_PARAM_SRT)
         }
+        expectedSalaryLayout.setOnFocusChangeListener { vies, hasFocus ->
+            setVisibilityCloseIcon(currentSalary)
+        }
+        workplace.setEndIconOnClickListener {
+            if (isPlaceCanDelete) {
+                workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                settingsViewModel.deletePlace()
+                isPlaceCanDelete = false
+            } else {
+                findNavController().navigate(R.id.action_filterFragment_to_localityTypeFragment)
+            }
+        }
+        industry.setEndIconOnClickListener {
+            if (isIndustryCanDelete) {
+                industry.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                settingsViewModel.deleteIndustry()
+                isIndustryCanDelete = false
+            } else {
+                findNavController().navigate(R.id.action_filterFragment_to_industryPickerFragment)
+            }
+        }
         workplaceLayout.setOnClickListener(listener)
         industryLayout.setOnClickListener(listener)
         doNotShowWithoutSalary.setOnClickListener(listener)
         applyFilterSettingsButton.setOnClickListener(listener)
         clearFilterSettingsButton.setOnClickListener(listener)
         backButton.setOnClickListener(listener)
-        expectedSalaryLayout.setOnFocusChangeListener { vies, hasFocus ->
-            setVisibilityCloseIcon(currentSalary)
-        }
     }
 
     private fun onClick(): View.OnClickListener {

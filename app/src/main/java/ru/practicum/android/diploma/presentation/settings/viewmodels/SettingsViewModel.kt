@@ -7,6 +7,9 @@ import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.data.models.ValuesSearchId
 import ru.practicum.android.diploma.domain.api.settings.SettingsInteractor
+import ru.practicum.android.diploma.domain.models.guides.Country
+import ru.practicum.android.diploma.domain.models.guides.IndustryItem
+import ru.practicum.android.diploma.domain.models.guides.PlaceItem
 import ru.practicum.android.diploma.domain.models.settings.SearchSettings
 import ru.practicum.android.diploma.domain.models.settings.setDefault
 
@@ -65,6 +68,18 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
             }
             compareSettings()
         }
+    }
+
+    fun deletePlace() {
+        currentSettings = currentSettings.copy(country = Country("", ""), place = PlaceItem("", ""))
+        settingsInteractor.saveSettings(currentSettings)
+        getSettings()
+    }
+
+    fun deleteIndustry() {
+        currentSettings = currentSettings.copy(industry = IndustryItem(""))
+        settingsInteractor.saveSettings(currentSettings)
+        getSettings()
     }
 
     fun saveSettingsByClickConfirm() {
