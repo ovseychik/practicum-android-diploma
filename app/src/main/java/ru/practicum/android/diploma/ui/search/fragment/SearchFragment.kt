@@ -45,6 +45,10 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         bind()
         setOnVacancyClickListener()
         setOnScrollListener()
+        newSearch()
+        binding.btnFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+        }
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
         }
@@ -71,6 +75,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     private fun bind() {
         with(binding) {
             etSearch.doAfterTextChanged { text ->
+                viewModel.updateSettingsToBase()
                 if (text.isNullOrEmpty()) {
                     btnClear.setImageResource(R.drawable.ic_search)
                 } else {
@@ -87,12 +92,17 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         }
     }
 
+    private fun newSearch() {
+        viewModel.newSearch()
+    }
+
     private fun setOnVacancyClickListener() {
         vacancyClickDebounce = debounce(
             CLICK_DEBOUNCE_DELAY_MILLIS,
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancyItem ->
+            viewModel.setSettingsBase()
             val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
             findNavController().navigate(R.id.action_searchFragment_to_vacancyDetailsFragment, vacancyBundle)
         }

@@ -36,7 +36,7 @@ class LocalityAdapter(private val onClick: (LocalityAdapterItem) -> Unit) :
         countries.forEach {
             items.add(LocalityAdapterItem.CountryItem(it))
         }
-        notifyDataSetChanged()
+        notifyItemRangeInserted(items.size - countries.size, countries.size)
     }
 
     fun clearData() {
