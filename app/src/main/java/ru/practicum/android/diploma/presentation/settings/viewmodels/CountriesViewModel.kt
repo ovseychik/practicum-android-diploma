@@ -13,10 +13,6 @@ import ru.practicum.android.diploma.presentation.settings.models.CountriesScreen
 
 class CountriesViewModel(private val placesInteractor: PlacesInteractor) : ViewModel() {
 
-    init {
-        getCountries()
-    }
-
     private var _screenState: MutableLiveData<CountriesScreenState> = MutableLiveData()
     val screenState: LiveData<CountriesScreenState> = _screenState
 
