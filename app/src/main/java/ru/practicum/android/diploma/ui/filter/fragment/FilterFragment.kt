@@ -98,27 +98,26 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     }
 
     private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
-        val result = !(
+        return !(
             !settings.isSalarySpecified
                 && settings.salary == EMPTY_PARAM_NUM
                 && settings.settingsId == ValuesSearchId.BASE
                 && settings.country.countryId == EMPTY_PARAM_SRT
                 && settings.place.areaId == EMPTY_PARAM_SRT
             )
-        return result
     }
 
     private fun setOnClicks() = with(binding) {
-        val listner = onClick()
+        val listener = onClick()
         expectedSalary.setEndIconOnClickListener {
             binding.expectedSalaryLayout.setText(EMPTY_PARAM_SRT)
         }
-        workplaceLayout.setOnClickListener(listner)
-        industryLayout.setOnClickListener(listner)
-        doNotShowWithoutSalaryCheckbox.setOnClickListener(listner)
-        applyFilterSettingsButton.setOnClickListener(listner)
-        clearFilterSettingsButton.setOnClickListener(listner)
-        backButton.setOnClickListener(listner)
+        workplaceLayout.setOnClickListener(listener)
+        industryLayout.setOnClickListener(listener)
+        doNotShowWithoutSalaryCheckbox.setOnClickListener(listener)
+        applyFilterSettingsButton.setOnClickListener(listener)
+        clearFilterSettingsButton.setOnClickListener(listener)
+        backButton.setOnClickListener(listener)
     }
 
     private fun onClick(): View.OnClickListener {
