@@ -137,6 +137,10 @@ class SearchViewModel(
         settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
     }
 
+    fun clearCurrentQuery() {
+        currentQuery = EMPTY_QUERY
+    }
+
     companion object {
         const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
         const val ITEMS_PER_PAGE = 20

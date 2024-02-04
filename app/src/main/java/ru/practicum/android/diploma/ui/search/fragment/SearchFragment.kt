@@ -86,6 +86,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
             btnClear.setOnClickListener {
                 etSearch.text.clear()
+                viewModel.clearCurrentQuery()
             }
 
             rvSearchResult.adapter = vacancyAdapter
