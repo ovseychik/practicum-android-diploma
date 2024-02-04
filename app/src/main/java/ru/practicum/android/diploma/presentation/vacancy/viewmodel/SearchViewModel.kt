@@ -23,8 +23,7 @@ class SearchViewModel(
 ) : ViewModel() {
 
     init {
-        val settings = settingsInteractor.getSettings()
-        settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
+        setSettingsBase()
     }
 
     private val _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
@@ -46,6 +45,25 @@ class SearchViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             vacanciesInteractor.getVacancies(query, pageNum).collect { result ->
                 processingResult(result)
+            }
+        }
+    }
+
+    fun setSettingsBase() {
+        val settings = settingsInteractor.getSettings()
+        settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
+    }
+
+    fun newSearch() {
+        if (currentQuery != EMPTY_QUERY) {
+            val settings = settingsInteractor.getSettings()
+            if (settings.settingsId == ValuesSearchId.BASE) {
+                viewModelScope.launch {
+                    currentPage = FIRST_PAGE
+                    getVacancies(currentQuery, currentPage)
+                }
+            } else {
+                settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
             }
         }
     }
@@ -112,6 +130,11 @@ class SearchViewModel(
             currentPage++
             getVacancies(currentQuery, currentPage)
         }
+    }
+
+    fun updateSettingsToBase() {
+        val settings = settingsInteractor.getSettings()
+        settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
     }
 
     companion object {
