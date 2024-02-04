@@ -80,10 +80,16 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             doNotShowWithoutSalaryCheckbox.isChecked = settings.isSalarySpecified
             industryLayout.setText(settings.industry.industryName)
             if (settings.country.countryId.isNotEmpty()) {
+                workplace.setEndIconDrawable(R.drawable.ic_close)
                 locate.append(settings.country.countryName)
+            } else {
+                workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
             }
             if (settings.place.areaId.isNotEmpty()) {
+                workplace.setEndIconDrawable(R.drawable.ic_close)
                 locate.append(", ${settings.place.areaName}")
+            } else {
+                workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
             }
             workplaceLayout.setText(locate)
             setSalary(settings)
