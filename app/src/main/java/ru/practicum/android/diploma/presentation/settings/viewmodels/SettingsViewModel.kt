@@ -36,6 +36,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     private fun compareSettings() {
         if (baseSettings.country.countryId != currentSettings.country.countryId
             || baseSettings.place.areaId != currentSettings.place.areaId
+            || baseSettings.industry.industryName != currentSettings.industry.industryName
         ) {
             currentSettings = currentSettings.copy(settingsId = ValuesSearchId.MODIFIED)
             settingsInteractor.saveSettings(currentSettings)
