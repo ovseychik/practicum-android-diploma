@@ -66,4 +66,5 @@
     <string name="do_not_show__without_salary">Не показывать без зарплаты</string>
     <string name="apply">Применить</string>
     <string name="clear">Сбросить</string>
+    <string name="region_not_found">Такого региона нет</string>
 </resources>
