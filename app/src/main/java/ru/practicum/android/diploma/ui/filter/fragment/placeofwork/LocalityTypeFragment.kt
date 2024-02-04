@@ -77,6 +77,7 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
             }
             etCountry.setEndIconOnClickListener {
                 viewModel.deleteCountryFromSettings()
+                viewModel.deleteCityFromSettings()
                 etCountryLayout.text?.clear()
                 viewModel.updateState()
             }
