@@ -23,8 +23,7 @@ class SearchViewModel(
 ) : ViewModel() {
 
     init {
-        val settings = settingsInteractor.getSettings()
-        settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
+        setSettingsBase()
     }
 
     private val _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
@@ -48,6 +47,11 @@ class SearchViewModel(
                 processingResult(result)
             }
         }
+    }
+
+    fun setSettingsBase() {
+        val settings = settingsInteractor.getSettings()
+        settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
     }
 
     fun newSearch() {
