@@ -86,7 +86,6 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 viewModel.updateState()
             }
             etCountryLayout.setOnClickListener {
-                viewModel.deleteCountryFromSettings()
                 findNavController().navigate(R.id.action_localityTypeFragment_to_countryPickerFragment2)
             }
             etRegionLayout.setOnClickListener {
