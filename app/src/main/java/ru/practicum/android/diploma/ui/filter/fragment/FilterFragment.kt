@@ -54,17 +54,17 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         }
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                val text = s.toString()
+                val text = s.toString() // для ci
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 currentSalary = s.toString()
-                settingsViewModel.updateSalary(currentSalary)
+                settingsViewModel.saveSalary(currentSalary)
                 setVisibilityCloseIcon(currentSalary)
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val text = s.toString()
+                val text = s.toString() // для ci
             }
         }
         binding.expectedSalaryLayout.addTextChangedListener(textWatcher)
@@ -73,20 +73,15 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
 
     private fun processingState(settings: SearchSettings) {
         binding.clearFilterSettingsButton.isVisible = isSettingsNotEmpty(settings)
-        if (isSettingsNotEmpty(settings)) {
-            with(binding) {
-                setSalary(settings)
-                doNotShowWithoutSalaryCheckbox.isChecked = settings.isSalarySpecified
-                industryLayout.setText(settings.industry.industryName)
-                if (settings.country.countryId.isNotEmpty()) {
-                    workplaceLayout.setText("${settings.country.countryName}, ${settings.place.areaName}")
-                }
+        with(binding) {
+            doNotShowWithoutSalaryCheckbox.isChecked = settings.isSalarySpecified
+            industryLayout.setText(settings.industry.industryName)
+            if (settings.country.countryId.isNotEmpty()) {
+                workplaceLayout.setText("${settings.country.countryName}, ${settings.place.areaName}")
             }
-        } else {
-            setVisibilityCloseIcon(EMPTY_PARAM_SRT)
+            setSalary(settings)
         }
     }
-
 
     private fun setSalary(setting: SearchSettings) {
         val newSalary = if (setting.salary == EMPTY_PARAM_NUM) {
@@ -94,9 +89,8 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         } else {
             setting.salary.toString()
         }
-        if (newSalary != currentSalary) {
-            binding.expectedSalaryLayout.setText(newSalary)
-        }
+        binding.expectedSalaryLayout.setText(newSalary)
+        setVisibilityCloseIcon(newSalary)
     }
 
     private fun setVisibilityCloseIcon(text: String) {
@@ -116,6 +110,9 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
 
     private fun setOnClicks() = with(binding) {
         val listner = onClick()
+        expectedSalary.setEndIconOnClickListener {
+            binding.expectedSalaryLayout.setText(EMPTY_PARAM_SRT)
+        }
         workplaceLayout.setOnClickListener(listner)
         industryLayout.setOnClickListener(listner)
         doNotShowWithoutSalaryCheckbox.setOnClickListener(listner)

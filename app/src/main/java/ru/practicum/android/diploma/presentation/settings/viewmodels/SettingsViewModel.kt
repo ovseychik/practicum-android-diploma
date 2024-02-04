@@ -14,8 +14,6 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
 
     private var _screenState: MutableLiveData<SearchSettings> = MutableLiveData()
     val screenState: LiveData<SearchSettings> = _screenState
-    private var _salaryState: MutableLiveData<String> = MutableLiveData()
-    val salaryState: LiveData<String> = _salaryState
     private var _isSettingsModifed: MutableLiveData<Boolean> = MutableLiveData(false)
     val isSettingsModified: LiveData<Boolean> = _isSettingsModifed
     private var currentSettings = setDefault()
@@ -24,6 +22,8 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
         currentSettings = settingsInteractor.getSettings()
         if (currentSettings.salary == EMPTY_PARAM_NUM) {
             currentSalary = EMPTY_PARAM_SRT
+        } else {
+            currentSalary = currentSettings.salary.toString()
         }
         compareSettings()
         _screenState.postValue(currentSettings)
@@ -39,39 +39,31 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
 
     fun savedIsSalarySpecified(newValue: Boolean) {
         if (currentSettings.isSalarySpecified != newValue) {
-            settingsInteractor.saveSettings(
-                currentSettings.copy(
-                    isSalarySpecified = newValue,
-                    settingsId = ValuesSearchId.MODIFIED
-                )
+            currentSettings = currentSettings.copy(
+                isSalarySpecified = newValue,
+                settingsId = ValuesSearchId.MODIFIED
             )
-            getSettings()
+            settingsInteractor.saveSettings(currentSettings)
+            compareSettings()
         }
     }
 
-    private fun saveSalary(newSalary: String) {
-        if (currentSettings.salary.toString() != newSalary)
+    fun saveSalary(newSalary: String) {
+        if (currentSalary != newSalary) {
             if (newSalary == EMPTY_PARAM_SRT) {
-                settingsInteractor.saveSettings(
-                    currentSettings.copy(
-                        salary = EMPTY_PARAM_NUM,
-                        settingsId = ValuesSearchId.MODIFIED
-                    )
+                currentSettings = currentSettings.copy(
+                    salary = EMPTY_PARAM_NUM,
+                    settingsId = ValuesSearchId.MODIFIED
                 )
+                settingsInteractor.saveSettings(currentSettings)
             } else {
-                settingsInteractor.saveSettings(
-                    currentSettings.copy(
-                        salary = newSalary.toInt(),
-                        settingsId = ValuesSearchId.MODIFIED
-                    )
+                currentSettings = currentSettings.copy(
+                    salary = newSalary.toInt(),
+                    settingsId = ValuesSearchId.MODIFIED
                 )
-                getSettings()
+                settingsInteractor.saveSettings(currentSettings)
             }
-    }
-
-    fun updateSalary(newSalary: String) {
-        if (newSalary != currentSalary) {
-            saveSalary(newSalary)
+            compareSettings()
         }
     }
 
