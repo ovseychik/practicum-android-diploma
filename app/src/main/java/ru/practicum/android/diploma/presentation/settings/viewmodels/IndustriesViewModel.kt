@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.domain.api.guides.IndustriesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.guides.IndustryItem
@@ -39,15 +40,16 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
         return industriesInteractor.getIndustryFromSettings()
     }
 
-    fun saveSelectedIndustry(industry: IndustryItem) {
-        industriesInteractor.setIndustryInSettings(industry)
+    fun saveSelectedIndustry() {
+        if (selectedIndustry.industryName != EMPTY_PARAM_SRT){
+            industriesInteractor.setIndustryInSettings(selectedIndustry)
+        }
 
     }
 
     fun onIndustryItemClicked(industryItem: IndustryItem) {
         if (industryItem != selectedIndustry) {
             selectedIndustry = industryItem
-            industriesInteractor.setIndustryInSettings(selectedIndustry)
             _screenState.postValue(IndustriesScreenState.Content(industriesList, industryItem.industryName))
         }
     }

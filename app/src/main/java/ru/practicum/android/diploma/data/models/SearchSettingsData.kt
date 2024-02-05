@@ -38,7 +38,8 @@ fun mapToSearchSettingsData(settings: SearchSettings): SearchSettingsData {
         placeId = settings.place.areaId,
         placeName = settings.place.areaName,
         countryId = settings.country.countryId,
-        countryName = settings.country.countryName
+        countryName = settings.country.countryName,
+        industryName = settings.industry.industryName
     )
 }
 

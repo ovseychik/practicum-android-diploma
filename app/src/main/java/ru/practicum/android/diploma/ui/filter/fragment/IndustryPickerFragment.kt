@@ -46,8 +46,8 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
                 val savedIndustry = viewModel.getSelectedIndustry()
                 industryAdapter.setSelectedIndustry(savedIndustry)
             }
+            applySelectedIndustry()
         }
-        applySelectedIndustry()
     }
 
     private fun render(screenState: IndustriesScreenState) {
@@ -81,6 +81,7 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
             rvSearchResult.layoutManager = LinearLayoutManager(requireContext())
             rvSearchResult.adapter = industryAdapter
             btnSelect.setOnClickListener {
+                viewModel.saveSelectedIndustry()
                 findNavController().navigateUp()
             }
             btnBack.setOnClickListener {

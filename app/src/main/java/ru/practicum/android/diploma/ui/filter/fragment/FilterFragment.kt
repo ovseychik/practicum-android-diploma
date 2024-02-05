@@ -64,6 +64,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
                 industry.setEndIconDrawable(R.drawable.ic_close)
                 isIndustryCanDelete = true
             } else {
+                industryLayout.setText(settings.industry.industryName)
                 industry.setEndIconDrawable(R.drawable.ic_arrow_forward)
                 isIndustryCanDelete = false
             }
