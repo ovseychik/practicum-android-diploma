@@ -13,16 +13,11 @@ import ru.practicum.android.diploma.presentation.settings.models.IndustriesScree
 
 class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor) : ViewModel() {
 
-    init {
-        getIndustries()
-    }
-
     private var _screenState: MutableLiveData<IndustriesScreenState> = MutableLiveData()
     val screenState: LiveData<IndustriesScreenState> = _screenState
     private var selectedIndustry = industriesInteractor.getIndustryFromSettings()
-    private val industriesList = mutableListOf<IndustryItem>()
+    private val industriesList: MutableList<IndustryItem> = mutableListOf()
     fun getIndustries() {
-        _screenState.postValue(IndustriesScreenState.Loading)
         viewModelScope.launch {
             industriesInteractor.getIndustries().collect {
                 industriesList.clear()
@@ -32,10 +27,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     }
 
     fun filteredIndustries(query: String) {
-        val filteredList = industriesList
-        filteredList
-            .filter { query.length <= it.industryName.length }
-            .filter { it.industryName.substring(0, query.length) == query }
+        val filteredList = industriesList.filter { it.industryName.contains(query) }
         if (filteredList.isEmpty()) {
             _screenState.postValue(IndustriesScreenState.Empty)
         } else {
@@ -43,8 +35,21 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
         }
     }
 
+    fun getSelectedIndustry(): IndustryItem {
+        return industriesInteractor.getIndustryFromSettings()
+    }
+
     fun saveSelectedIndustry(industry: IndustryItem) {
         industriesInteractor.setIndustryInSettings(industry)
+
+    }
+
+    fun onIndustryItemClicked(industryItem: IndustryItem) {
+        if (industryItem != selectedIndustry) {
+            selectedIndustry = industryItem
+            industriesInteractor.setIndustryInSettings(selectedIndustry)
+            _screenState.postValue(IndustriesScreenState.Content(industriesList, industryItem.industryName))
+        }
     }
 
     private fun processingResult(result: SearchResultData<List<IndustryItem>>) {
