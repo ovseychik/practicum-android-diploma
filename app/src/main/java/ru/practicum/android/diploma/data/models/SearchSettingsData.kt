@@ -24,7 +24,7 @@ fun mapToSearchSetting(settings: SearchSettingsData): SearchSettings {
         settingsId = settings.settingsId,
         salary = settings.salary,
         isSalarySpecified = settings.isSalarySpecified,
-        country = Country(settings.countryId, settings.countryName),
+        country = Country(settings.countryName, settings.countryId),
         industry = IndustryItem(settings.industryName),
         place = PlaceItem(settings.placeName, settings.placeId)
     )

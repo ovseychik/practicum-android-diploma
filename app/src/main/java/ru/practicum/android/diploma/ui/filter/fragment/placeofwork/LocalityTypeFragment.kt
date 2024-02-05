@@ -17,6 +17,8 @@ import ru.practicum.android.diploma.util.BindingFragment
 class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
 
     private val viewModel by viewModel<LocalityTypeViewModel>()
+    private var currentCountryInput: String? = null
+    private var currentCityInput: String? = null
     override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocalityTypeBinding {
         return FragmentLocalityTypeBinding.inflate(inflater, container, false)
     }
@@ -24,6 +26,7 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind()
+        viewModel.updateState()
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
         }
@@ -52,22 +55,33 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
         }
     }
 
-    private fun setButtonVisibility(text: CharSequence?) {
-        binding.btnApply.isVisible = !text.isNullOrEmpty()
+    private fun setButtonVisibility() {
+        binding.btnApply.isVisible = !(currentCityInput.isNullOrEmpty() && currentCountryInput.isNullOrEmpty())
     }
 
     private fun bind() {
         with(binding) {
             etCountryLayout.doOnTextChanged { text, _, _, _ ->
-                etCountry.setEndIconDrawable(R.drawable.ic_close)
-                setButtonVisibility(text)
+                if (text.isNullOrEmpty()) {
+                    etCountry.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                } else {
+                    etCountry.setEndIconDrawable(R.drawable.ic_close)
+                }
+                currentCountryInput = text.toString()
+                setButtonVisibility()
             }
             etRegionLayout.doOnTextChanged { text, _, _, _ ->
-                etRegion.setEndIconDrawable(R.drawable.ic_close)
-                setButtonVisibility(text)
+                if (text.isNullOrEmpty()) {
+                    etRegion.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                } else {
+                    etRegion.setEndIconDrawable(R.drawable.ic_close)
+                }
+                currentCityInput = text.toString()
+                setButtonVisibility()
             }
             etCountry.setEndIconOnClickListener {
                 viewModel.deleteCountryFromSettings()
+                viewModel.deleteCityFromSettings()
                 viewModel.updateState()
             }
             etRegion.setEndIconOnClickListener {

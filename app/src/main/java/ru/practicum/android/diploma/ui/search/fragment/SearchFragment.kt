@@ -46,6 +46,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         setOnVacancyClickListener()
         setOnScrollListener()
         newSearch()
+        viewModel.checkedSettings()
         binding.btnFilter.setOnClickListener {
             findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
         }
@@ -54,6 +55,13 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         }
         viewModel.toastState.observe(viewLifecycleOwner) {
             errorWhilePageLoadingNotification(it)
+        }
+        viewModel.isSettingsNotEmpty.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.btnFilter.setImageResource(R.drawable.ic_filter_on)
+            } else {
+                binding.btnFilter.setImageResource(R.drawable.ic_filter_off)
+            }
         }
     }
 
@@ -86,6 +94,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
             btnClear.setOnClickListener {
                 etSearch.text.clear()
+                viewModel.clearCurrentQuery()
             }
 
             rvSearchResult.adapter = vacancyAdapter

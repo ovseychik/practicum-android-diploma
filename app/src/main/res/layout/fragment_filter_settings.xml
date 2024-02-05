@@ -60,6 +60,8 @@
         android:layout_width="@dimen/_0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:hint="@string/workplace"
         android:paddingEnd="@dimen/_4dp"
         android:textAppearance="@style/YsDisplayRegular16"
@@ -126,7 +128,7 @@
         app:boxStrokeWidthFocused="0dp"
         app:endIconDrawable="@drawable/ic_close"
         app:endIconMode="custom"
-        app:endIconTint="?attr/text_color"
+        app:endIconTint="?attr/black_universal"
         app:expandedHintEnabled="false"
         app:hintTextAppearance="@style/YsDisplayRegular12"
         app:hintTextColor="@color/blue"
@@ -141,8 +143,9 @@
             android:background="@drawable/search_input_field_bg_shape"
             android:hint="@string/input_salary"
             android:inputType="number"
+            android:maxLength="9"
             android:textAppearance="@style/YsDisplayRegular16"
-            android:textColor="?attr/text_color"
+            android:textColor="?attr/black_universal"
             android:textColorHint="?attr/hint_text_color"
             android:textCursorDrawable="@drawable/color_cursor" />
 
