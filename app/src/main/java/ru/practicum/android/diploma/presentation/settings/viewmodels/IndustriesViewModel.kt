@@ -41,7 +41,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     }
 
     fun saveSelectedIndustry() {
-        if (selectedIndustry.industryName != EMPTY_PARAM_SRT){
+        if (selectedIndustry.industryName != EMPTY_PARAM_SRT) {
             industriesInteractor.setIndustryInSettings(selectedIndustry)
         }
 

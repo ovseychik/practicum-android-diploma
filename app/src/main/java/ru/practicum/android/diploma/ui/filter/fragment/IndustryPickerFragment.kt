@@ -51,13 +51,11 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
     }
 
     private fun render(screenState: IndustriesScreenState) {
-
         when (screenState) {
             is IndustriesScreenState.Content -> showContent(
                 screenState.industriesList,
                 screenState.selectedIndustryName
             )
-
             is IndustriesScreenState.Empty -> showEmptyState()
             is IndustriesScreenState.NoInternet -> showNoInternetState()
             is IndustriesScreenState.Error -> showErrorState()
