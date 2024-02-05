@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
@@ -35,15 +36,6 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind()
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    findNavController().navigateUp()
-                }
-
-            }
-        )
     }
 
     private fun bind() {
@@ -57,22 +49,11 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         settingsViewModel.isSettingsModified.observe(viewLifecycleOwner) {
             binding.applyFilterSettingsButton.isVisible = it
         }
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                val text = s.toString() // для ci
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                currentSalary = s.toString()
-                settingsViewModel.saveSalary(currentSalary)
-                setVisibilityCloseIcon(currentSalary)
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val text = s.toString() // для ci
-            }
+        binding.expectedSalaryLayout.doAfterTextChanged { text ->
+            currentSalary = text.toString()
+            settingsViewModel.saveSalary(currentSalary)
+            setVisibilityCloseIcon(currentSalary)
         }
-        binding.expectedSalaryLayout.addTextChangedListener(textWatcher)
         setOnClicks()
     }
 

@@ -143,6 +143,7 @@
             android:background="@drawable/search_input_field_bg_shape"
             android:hint="@string/input_salary"
             android:inputType="number"
+            android:maxLength="9"
             android:textAppearance="@style/YsDisplayRegular16"
             android:textColor="?attr/black_universal"
             android:textColorHint="?attr/hint_text_color"
