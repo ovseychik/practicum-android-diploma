@@ -52,6 +52,9 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         settingsViewModel.screenState.observe(viewLifecycleOwner) {
             processingState(it)
         }
+        settingsViewModel.isSettingIsNotEmpty.observe(viewLifecycleOwner){
+            binding.clearFilterSettingsButton.isVisible = it
+        }
         settingsViewModel.isSettingsModified.observe(viewLifecycleOwner) {
             binding.applyFilterSettingsButton.isVisible = it
         }
@@ -75,7 +78,6 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     }
 
     private fun processingState(settings: SearchSettings) {
-        binding.clearFilterSettingsButton.isVisible = isSettingsNotEmpty(settings)
         val locate = StringBuilder("")
         with(binding) {
             boxChecked = settings.isSalarySpecified
@@ -120,16 +122,6 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     private fun setVisibilityCloseIcon(text: String) {
         val hasFocus = binding.expectedSalaryLayout.hasFocus()
         binding.expectedSalary.isEndIconVisible = text.isNotEmpty() && hasFocus
-    }
-
-    private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
-        return !(
-            !settings.isSalarySpecified
-                && settings.salary == EMPTY_PARAM_NUM
-                && settings.settingsId == ValuesSearchId.BASE
-                && settings.country.countryId == EMPTY_PARAM_SRT
-                && settings.place.areaId == EMPTY_PARAM_SRT
-            )
     }
 
     private fun setOnClicks() = with(binding) {

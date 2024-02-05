@@ -19,6 +19,8 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     val screenState: LiveData<SearchSettings> = _screenState
     private var _isSettingsModifed: MutableLiveData<Boolean> = MutableLiveData(false)
     val isSettingsModified: LiveData<Boolean> = _isSettingsModifed
+    private var _isSettingIsNotEmpty: MutableLiveData<Boolean> = MutableLiveData()
+    val isSettingIsNotEmpty: LiveData<Boolean> = _isSettingIsNotEmpty
     private var currentSettings = setDefault()
     private var baseSettings = settingsInteractor.getSettings()
     private var currentSalary = if (baseSettings.salary == EMPTY_PARAM_NUM) {
@@ -46,6 +48,20 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
         } else {
             _isSettingsModifed.postValue(false)
         }
+        if (!isSettingsNotEmpty(currentSettings)){
+            _isSettingIsNotEmpty.postValue(true)
+        } else {
+            _isSettingIsNotEmpty.postValue(false)
+        }
+    }
+
+    private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
+        return (
+            !settings.isSalarySpecified
+                && settings.salary == EMPTY_PARAM_NUM
+                && settings.country.countryId == EMPTY_PARAM_SRT
+                && settings.place.areaId == EMPTY_PARAM_SRT
+            )
     }
 
     fun savedIsSalarySpecified(newValue: Boolean) {
