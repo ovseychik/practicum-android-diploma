@@ -161,6 +161,7 @@ class SearchViewModel(
                 && settings.salary == EMPTY_PARAM_NUM
                 && settings.country.countryId == EMPTY_PARAM_SRT
                 && settings.place.areaId == EMPTY_PARAM_SRT
+                && settings.industry.industryName == EMPTY_PARAM_SRT
             )
     }
 
