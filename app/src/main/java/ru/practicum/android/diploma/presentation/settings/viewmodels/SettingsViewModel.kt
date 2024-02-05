@@ -48,7 +48,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
         } else {
             _isSettingsModifed.postValue(false)
         }
-        if (!isSettingsNotEmpty(currentSettings)){
+        if (!isSettingsNotEmpty(currentSettings)) {
             _isSettingIsNotEmpty.postValue(true)
         } else {
             _isSettingIsNotEmpty.postValue(false)

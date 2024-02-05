@@ -13,7 +13,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
-import ru.practicum.android.diploma.data.models.ValuesSearchId
 import ru.practicum.android.diploma.databinding.FragmentFilterSettingsBinding
 import ru.practicum.android.diploma.domain.models.settings.SearchSettings
 import ru.practicum.android.diploma.presentation.settings.viewmodels.SettingsViewModel
@@ -52,7 +51,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
         settingsViewModel.screenState.observe(viewLifecycleOwner) {
             processingState(it)
         }
-        settingsViewModel.isSettingIsNotEmpty.observe(viewLifecycleOwner){
+        settingsViewModel.isSettingIsNotEmpty.observe(viewLifecycleOwner) {
             binding.clearFilterSettingsButton.isVisible = it
         }
         settingsViewModel.isSettingsModified.observe(viewLifecycleOwner) {
