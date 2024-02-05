@@ -76,10 +76,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
                 isPlaceCanDelete = false
             }
             if (settings.place.areaId.isNotEmpty()) {
-                workplace.setEndIconDrawable(R.drawable.ic_close)
                 locate.append(", ${settings.place.areaName}")
-            } else {
-                workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
             }
             workplaceLayout.setText(locate)
             setSalary(settings)
