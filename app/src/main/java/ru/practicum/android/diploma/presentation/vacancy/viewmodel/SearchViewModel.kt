@@ -8,10 +8,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.data.models.ValuesSearchId
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
 import ru.practicum.android.diploma.domain.api.settings.SettingsInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
+import ru.practicum.android.diploma.domain.models.settings.SearchSettings
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import ru.practicum.android.diploma.presentation.vacancy.models.PageLoadingState
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
@@ -28,6 +31,8 @@ class SearchViewModel(
 
     private val _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
     private val _showToastState = SingleLiveEvent<PageLoadingState>()
+    private var _isSettingsNotEmpty: MutableLiveData<Boolean> = MutableLiveData()
+    val isSettingsNotEmpty: LiveData<Boolean> = _isSettingsNotEmpty
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
     val toastState: LiveData<PageLoadingState> = _showToastState
@@ -52,6 +57,15 @@ class SearchViewModel(
     fun setSettingsBase() {
         val settings = settingsInteractor.getSettings()
         settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
+    }
+
+    fun checkedSettings() {
+        val settings = settingsInteractor.getSettings()
+        if (isSettingsNotEmpty(settings)) {
+            _isSettingsNotEmpty.postValue(true)
+        } else {
+            _isSettingsNotEmpty.postValue(false)
+        }
     }
 
     fun newSearch() {
@@ -139,6 +153,15 @@ class SearchViewModel(
 
     fun clearCurrentQuery() {
         currentQuery = EMPTY_QUERY
+    }
+
+    private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
+        return !(
+            !settings.isSalarySpecified
+                && settings.salary == EMPTY_PARAM_NUM
+                && settings.country.countryId == EMPTY_PARAM_SRT
+                && settings.place.areaId == EMPTY_PARAM_SRT
+            )
     }
 
     companion object {
