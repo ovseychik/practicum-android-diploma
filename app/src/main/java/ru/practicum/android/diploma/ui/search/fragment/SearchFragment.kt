@@ -57,11 +57,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             errorWhilePageLoadingNotification(it)
         }
         viewModel.isSettingsNotEmpty.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.btnFilter.setImageResource(R.drawable.ic_filter_on)
-            } else {
-                binding.btnFilter.setImageResource(R.drawable.ic_filter_off)
-            }
+            binding.btnFilter.setImageResource(if (it) R.drawable.ic_filter_on else R.drawable.ic_filter_off)
         }
     }
 
@@ -119,37 +115,21 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private fun render(state: ScreenStateVacancies) {
         when (state) {
-            is ScreenStateVacancies.Content -> {
-                showContent(state.listVacancies, state.foundItems)
-            }
+            is ScreenStateVacancies.Content -> { showContent(state.listVacancies, state.foundItems) }
 
-            is ScreenStateVacancies.Empty -> {
-                showEmptyState(state.message)
-            }
+            is ScreenStateVacancies.Empty -> { showEmptyState(state.message) }
 
-            is ScreenStateVacancies.Error -> {
-                showServerErrorState(state.message)
-            }
+            is ScreenStateVacancies.Error -> { showServerErrorState(state.message) }
 
-            is ScreenStateVacancies.IsLoading -> {
-                showLoadingState()
-            }
+            is ScreenStateVacancies.IsLoading -> { showLoadingState() }
 
-            is ScreenStateVacancies.NoInternet -> {
-                showNoInternetState(state.message)
-            }
+            is ScreenStateVacancies.NoInternet -> { showNoInternetState(state.message) }
 
-            is ScreenStateVacancies.NextPageIsLoading -> {
-                showNextPageLoading()
-            }
+            is ScreenStateVacancies.NextPageIsLoading -> { showNextPageLoading() }
 
-            is ScreenStateVacancies.NextPageIsLoaded -> {
-                showNextPageLoaded(state.listVacancies)
-            }
+            is ScreenStateVacancies.NextPageIsLoaded -> { showNextPageLoaded(state.listVacancies) }
 
-            ScreenStateVacancies.NextPageLoadingError -> {
-                showNextPageLoadingError()
-            }
+            ScreenStateVacancies.NextPageLoadingError -> { showNextPageLoadingError() }
         }
     }
 
@@ -273,7 +253,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     }
 
     companion object {
-        const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
-        const val ZERO_ITEMS = ""
+        private const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
+        private const val ZERO_ITEMS = ""
     }
 }
