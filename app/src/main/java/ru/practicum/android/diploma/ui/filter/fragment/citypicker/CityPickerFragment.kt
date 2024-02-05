@@ -83,7 +83,7 @@ class CityPickerFragment : BindingFragment<FragmentCityPickerBinding>() {
             tvErrorPlaceholder.isVisible = true
             ivPicPlaceholder.isVisible = true
             pbCircle.isVisible = false
-            ivPicPlaceholder.setImageResource(R.drawable.ic_nothing_found_pic)
+            ivPicPlaceholder.setImageResource(R.drawable.ic_server_error_regions)
             tvErrorPlaceholder.text = getString(message)
         }
     }
