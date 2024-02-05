@@ -30,7 +30,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     fun filteredIndustries(query: String) {
         val newFilteredList = industriesList
             .filter { query.length <= it.industryName.length }
-            .filter { it.industryName.substring(0, query.length).contains(query, true) }
+            .filter { it.industryName.contains(query, true) }
         if (newFilteredList.isEmpty()) {
             _screenState.postValue(IndustriesScreenState.Empty)
         } else {
