@@ -48,7 +48,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
         } else {
             _isSettingsModifed.postValue(false)
         }
-        if (!isSettingsNotEmpty(currentSettings)) {
+        if (isSettingsNotEmpty(currentSettings)) {
             _isSettingIsNotEmpty.postValue(true)
         } else {
             _isSettingIsNotEmpty.postValue(false)
@@ -56,7 +56,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     }
 
     private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
-        return (
+        return !(
             !settings.isSalarySpecified
                 && settings.salary == EMPTY_PARAM_NUM
                 && settings.country.countryId == EMPTY_PARAM_SRT
