@@ -17,6 +17,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     val screenState: LiveData<IndustriesScreenState> = _screenState
     private var selectedIndustry = industriesInteractor.getIndustryFromSettings()
     private val industriesList: MutableList<IndustryItem> = mutableListOf()
+    private var filteredList = industriesList
     fun getIndustries() {
         viewModelScope.launch {
             industriesInteractor.getIndustries().collect {
@@ -27,7 +28,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     }
 
     fun filteredIndustries(query: String) {
-        val filteredList = industriesList
+        filteredList
             .filter { query.length <= it.industryName.length }
             .filter { it.industryName.substring(0, query.length).contains(query, true) }
         if (filteredList.isEmpty()) {
@@ -51,7 +52,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     fun onIndustryItemClicked(industryItem: IndustryItem) {
         if (industryItem != selectedIndustry) {
             selectedIndustry = industryItem
-            _screenState.postValue(IndustriesScreenState.Content(industriesList, industryItem.industryName))
+            _screenState.postValue(IndustriesScreenState.Content(filteredList, industryItem.industryName))
         }
     }
 
