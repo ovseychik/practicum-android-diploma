@@ -6,16 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.domain.api.guides.PlacesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.guides.Country
+import ru.practicum.android.diploma.domain.models.guides.PlaceItem
 import ru.practicum.android.diploma.presentation.settings.models.CountriesScreenState
 
 class CountriesViewModel(private val placesInteractor: PlacesInteractor) : ViewModel() {
-
-    init {
-        getCountries()
-    }
 
     private var _screenState: MutableLiveData<CountriesScreenState> = MutableLiveData()
     val screenState: LiveData<CountriesScreenState> = _screenState
@@ -30,7 +28,10 @@ class CountriesViewModel(private val placesInteractor: PlacesInteractor) : ViewM
     }
 
     fun saveCountry(country: Country) {
-        placesInteractor.setCountryInSettings(country)
+        if (placesInteractor.getCountryFromSettings() != country) {
+            placesInteractor.setCountryInSettings(country)
+            placesInteractor.setPlaceInSettings(PlaceItem(EMPTY_PARAM_SRT, EMPTY_PARAM_SRT))
+        }
     }
 
     private fun processingResult(result: SearchResultData<Set<Country>>) {

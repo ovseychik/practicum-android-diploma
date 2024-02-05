@@ -26,7 +26,6 @@ class CityPickerFragment : BindingFragment<FragmentCityPickerBinding>() {
     private val placesAdapter = LocalityAdapter { city ->
         cityClickDebounce?.let {
             it(city as LocalityAdapterItem.City)
-            findNavController().popBackStack()
         }
     }
 
@@ -84,7 +83,7 @@ class CityPickerFragment : BindingFragment<FragmentCityPickerBinding>() {
             tvErrorPlaceholder.isVisible = true
             ivPicPlaceholder.isVisible = true
             pbCircle.isVisible = false
-            ivPicPlaceholder.setImageResource(R.drawable.ic_nothing_found_pic)
+            ivPicPlaceholder.setImageResource(R.drawable.ic_server_error_regions)
             tvErrorPlaceholder.text = getString(message)
         }
     }
@@ -130,6 +129,7 @@ class CityPickerFragment : BindingFragment<FragmentCityPickerBinding>() {
         }
         cityClickDebounce = debounce(CLICK_DEBOUNCE_DELAY_MILLIS, lifecycleScope, false) {
             viewModel.savePlace(it.place)
+            findNavController().popBackStack()
         }
     }
 
