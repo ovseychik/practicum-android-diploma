@@ -13,16 +13,12 @@ import ru.practicum.android.diploma.presentation.settings.models.IndustriesScree
 
 class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor) : ViewModel() {
 
-    init {
-        getIndustries()
-    }
-
     private var _screenState: MutableLiveData<IndustriesScreenState> = MutableLiveData()
     val screenState: LiveData<IndustriesScreenState> = _screenState
     private var selectedIndustry = industriesInteractor.getIndustryFromSettings()
-    private val industriesList = mutableListOf<IndustryItem>()
+    private val industriesList: MutableList<IndustryItem> = mutableListOf()
+    private var filteredList = mutableListOf<IndustryItem>()
     fun getIndustries() {
-        _screenState.postValue(IndustriesScreenState.Loading)
         viewModelScope.launch {
             industriesInteractor.getIndustries().collect {
                 industriesList.clear()
@@ -32,26 +28,44 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     }
 
     fun filteredIndustries(query: String) {
-        val filteredList = industriesList
-        filteredList
+        val newFilteredList = industriesList
             .filter { query.length <= it.industryName.length }
-            .filter { it.industryName.substring(0, query.length) == query }
-        if (filteredList.isEmpty()) {
+            .filter { it.industryName.contains(query, true) }
+        if (newFilteredList.isEmpty()) {
             _screenState.postValue(IndustriesScreenState.Empty)
         } else {
-            _screenState.postValue(IndustriesScreenState.Content(filteredList, selectedIndustry.industryName))
+            filteredList.clear()
+            filteredList.addAll(newFilteredList)
+            _screenState.postValue(IndustriesScreenState.Content(newFilteredList, selectedIndustry.industryName))
         }
     }
 
-    fun saveSelectedIndustry(industry: IndustryItem) {
-        industriesInteractor.setIndustryInSettings(industry)
+    fun getSelectedIndustry(): IndustryItem {
+        return industriesInteractor.getIndustryFromSettings()
+    }
+
+    fun saveSelectedIndustry() {
+        if (selectedIndustry.industryName != "") {
+            industriesInteractor.setIndustryInSettings(selectedIndustry)
+        }
+
+    }
+
+    fun onIndustryItemClicked(industryItem: IndustryItem) {
+        if (industryItem != selectedIndustry) {
+            selectedIndustry = industryItem
+            _screenState.postValue(IndustriesScreenState.Content(filteredList, industryItem.industryName))
+        }
     }
 
     private fun processingResult(result: SearchResultData<List<IndustryItem>>) {
         when (result) {
             is SearchResultData.Data -> {
+                industriesList.clear()
                 industriesList.addAll(result.value!!)
                 industriesList.sortBy { it.industryName }
+                filteredList.clear()
+                filteredList.addAll(industriesList)
                 _screenState.postValue(IndustriesScreenState.Content(industriesList, selectedIndustry.industryName))
             }
 

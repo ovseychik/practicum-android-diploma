@@ -16,7 +16,8 @@ data class SearchSettingsData(
     val placeId: String = EMPTY_PARAM_SRT,
     val countryName: String = EMPTY_PARAM_SRT,
     val placeName: String = EMPTY_PARAM_SRT,
-    val industryName: String = EMPTY_PARAM_SRT
+    val industryName: String = EMPTY_PARAM_SRT,
+    val industryId: String = EMPTY_PARAM_SRT
 )
 
 fun mapToSearchSetting(settings: SearchSettingsData): SearchSettings {
@@ -25,7 +26,7 @@ fun mapToSearchSetting(settings: SearchSettingsData): SearchSettings {
         salary = settings.salary,
         isSalarySpecified = settings.isSalarySpecified,
         country = Country(settings.countryName, settings.countryId),
-        industry = IndustryItem(settings.industryName),
+        industry = IndustryItem(industryName = settings.industryName, industryId = settings.industryId),
         place = PlaceItem(settings.placeName, settings.placeId)
     )
 }
@@ -38,7 +39,9 @@ fun mapToSearchSettingsData(settings: SearchSettings): SearchSettingsData {
         placeId = settings.place.areaId,
         placeName = settings.place.areaName,
         countryId = settings.country.countryId,
-        countryName = settings.country.countryName
+        countryName = settings.country.countryName,
+        industryName = settings.industry.industryName,
+        industryId = settings.industry.industryId
     )
 }
 

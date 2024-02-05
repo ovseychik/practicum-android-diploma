@@ -18,6 +18,6 @@ fun mapToListIndustriesItem(listDto: List<ResponseIndustriesGuideItem>): List<In
 
 private fun createdListIndusriesItem(list: List<Industry>): List<IndustryItem> {
     val addedList = mutableListOf<IndustryItem>()
-    list.forEach { addedList.add(IndustryItem(it.name)) }
+    list.forEach { addedList.add(IndustryItem(industryName = it.name, industryId = it.id)) }
     return addedList
 }

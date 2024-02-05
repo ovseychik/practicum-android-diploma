@@ -69,21 +69,24 @@
         android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLines="1"
-        android:paddingHorizontal="@dimen/_16dp"
+        android:paddingStart="@dimen/_16dp"
+        android:paddingEnd="@dimen/_68dp"
         android:singleLine="true"
         android:textColor="?attr/black_universal"
         android:textColorHint="?attr/hint_text_color"
         android:textCursorDrawable="@drawable/color_cursor"
         app:layout_constraintEnd_toStartOf="@id/right_guideline"
         app:layout_constraintStart_toEndOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/ll_title_header" />
+        app:layout_constraintTop_toBottomOf="@id/ll_title_header"
+        tools:text="авиационная, вертолетная, аэрокосмическая промышленность"/>
 
     <ImageView
         android:id="@+id/btn_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/_16dp"
+        android:padding="@dimen/_8dp"
+        android:layout_marginEnd="@dimen/_8dp"
         android:src="@drawable/ic_search"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/et_search"
