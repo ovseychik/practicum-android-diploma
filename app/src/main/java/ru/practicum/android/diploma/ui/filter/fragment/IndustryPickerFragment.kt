@@ -56,6 +56,7 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
                 screenState.industriesList,
                 screenState.selectedIndustryName
             )
+
             is IndustriesScreenState.Empty -> showEmptyState()
             is IndustriesScreenState.NoInternet -> showNoInternetState()
             is IndustriesScreenState.Error -> showErrorState()
