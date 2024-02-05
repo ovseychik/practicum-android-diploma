@@ -22,6 +22,6 @@ fun setDefault(): SearchSettings {
         isSalarySpecified = false,
         country = Country("", ""),
         place = PlaceItem("", ""),
-        industry = IndustryItem(""),
+        industry = IndustryItem("", ""),
     )
 }

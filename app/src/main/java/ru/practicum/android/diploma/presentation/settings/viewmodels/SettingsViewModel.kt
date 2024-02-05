@@ -112,7 +112,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     }
 
     fun deleteIndustry() {
-        currentSettings = currentSettings.copy(industry = IndustryItem(EMPTY_PARAM_SRT))
+        currentSettings = currentSettings.copy(industry = IndustryItem(EMPTY_PARAM_SRT, EMPTY_PARAM_SRT))
         settingsInteractor.saveSettings(currentSettings)
         getSettings()
     }
