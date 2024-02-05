@@ -273,7 +273,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     }
 
     companion object {
-        const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
-        const val ZERO_ITEMS = ""
+        private const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
+        private const val ZERO_ITEMS = ""
     }
 }
