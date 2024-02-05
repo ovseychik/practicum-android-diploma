@@ -19,6 +19,8 @@ import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import ru.practicum.android.diploma.presentation.vacancy.models.PageLoadingState
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
 import ru.practicum.android.diploma.presentation.vacancy.models.SingleLiveEvent
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 
 class SearchViewModel(
     private val vacanciesInteractor: VacanciesInteractor,
@@ -36,10 +38,10 @@ class SearchViewModel(
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
     val toastState: LiveData<PageLoadingState> = _showToastState
-    private var currentPage = FIRST_PAGE
-    private var isNextPageLoading = false
+    private var currentPage = AtomicInteger(FIRST_PAGE)
+    private var isNextPageLoading = AtomicBoolean(false)
     private var currentQuery = EMPTY_QUERY
-    private var foundItemsCount = ZERO_COUNT
+    private var foundItemsCount = AtomicInteger(ZERO_COUNT)
 
     fun getVacancies(query: String, pageNum: Int = FIRST_PAGE) {
         if (pageNum != FIRST_PAGE) {
@@ -73,8 +75,8 @@ class SearchViewModel(
             val settings = settingsInteractor.getSettings()
             if (settings.settingsId == ValuesSearchId.BASE) {
                 viewModelScope.launch {
-                    currentPage = FIRST_PAGE
-                    getVacancies(currentQuery, currentPage)
+                    currentPage.set(FIRST_PAGE)
+                    getVacancies(currentQuery, currentPage.get())
                 }
             } else {
                 settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
@@ -89,7 +91,7 @@ class SearchViewModel(
             if (currentQuery.length > ONE_LETTER) {
                 searchJob = viewModelScope.launch {
                     delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
-                    currentPage = FIRST_PAGE
+                    currentPage.set(FIRST_PAGE)
                     getVacancies(currentQuery)
                 }
             }
@@ -99,7 +101,7 @@ class SearchViewModel(
     private fun processingResult(result: SearchResultData<Vacancies>) {
         when (result) {
             is SearchResultData.NoInternet -> {
-                if (currentPage == FIRST_PAGE) {
+                if (currentPage.get() == FIRST_PAGE) {
                     _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
                 } else {
                     _showToastState.postValue(PageLoadingState.InternetError)
@@ -107,7 +109,7 @@ class SearchViewModel(
             }
 
             is SearchResultData.ErrorServer -> {
-                if (currentPage == FIRST_PAGE) {
+                if (currentPage.get() == FIRST_PAGE) {
                     _screenState.postValue(ScreenStateVacancies.Error(result.message))
                 } else {
                     _showToastState.postValue(PageLoadingState.ServerError)
@@ -120,14 +122,14 @@ class SearchViewModel(
             }
 
             is SearchResultData.Data -> {
-                if (currentPage == FIRST_PAGE) {
+                if (currentPage.get() == FIRST_PAGE) {
                     _screenState.postValue(
                         ScreenStateVacancies.Content(
                             result.value?.foundItems!!,
                             result.value.listVacancies
                         )
                     )
-                    foundItemsCount = result.value.foundItems
+                    foundItemsCount.set(result.value.foundItems)
                 } else {
                     _screenState.postValue(
                         result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) }
@@ -135,14 +137,14 @@ class SearchViewModel(
                 }
             }
         }
-        isNextPageLoading = false
+        isNextPageLoading.set(false)
     }
 
     fun onLastItemReached() {
-        if (currentPage < foundItemsCount / ITEMS_PER_PAGE && !isNextPageLoading) {
-            isNextPageLoading = true
-            currentPage++
-            getVacancies(currentQuery, currentPage)
+        if (currentPage.get() < foundItemsCount.get() / ITEMS_PER_PAGE && !isNextPageLoading.get()) {
+            isNextPageLoading.set(true)
+            currentPage.set(currentPage.get() + 1)
+            getVacancies(currentQuery, currentPage.get())
         }
     }
 
