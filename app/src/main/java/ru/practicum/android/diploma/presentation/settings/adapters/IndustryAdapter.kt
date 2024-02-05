@@ -32,7 +32,7 @@ class IndustryAdapter(private val onClick: (IndustryItem) -> Unit) : RecyclerVie
     }
 
     fun setSelectedIndustry(industry: IndustryItem) {
-        val index = items.indexOfFirst { it.industryName == industry.industryName }
+        val index = items.indexOfFirst { it.industryName == selectedIndustryItemName }
         if (index != -1) {
             selectedIndustryItemName = items[index].industryName
             notifyItemChanged(index)
