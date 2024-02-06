@@ -168,11 +168,11 @@ class SearchViewModel(
     }
 
     companion object {
-        const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
-        const val ITEMS_PER_PAGE = 20
-        const val FIRST_PAGE = 0
-        const val EMPTY_QUERY = ""
-        const val ZERO_COUNT = 0
-        const val ONE_LETTER = 1
+        private const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
+        private const val ITEMS_PER_PAGE = 20
+        private const val FIRST_PAGE = 0
+        private const val EMPTY_QUERY = ""
+        private const val ZERO_COUNT = 0
+        private const val ONE_LETTER = 1
     }
 }
