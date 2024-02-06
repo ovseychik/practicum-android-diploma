@@ -38,11 +38,11 @@ val domainModule = module {
         RepositoryVacanciesImpl(client = get(), settingsStorage = get(), json = get())
     }
 
-    single<DetailsInteractor> {
+    factory<DetailsInteractor> {
         DetailsInteractorImpl(detailsRepository = get())
     }
 
-    single<VacanciesInteractor> {
+    factory<VacanciesInteractor> {
         VacanciesInteractorImpl(vacanciesRepository = get())
     }
 
@@ -50,11 +50,11 @@ val domainModule = module {
         FavoritesRepositoryImpl(appDatabase = get(), vacancyConvertors = get())
     }
 
-    single<FavoritesInteractor> {
+    factory<FavoritesInteractor> {
         FavoritesInteractorImpl(favoritesRepository = get())
     }
 
-    single<ExternalNavigator> {
+    factory<ExternalNavigator> {
         ExternalNavigatorImpl(androidContext())
     }
 
@@ -74,7 +74,7 @@ val domainModule = module {
         IndustriesInteractorImpl(industriesRepository = get(), settingsRepository = get())
     }
 
-    single<SettingsInteractor> {
+    factory<SettingsInteractor> {
         SettingInteractorImpl(settingsRepository = get())
     }
 

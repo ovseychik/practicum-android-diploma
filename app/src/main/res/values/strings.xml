@@ -57,6 +57,7 @@
     <string name="country_choose_title_text">Выбор страны</string>
     <string name="choose_industry_hint">Введите отрасль</string>
     <string name="industry_choose_title_text">Выбор отрасли</string>
+    <string name="sucsess" translatable="false">OK</string>
 
     <string name="filter_settings">Настройки фильтрации</string>
     <string name="workplace">Место работы</string>
@@ -67,6 +68,5 @@
     <string name="apply">Применить</string>
     <string name="clear">Сбросить</string>
     <string name="region_not_found">Такого региона нет</string>
-
     <string name="empty_industry_list">Не удалось получить\nсписок отраслей</string>
 </resources>

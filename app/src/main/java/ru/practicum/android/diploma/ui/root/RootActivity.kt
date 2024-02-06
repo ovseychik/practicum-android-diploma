@@ -30,14 +30,6 @@ class RootActivity : AppCompatActivity() {
                 else -> hideBottomNavigation()
             }
         }
-
-        // Пример использования access token для HeadHunter API
-        networkRequestExample(accessToken = BuildConfig.HH_ACCESS_TOKEN)
-
-    }
-
-    private fun networkRequestExample(accessToken: String) {
-        // ...
     }
 
     private fun showBottomNavigation() {

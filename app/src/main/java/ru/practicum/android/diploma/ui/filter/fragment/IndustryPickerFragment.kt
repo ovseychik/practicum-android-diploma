@@ -104,6 +104,7 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
             rvSearchResult.isVisible = true
             ivPicPlaceholder.isVisible = false
             tvErrorPlaceholder.isVisible = false
+            pbCircle.isVisible = false
             industryAdapter.clearData()
             industryAdapter.addIndustryItems(industryItems, selectedIndustryName)
             btnSelect.isVisible = selectedIndustryName.isNotEmpty()
@@ -116,6 +117,7 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
             tvErrorPlaceholder.isVisible = false
             rvSearchResult.isVisible = false
             btnSelect.isVisible = false
+            pbCircle.isVisible = false
         }
     }
 
@@ -131,6 +133,7 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
             }
             rvSearchResult.isVisible = false
             btnSelect.isVisible = false
+            pbCircle.isVisible = false
         }
     }
 
@@ -146,6 +149,7 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
             }
             rvSearchResult.isVisible = false
             btnSelect.isVisible = false
+            pbCircle.isVisible = false
         }
     }
 

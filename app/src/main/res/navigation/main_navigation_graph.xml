@@ -32,9 +32,6 @@
         android:id="@+id/vacancyDetailsFragment"
         android:name="ru.practicum.android.diploma.ui.vacancydetails.fragment.VacancyDetailsFragment"
         android:label="VacancyDetailsFragment" >
-        <action
-            android:id="@+id/action_vacancyDetailsFragment_to_similarVacancyFragment"
-            app:destination="@id/similarVacancyFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteVacancyFragment"
@@ -45,10 +42,6 @@
             android:id="@+id/action_favoriteVacancyFragment_to_vacancyDetailsFragment"
             app:destination="@id/vacancyDetailsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/similarVacancyFragment"
-        android:name="ru.practicum.android.diploma.ui.similarvacancy.fragment.SimilarVacancyFragment"
-        android:label="SimilarVacancyFragment" />
     <fragment
         android:id="@+id/industryPickerFragment"
         android:name="ru.practicum.android.diploma.ui.filter.fragment.IndustryPickerFragment"

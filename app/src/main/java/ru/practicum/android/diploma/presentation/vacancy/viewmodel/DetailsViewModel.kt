@@ -13,6 +13,7 @@ import ru.practicum.android.diploma.domain.api.FavoritesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyDetails
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateDetails
+import ru.practicum.android.diploma.presentation.vacancy.models.SingleLiveEvent
 
 class DetailsViewModel(
     private val detailsInteractor: DetailsInteractor,
@@ -25,7 +26,7 @@ class DetailsViewModel(
     private var _currentVacancyInFavorite: MutableLiveData<Boolean> =
         MutableLiveData()
     val currentVacancyInFavorite: LiveData<Boolean> = _currentVacancyInFavorite
-    private var _isToastShowing: MutableLiveData<Boolean> = MutableLiveData(false)
+    private var _isToastShowing = SingleLiveEvent<Boolean>()
     val isToastShowing: LiveData<Boolean> = _isToastShowing
 
     fun checkedVacancyForFavorite(vacancyId: String) {
@@ -96,9 +97,12 @@ class DetailsViewModel(
     }
 
     fun sendEmail(email: String) {
-        externalNavigator.openEmail(email)
-        if (externalNavigator.getExceptionsList() != ZERO) {
+        val result = externalNavigator.openEmail(email)
+        if (result.isFailure) {
             _isToastShowing.postValue(true)
+        }
+        if (result.isSuccess) {
+            _isToastShowing.postValue(false)
         }
     }
 
@@ -106,5 +110,3 @@ class DetailsViewModel(
         externalNavigator.openDial(number)
     }
 }
-
-private const val ZERO = 0

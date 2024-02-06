@@ -126,5 +126,4 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
         settingsInteractor.saveSettings(newSettings.copy(ValuesSearchId.MODIFIED))
         getSettings()
     }
-
 }

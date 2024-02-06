@@ -96,6 +96,6 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
     }
 
     companion object {
-        const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
+        private const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
     }
 }
