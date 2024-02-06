@@ -110,5 +110,3 @@ class DetailsViewModel(
         externalNavigator.openDial(number)
     }
 }
-
-private const val ZERO = 0
