@@ -34,14 +34,16 @@
 
     <ImageButton
         android:id="@+id/btn_filter"
-        android:layout_width="@dimen/_24dp"
-        android:layout_height="@dimen/_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20dp"
+        android:paddingStart="@dimen/_8dp"
+        android:paddingBottom="@dimen/_8dp"
         android:background="@null"
         android:src="@drawable/ic_filter_off"
-        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/text_color" />
+         />
 
     <EditText
         android:id="@+id/et_search"
@@ -55,7 +57,8 @@
         android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLines="1"
-        android:paddingHorizontal="@dimen/_16dp"
+        android:paddingStart="@dimen/_16dp"
+        android:paddingEnd="@dimen/_68dp"
         android:singleLine="true"
         android:textColor="?attr/black_universal"
         android:textColorHint="?attr/hint_text_color"
@@ -69,7 +72,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginEnd="@dimen/_16dp"
+        android:padding="@dimen/_8dp"
+        android:layout_marginEnd="@dimen/_8dp"
         android:src="@drawable/ic_search"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/et_search"

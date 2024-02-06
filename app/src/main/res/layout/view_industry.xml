@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/_6dp">
+
+    <TextView
+        android:id="@+id/tv_industry_name"
+        style="@style/YsDisplayRegular16"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginVertical="@dimen/_8dp"
+        android:layout_weight="11"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="?attr/text_color"
+        tools:text="Производство и продажа высококачественных компонентов для электронной промышленности, включая полупроводники, микросхемы, диоды, транзисторы, конденсаторы, резисторы и другие пассивные компоненты, а также разработка и производство программного обеспечения для управления и мониторинга электронных устройств и систем" />
+
+    <RadioButton
+        android:id="@+id/btn_radio"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_24dp"
+        android:layout_gravity="center_vertical"
+        android:clickable="false"
+        android:layout_weight="1"
+        app:buttonTint="?attr/blue" />
+</LinearLayout>

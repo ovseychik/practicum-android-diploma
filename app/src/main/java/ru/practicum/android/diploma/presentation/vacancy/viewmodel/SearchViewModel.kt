@@ -8,26 +8,40 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
+import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
+import ru.practicum.android.diploma.data.models.ValuesSearchId
 import ru.practicum.android.diploma.domain.api.VacanciesInteractor
+import ru.practicum.android.diploma.domain.api.settings.SettingsInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
+import ru.practicum.android.diploma.domain.models.settings.SearchSettings
 import ru.practicum.android.diploma.domain.models.vacancy.Vacancies
 import ru.practicum.android.diploma.presentation.vacancy.models.PageLoadingState
 import ru.practicum.android.diploma.presentation.vacancy.models.ScreenStateVacancies
 import ru.practicum.android.diploma.presentation.vacancy.models.SingleLiveEvent
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 
 class SearchViewModel(
-    private val vacanciesInteractor: VacanciesInteractor
+    private val vacanciesInteractor: VacanciesInteractor,
+    private val settingsInteractor: SettingsInteractor
 ) : ViewModel() {
+
+    init {
+        setSettingsBase()
+    }
 
     private val _screenState: MutableLiveData<ScreenStateVacancies> = MutableLiveData()
     private val _showToastState = SingleLiveEvent<PageLoadingState>()
+    private var _isSettingsNotEmpty: MutableLiveData<Boolean> = MutableLiveData()
+    val isSettingsNotEmpty: LiveData<Boolean> = _isSettingsNotEmpty
     private var searchJob: Job? = null
     val screenState: LiveData<ScreenStateVacancies> = _screenState
     val toastState: LiveData<PageLoadingState> = _showToastState
-    private var currentPage = FIRST_PAGE
-    private var isNextPageLoading = false
+    private var currentPage = AtomicInteger(FIRST_PAGE)
+    private var isNextPageLoading = AtomicBoolean(false)
     private var currentQuery = EMPTY_QUERY
-    private var foundItemsCount = ZERO_COUNT
+    private var foundItemsCount = AtomicInteger(ZERO_COUNT)
 
     fun getVacancies(query: String, pageNum: Int = FIRST_PAGE) {
         if (pageNum != FIRST_PAGE) {
@@ -42,6 +56,34 @@ class SearchViewModel(
         }
     }
 
+    fun setSettingsBase() {
+        val settings = settingsInteractor.getSettings()
+        settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
+    }
+
+    fun checkedSettings() {
+        val settings = settingsInteractor.getSettings()
+        if (isSettingsNotEmpty(settings)) {
+            _isSettingsNotEmpty.postValue(true)
+        } else {
+            _isSettingsNotEmpty.postValue(false)
+        }
+    }
+
+    fun newSearch() {
+        if (currentQuery != EMPTY_QUERY) {
+            val settings = settingsInteractor.getSettings()
+            if (settings.settingsId == ValuesSearchId.BASE) {
+                viewModelScope.launch {
+                    currentPage.set(FIRST_PAGE)
+                    getVacancies(currentQuery, currentPage.get())
+                }
+            } else {
+                settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
+            }
+        }
+    }
+
     fun debounceSearch(query: String) {
         if (query != currentQuery) {
             currentQuery = query
@@ -49,7 +91,7 @@ class SearchViewModel(
             if (currentQuery.length > ONE_LETTER) {
                 searchJob = viewModelScope.launch {
                     delay(SEARCH_DEBOUNCE_DELAY_MILLIS)
-                    currentPage = FIRST_PAGE
+                    currentPage.set(FIRST_PAGE)
                     getVacancies(currentQuery)
                 }
             }
@@ -59,7 +101,7 @@ class SearchViewModel(
     private fun processingResult(result: SearchResultData<Vacancies>) {
         when (result) {
             is SearchResultData.NoInternet -> {
-                if (currentPage == FIRST_PAGE) {
+                if (currentPage.get() == FIRST_PAGE) {
                     _screenState.postValue(ScreenStateVacancies.NoInternet(result.message))
                 } else {
                     _showToastState.postValue(PageLoadingState.InternetError)
@@ -67,7 +109,7 @@ class SearchViewModel(
             }
 
             is SearchResultData.ErrorServer -> {
-                if (currentPage == FIRST_PAGE) {
+                if (currentPage.get() == FIRST_PAGE) {
                     _screenState.postValue(ScreenStateVacancies.Error(result.message))
                 } else {
                     _showToastState.postValue(PageLoadingState.ServerError)
@@ -80,14 +122,14 @@ class SearchViewModel(
             }
 
             is SearchResultData.Data -> {
-                if (currentPage == FIRST_PAGE) {
+                if (currentPage.get() == FIRST_PAGE) {
                     _screenState.postValue(
                         ScreenStateVacancies.Content(
                             result.value?.foundItems!!,
                             result.value.listVacancies
                         )
                     )
-                    foundItemsCount = result.value.foundItems
+                    foundItemsCount.set(result.value.foundItems)
                 } else {
                     _screenState.postValue(
                         result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) }
@@ -95,23 +137,42 @@ class SearchViewModel(
                 }
             }
         }
-        isNextPageLoading = false
+        isNextPageLoading.set(false)
     }
 
     fun onLastItemReached() {
-        if (currentPage < foundItemsCount / ITEMS_PER_PAGE && !isNextPageLoading) {
-            isNextPageLoading = true
-            currentPage++
-            getVacancies(currentQuery, currentPage)
+        if (currentPage.get() < foundItemsCount.get() / ITEMS_PER_PAGE && !isNextPageLoading.get()) {
+            isNextPageLoading.set(true)
+            currentPage.set(currentPage.get() + 1)
+            getVacancies(currentQuery, currentPage.get())
         }
     }
 
+    fun updateSettingsToBase() {
+        val settings = settingsInteractor.getSettings()
+        settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
+    }
+
+    fun clearCurrentQuery() {
+        currentQuery = EMPTY_QUERY
+    }
+
+    private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
+        return !(
+            !settings.isSalarySpecified
+                && settings.salary == EMPTY_PARAM_NUM
+                && settings.country.countryId == EMPTY_PARAM_SRT
+                && settings.place.areaId == EMPTY_PARAM_SRT
+                && settings.industry.industryName == EMPTY_PARAM_SRT
+            )
+    }
+
     companion object {
-        const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
-        const val ITEMS_PER_PAGE = 20
-        const val FIRST_PAGE = 0
-        const val EMPTY_QUERY = ""
-        const val ZERO_COUNT = 0
-        const val ONE_LETTER = 1
+        private const val SEARCH_DEBOUNCE_DELAY_MILLIS = 2000L
+        private const val ITEMS_PER_PAGE = 20
+        private const val FIRST_PAGE = 0
+        private const val EMPTY_QUERY = ""
+        private const val ZERO_COUNT = 0
+        private const val ONE_LETTER = 1
     }
 }

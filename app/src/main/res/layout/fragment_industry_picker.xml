@@ -5,32 +5,161 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/screen_background_color"
-    android:paddingHorizontal="@dimen/fragment_padding_horizontal"
-    tools:context="ui.filter.fragment.IndustryPickerFragment">
-
-    <TextView
-        android:id="@+id/text_view_industry_fragment_title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Industry picker fragment"
-        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.filter.fragment.IndustryPickerFragment">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_bottom"
+        android:id="@+id/left_guideline"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/_16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/_16dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_title_header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="80dp" />
+        android:paddingVertical="@dimen/_8dp"
+        android:paddingStart="@dimen/_4dp"
+        android:paddingEnd="@dimen/_8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_to_filters"
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4dp"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/_8dp"
+            app:srcCompat="@drawable/ic_arrow_back"
+            app:tint="?attr/text_color" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/YsDisplayMedium22"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_4dp"
+            android:layout_weight="1"
+            android:text="@string/industry_choose_title_text"
+            android:textColor="?attr/text_color" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_search"
+        style="@style/YsDisplayRegular16"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_56dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:layout_weight="1"
+        android:background="@drawable/search_input_field_bg_shape"
+        android:hint="@string/choose_industry_hint"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/_16dp"
+        android:paddingStart="@dimen/_16dp"
+        android:paddingEnd="@dimen/_56dp"
+        android:singleLine="true"
+        android:textColor="?attr/black_universal"
+        android:textColorHint="?attr/hint_text_color"
+        android:textCursorDrawable="@drawable/color_cursor"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/ll_title_header" />
+
+    <ImageView
+        android:id="@+id/btn_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Filter Fragment"
+        android:layout_gravity="center"
+        android:padding="@dimen/_8dp"
+        android:layout_marginEnd="@dimen/_8dp"
+        android:src="@drawable/ic_search"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toEndOf="@id/et_search"
+        app:layout_constraintTop_toTopOf="@id/et_search"
+        app:tint="?attr/black_universal" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search_result"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_0dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:clipToPadding="false"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/btn_select"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/et_search"
+        tools:listitem="@layout/view_industry"
+        tools:itemCount="20"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/iv_pic_placeholder"
+        android:layout_width="@dimen/_328dp"
+        android:layout_height="@dimen/_223dp"
+        android:src="@drawable/ic_nothing_found_pic"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_bottom" />
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/et_search" />
+
+    <ProgressBar
+        android:id="@+id/pb_circle"
+        android:layout_width="@dimen/_48dp"
+        android:layout_height="@dimen/_48dp"
+        android:indeterminate="true"
+        android:indeterminateTint="?attr/blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/et_search" />
+
+    <TextView
+        android:id="@+id/tv_error_placeholder"
+        style="@style/YsDisplayMedium22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16dp"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/iv_pic_placeholder"
+        tools:text="@string/no_internet_error_text" />
+
+    <TextView
+        android:id="@+id/btn_select"
+        style="@style/YsDisplayMedium16"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="@dimen/_56dp"
+        android:layout_marginBottom="@dimen/_24dp"
+        android:background="@drawable/rounded_button"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/btn_apply_text"
+        android:textAlignment="center"
+        android:textColor="?attr/white_universal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintStart_toEndOf="@id/left_guideline" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

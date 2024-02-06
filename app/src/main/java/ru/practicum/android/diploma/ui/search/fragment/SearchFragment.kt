@@ -45,11 +45,19 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         bind()
         setOnVacancyClickListener()
         setOnScrollListener()
+        newSearch()
+        viewModel.checkedSettings()
+        binding.btnFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+        }
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
         }
         viewModel.toastState.observe(viewLifecycleOwner) {
             errorWhilePageLoadingNotification(it)
+        }
+        viewModel.isSettingsNotEmpty.observe(viewLifecycleOwner) {
+            binding.btnFilter.setImageResource(if (it) R.drawable.ic_filter_on else R.drawable.ic_filter_off)
         }
     }
 
@@ -71,6 +79,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     private fun bind() {
         with(binding) {
             etSearch.doAfterTextChanged { text ->
+                viewModel.updateSettingsToBase()
                 if (text.isNullOrEmpty()) {
                     btnClear.setImageResource(R.drawable.ic_search)
                 } else {
@@ -81,10 +90,15 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
             btnClear.setOnClickListener {
                 etSearch.text.clear()
+                viewModel.clearCurrentQuery()
             }
 
             rvSearchResult.adapter = vacancyAdapter
         }
+    }
+
+    private fun newSearch() {
+        viewModel.newSearch()
     }
 
     private fun setOnVacancyClickListener() {
@@ -93,6 +107,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             viewLifecycleOwner.lifecycleScope,
             false
         ) { vacancyItem ->
+            viewModel.setSettingsBase()
             val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
             findNavController().navigate(R.id.action_searchFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
@@ -100,37 +115,21 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private fun render(state: ScreenStateVacancies) {
         when (state) {
-            is ScreenStateVacancies.Content -> {
-                showContent(state.listVacancies, state.foundItems)
-            }
+            is ScreenStateVacancies.Content -> { showContent(state.listVacancies, state.foundItems) }
 
-            is ScreenStateVacancies.Empty -> {
-                showEmptyState(state.message)
-            }
+            is ScreenStateVacancies.Empty -> { showEmptyState(state.message) }
 
-            is ScreenStateVacancies.Error -> {
-                showServerErrorState(state.message)
-            }
+            is ScreenStateVacancies.Error -> { showServerErrorState(state.message) }
 
-            is ScreenStateVacancies.IsLoading -> {
-                showLoadingState()
-            }
+            is ScreenStateVacancies.IsLoading -> { showLoadingState() }
 
-            is ScreenStateVacancies.NoInternet -> {
-                showNoInternetState(state.message)
-            }
+            is ScreenStateVacancies.NoInternet -> { showNoInternetState(state.message) }
 
-            is ScreenStateVacancies.NextPageIsLoading -> {
-                showNextPageLoading()
-            }
+            is ScreenStateVacancies.NextPageIsLoading -> { showNextPageLoading() }
 
-            is ScreenStateVacancies.NextPageIsLoaded -> {
-                showNextPageLoaded(state.listVacancies)
-            }
+            is ScreenStateVacancies.NextPageIsLoaded -> { showNextPageLoaded(state.listVacancies) }
 
-            ScreenStateVacancies.NextPageLoadingError -> {
-                showNextPageLoadingError()
-            }
+            ScreenStateVacancies.NextPageLoadingError -> { showNextPageLoadingError() }
         }
     }
 
@@ -254,7 +253,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     }
 
     companion object {
-        const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
-        const val ZERO_ITEMS = ""
+        private const val CLICK_DEBOUNCE_DELAY_MILLIS = 200L
+        private const val ZERO_ITEMS = ""
     }
 }

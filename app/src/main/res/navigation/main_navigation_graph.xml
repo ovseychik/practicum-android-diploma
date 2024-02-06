@@ -9,7 +9,7 @@
         android:id="@+id/filterFragment"
         android:name="ru.practicum.android.diploma.ui.filter.fragment.FilterFragment"
         android:label="FilterFragment"
-        tools:layout="@layout/fragment_filter">
+        tools:layout="@layout/fragment_filter_settings">
         <action
             android:id="@+id/action_filterFragment_to_industryPickerFragment"
             app:destination="@id/industryPickerFragment" />
@@ -32,9 +32,6 @@
         android:id="@+id/vacancyDetailsFragment"
         android:name="ru.practicum.android.diploma.ui.vacancydetails.fragment.VacancyDetailsFragment"
         android:label="VacancyDetailsFragment" >
-        <action
-            android:id="@+id/action_vacancyDetailsFragment_to_similarVacancyFragment"
-            app:destination="@id/similarVacancyFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteVacancyFragment"
@@ -46,14 +43,6 @@
             app:destination="@id/vacancyDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/similarVacancyFragment"
-        android:name="ru.practicum.android.diploma.ui.similarvacancy.fragment.SimilarVacancyFragment"
-        android:label="SimilarVacancyFragment" />
-    <fragment
-        android:id="@+id/localityPickerFragment"
-        android:name="ru.practicum.android.diploma.ui.filter.fragment.LocalityPickerFragment"
-        android:label="LocalityPickerFragment" />
-    <fragment
         android:id="@+id/industryPickerFragment"
         android:name="ru.practicum.android.diploma.ui.filter.fragment.IndustryPickerFragment"
         android:label="IndustryPickerFragment" />
@@ -63,10 +52,23 @@
         android:label="TeamFragment" />
     <fragment
         android:id="@+id/localityTypeFragment"
-        android:name="ru.practicum.android.diploma.ui.filter.fragment.LocalityTypeFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.fragment.placeofwork.LocalityTypeFragment"
         android:label="LocalityTypeFragment" >
         <action
-            android:id="@+id/action_localityTypeFragment_to_localityPickerFragment"
-            app:destination="@id/localityPickerFragment" />
+            android:id="@+id/action_localityTypeFragment_to_cityPickerFragment"
+            app:destination="@id/cityPickerFragment" />
+        <action
+            android:id="@+id/action_localityTypeFragment_to_countryPickerFragment2"
+            app:destination="@id/countryPickerFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/cityPickerFragment"
+        android:name="ru.practicum.android.diploma.ui.filter.fragment.citypicker.CityPickerFragment"
+        android:label="fragment_city_picker"
+        tools:layout="@layout/fragment_city_picker" />
+    <fragment
+        android:id="@+id/countryPickerFragment2"
+        android:name="ru.practicum.android.diploma.ui.filter.fragment.countrypicker.CountryPickerFragment"
+        android:label="fragment_country_picker"
+        tools:layout="@layout/fragment_country_picker" />
 </navigation>
