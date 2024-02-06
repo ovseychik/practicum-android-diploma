@@ -19,7 +19,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     val screenState: LiveData<SearchSettings> = _screenState
     private var _isSettingsModifed: MutableLiveData<Boolean> = MutableLiveData(false)
     val isSettingsModified: LiveData<Boolean> = _isSettingsModifed
-    private var _isSettingIsNotEmpty: MutableLiveData<Boolean> = MutableLiveData()
+    private var _isSettingIsNotEmpty: MutableLiveData<Boolean> = MutableLiveData(false)
     val isSettingIsNotEmpty: LiveData<Boolean> = _isSettingIsNotEmpty
     private var currentSettings = setDefault()
     private var baseSettings = settingsInteractor.getSettings()
@@ -38,7 +38,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     private fun compareSettings() {
         if (baseSettings.country.countryId != currentSettings.country.countryId
             || baseSettings.place.areaId != currentSettings.place.areaId
-            || baseSettings.industry.industryName != currentSettings.industry.industryName
+            || baseSettings.industry.industryId != currentSettings.industry.industryId
         ) {
             currentSettings = currentSettings.copy(settingsId = ValuesSearchId.MODIFIED)
             settingsInteractor.saveSettings(currentSettings)
@@ -61,6 +61,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
                 && settings.salary == EMPTY_PARAM_NUM
                 && settings.country.countryId == EMPTY_PARAM_SRT
                 && settings.place.areaId == EMPTY_PARAM_SRT
+                && settings.industry.industryId == EMPTY_PARAM_SRT
             )
     }
 
