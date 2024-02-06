@@ -26,6 +26,7 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind()
+        setupTextListeners()
         viewModel.updateState()
         viewModel.screenState.observe(viewLifecycleOwner) {
             render(it)
@@ -61,24 +62,6 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
 
     private fun bind() {
         with(binding) {
-            etCountryLayout.doOnTextChanged { text, _, _, _ ->
-                if (text.isNullOrEmpty()) {
-                    etCountry.setEndIconDrawable(R.drawable.ic_arrow_forward)
-                } else {
-                    etCountry.setEndIconDrawable(R.drawable.ic_close)
-                }
-                currentCountryInput = text.toString()
-                setButtonVisibility()
-            }
-            etRegionLayout.doOnTextChanged { text, _, _, _ ->
-                if (text.isNullOrEmpty()) {
-                    etRegion.setEndIconDrawable(R.drawable.ic_arrow_forward)
-                } else {
-                    etRegion.setEndIconDrawable(R.drawable.ic_close)
-                }
-                currentCityInput = text.toString()
-                setButtonVisibility()
-            }
             etCountry.setEndIconOnClickListener {
                 viewModel.deleteCountryFromSettings()
                 viewModel.deleteCityFromSettings()
@@ -99,6 +82,29 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
             }
             btnBack.setOnClickListener {
                 findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun setupTextListeners() {
+        with(binding) {
+            etCountryLayout.doOnTextChanged { text, _, _, _ ->
+                if (text.isNullOrEmpty()) {
+                    etCountry.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                } else {
+                    etCountry.setEndIconDrawable(R.drawable.ic_close)
+                }
+                currentCountryInput = text.toString()
+                setButtonVisibility()
+            }
+            etRegionLayout.doOnTextChanged { text, _, _, _ ->
+                if (text.isNullOrEmpty()) {
+                    etRegion.setEndIconDrawable(R.drawable.ic_arrow_forward)
+                } else {
+                    etRegion.setEndIconDrawable(R.drawable.ic_close)
+                }
+                currentCityInput = text.toString()
+                setButtonVisibility()
             }
         }
     }
