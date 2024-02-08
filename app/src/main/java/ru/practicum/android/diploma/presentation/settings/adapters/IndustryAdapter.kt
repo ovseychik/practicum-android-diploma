@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.models.guides.IndustryItem
 import ru.practicum.android.diploma.presentation.settings.viewholders.IndustryViewHolder
 
 class IndustryAdapter(private val onClick: (IndustryItem) -> Unit) : RecyclerView.Adapter<IndustryViewHolder>() {
-    private var items: MutableList<IndustryItem> = mutableListOf()
+    private val items: MutableList<IndustryItem> = mutableListOf()
     private var selectedIndustryItemName: String? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustryViewHolder {
         val binding = ViewIndustryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
