@@ -61,12 +61,16 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     private fun processingResult(result: SearchResultData<List<IndustryItem>>) {
         when (result) {
             is SearchResultData.Data -> {
-                industriesList.clear()
-                industriesList.addAll(result.value!!)
-                industriesList.sortBy { it.industryName }
-                filteredList.clear()
-                filteredList.addAll(industriesList)
-                _screenState.postValue(IndustriesScreenState.Content(industriesList, selectedIndustry.industryName))
+                if (result.value != null) {
+                    industriesList.clear()
+                    industriesList.addAll(result.value)
+                    industriesList.sortBy { it.industryName }
+                    filteredList.clear()
+                    filteredList.addAll(industriesList)
+                    _screenState.postValue(IndustriesScreenState.Content(industriesList, selectedIndustry.industryName))
+                } else {
+                    _screenState.postValue(IndustriesScreenState.Empty)
+                }
             }
 
             is SearchResultData.ErrorServer -> {

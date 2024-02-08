@@ -132,7 +132,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
 
     fun deletedSettings() {
         val newSettings = setDefault()
-        settingsInteractor.saveSettings(newSettings.copy(ValuesSearchId.MODIFIED))
+        settingsInteractor.saveSettings(newSettings.copy(settingsId = ValuesSearchId.MODIFIED))
         getSettings()
     }
 }

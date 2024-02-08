@@ -85,7 +85,11 @@ class DetailsViewModel(
             }
 
             is SearchResultData.Data -> {
-                _screenState.postValue(ScreenStateDetails.Content(result.value!!))
+                if (result.value != null) {
+                    _screenState.postValue(ScreenStateDetails.Content(result.value))
+                } else {
+                    _screenState.postValue(ScreenStateDetails.Error(R.string.server_error))
+                }
             }
 
             else -> {}
