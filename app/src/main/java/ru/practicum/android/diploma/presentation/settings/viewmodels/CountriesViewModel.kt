@@ -37,7 +37,11 @@ class CountriesViewModel(private val placesInteractor: PlacesInteractor) : ViewM
     private fun processingResult(result: SearchResultData<Set<Country>>) {
         when (result) {
             is SearchResultData.Data -> {
-                _screenState.postValue(CountriesScreenState.Content(result.value?.toList()!!))
+                if (result.value != null) {
+                    _screenState.postValue(CountriesScreenState.Content(result.value.toList()))
+                } else {
+                    _screenState.postValue(CountriesScreenState.Error(R.string.server_error))
+                }
             }
 
             is SearchResultData.ErrorServer -> {

@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_NUM
 import ru.practicum.android.diploma.data.models.EMPTY_PARAM_SRT
 import ru.practicum.android.diploma.data.models.ValuesSearchId
@@ -122,18 +123,27 @@ class SearchViewModel(
             }
 
             is SearchResultData.Data -> {
-                if (currentPage.get() == FIRST_PAGE) {
-                    _screenState.postValue(
-                        ScreenStateVacancies.Content(
-                            result.value?.foundItems!!,
-                            result.value.listVacancies
+                if (result.value != null) {
+                    if (currentPage.get() == FIRST_PAGE) {
+                        _screenState.postValue(
+                            ScreenStateVacancies.Content(
+                                result.value.foundItems,
+                                result.value.listVacancies
+                            )
                         )
-                    )
-                    foundItemsCount.set(result.value.foundItems)
+                        foundItemsCount.set(result.value.foundItems)
+                    } else {
+                        _screenState.postValue(
+                            result.value.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) }
+                        )
+                    }
                 } else {
-                    _screenState.postValue(
-                        result.value?.let { ScreenStateVacancies.NextPageIsLoaded(it.listVacancies) }
-                    )
+                    if (currentPage.get() == FIRST_PAGE) {
+                        _screenState.postValue(ScreenStateVacancies.Error(R.string.server_error))
+                    } else {
+                        _showToastState.postValue(PageLoadingState.ServerError)
+                        _screenState.postValue(ScreenStateVacancies.NextPageLoadingError)
+                    }
                 }
             }
         }

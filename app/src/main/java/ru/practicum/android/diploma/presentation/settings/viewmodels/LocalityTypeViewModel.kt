@@ -28,7 +28,9 @@ class LocalityTypeViewModel(private val placesInteractor: PlacesInteractor) : Vi
             viewModelScope.launch(Dispatchers.IO) {
                 placesInteractor.getCountryById(placeItem.areaId).collect {
                     if (it is SearchResultData.Data) {
-                        country = it.value!!
+                        if (it.value != null) {
+                            country = it.value
+                        }
                     }
                 }
             }

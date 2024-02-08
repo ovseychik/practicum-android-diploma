@@ -53,6 +53,16 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
                 setVisibilityCloseIcon(currentSalary)
             }
         }
+        settingsViewModel.boxChecked.observe(viewLifecycleOwner) {
+            binding.doNotShowWithoutSalaryCheckbox.isChecked = it
+            boxChecked = it
+        }
+        settingsViewModel.isPlaceCanDelete.observe(viewLifecycleOwner) {
+            isPlaceCanDelete = it
+        }
+        settingsViewModel.isIndustryCanDelete.observe(viewLifecycleOwner) {
+            isIndustryCanDelete = it
+        }
         setOnClicks()
     }
 
@@ -64,19 +74,15 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             if (settings.industry.industryName.isNotEmpty()) {
                 industryLayout.setText(settings.industry.industryName)
                 industry.setEndIconDrawable(R.drawable.ic_close)
-                isIndustryCanDelete = true
             } else {
                 industryLayout.setText(settings.industry.industryName)
                 industry.setEndIconDrawable(R.drawable.ic_arrow_forward)
-                isIndustryCanDelete = false
             }
             if (settings.country.countryId.isNotEmpty()) {
                 workplace.setEndIconDrawable(R.drawable.ic_close)
                 locate.append(settings.country.countryName)
-                isPlaceCanDelete = true
             } else {
                 workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
-                isPlaceCanDelete = false
             }
             if (settings.place.areaId.isNotEmpty()) {
                 locate.append(", ${settings.place.areaName}")
@@ -102,7 +108,6 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     }
 
     private fun setOnClicks() = with(binding) {
-        val listener = onClick()
         expectedSalary.setEndIconOnClickListener {
             binding.expectedSalaryLayout.setText(EMPTY_PARAM_SRT)
         }
@@ -113,7 +118,6 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             if (isPlaceCanDelete) {
                 workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
                 settingsViewModel.deletePlace()
-                isPlaceCanDelete = false
             } else {
                 findNavController().navigate(R.id.action_filterFragment_to_localityTypeFragment)
             }
@@ -122,60 +126,39 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             if (isIndustryCanDelete) {
                 industry.setEndIconDrawable(R.drawable.ic_arrow_forward)
                 settingsViewModel.deleteIndustry()
-                isIndustryCanDelete = false
             } else {
                 findNavController().navigate(R.id.action_filterFragment_to_industryPickerFragment)
             }
         }
-        workplaceLayout.setOnClickListener(listener)
-        industryLayout.setOnClickListener(listener)
-        doNotShowWithoutSalary.setOnClickListener(listener)
-        applyFilterSettingsButton.setOnClickListener(listener)
-        clearFilterSettingsButton.setOnClickListener(listener)
-        backButton.setOnClickListener(listener)
-        doNotShowWithoutSalaryCheckbox.setOnClickListener(listener)
-    }
-
-    private fun onClick(): View.OnClickListener {
-        return View.OnClickListener {
-            when (it.id) {
-                R.id.workplace_layout -> {
-                    findNavController().navigate(R.id.action_filterFragment_to_localityTypeFragment)
-                }
-
-                R.id.industry_layout -> {
-                    findNavController().navigate(R.id.action_filterFragment_to_industryPickerFragment)
-                }
-
-                R.id.do_not_show_without_salary -> {
-                    binding.expectedSalaryLayout.clearFocus()
-                    boxChecked = !boxChecked
-                    binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
-                    settingsViewModel.savedIsSalarySpecified(binding.doNotShowWithoutSalaryCheckbox.isChecked)
-                    setVisibilityCloseIcon(currentSalary)
-                }
-
-                R.id.apply_filter_settings_button -> {
-                    settingsViewModel.saveSettingsByClickConfirm()
-                    findNavController().navigateUp()
-                }
-
-                R.id.clear_filter_settings_button -> {
-                    settingsViewModel.deletedSettings()
-                }
-
-                R.id.back_button -> {
-                    findNavController().navigateUp()
-                }
-
-                R.id.do_not_show_without_salary_checkbox -> {
-                    binding.expectedSalaryLayout.clearFocus()
-                    boxChecked = !boxChecked
-                    binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
-                    settingsViewModel.savedIsSalarySpecified(binding.doNotShowWithoutSalaryCheckbox.isChecked)
-                    setVisibilityCloseIcon(currentSalary)
-                }
-            }
+        workplaceLayout.setOnClickListener {
+            findNavController().navigate(R.id.action_filterFragment_to_localityTypeFragment)
+        }
+        industryLayout.setOnClickListener {
+            findNavController().navigate(R.id.action_filterFragment_to_industryPickerFragment)
+        }
+        doNotShowWithoutSalary.setOnClickListener {
+            binding.expectedSalaryLayout.clearFocus()
+            boxChecked = !boxChecked
+            binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
+            settingsViewModel.savedIsSalarySpecified(boxChecked)
+            setVisibilityCloseIcon(currentSalary)
+        }
+        applyFilterSettingsButton.setOnClickListener {
+            settingsViewModel.saveSettingsByClickConfirm()
+            findNavController().navigateUp()
+        }
+        clearFilterSettingsButton.setOnClickListener {
+            settingsViewModel.deletedSettings()
+        }
+        backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        doNotShowWithoutSalaryCheckbox.setOnClickListener {
+            binding.expectedSalaryLayout.clearFocus()
+            boxChecked = !boxChecked
+            binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
+            settingsViewModel.savedIsSalarySpecified(boxChecked)
+            setVisibilityCloseIcon(currentSalary)
         }
     }
 }
