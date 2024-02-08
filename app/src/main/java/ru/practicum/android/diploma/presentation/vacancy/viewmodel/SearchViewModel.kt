@@ -185,7 +185,7 @@ class SearchViewModel(
             )
     }
 
-    fun saveVacancyInFavorite(vacancy: VacancyItem) {
+    fun saveVacancyInFavorite(vacancy: VacancyItem): Boolean {
         viewModelScope.launch {
             detailsInteractor.getVacancyDetails(vacancy.id).collect {
                 when (it) {
@@ -208,6 +208,7 @@ class SearchViewModel(
                 }
             }
         }
+        return true
     }
 
     companion object {

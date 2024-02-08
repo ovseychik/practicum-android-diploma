@@ -24,10 +24,10 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
 
     private val vacancyAdapter = VacancyAdapter(
         { vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(it) } },
-        { vacancyLongClickClickDebounce?.let { vacancyLongClickClickDebounce -> vacancyLongClickClickDebounce(it) } }
+        { vacancyLongClickClickDebounce?.let { vacancyLongClickClickDebounce -> vacancyLongClickClickDebounce(it) }!! }
     )
     private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
-    private var vacancyLongClickClickDebounce: ((VacancyItem) -> Unit)? = null
+    private var vacancyLongClickClickDebounce: ((VacancyItem) -> Boolean)? = null
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -61,13 +61,7 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
             val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
             findNavController().navigate(R.id.action_favoriteVacancyFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
-        vacancyLongClickClickDebounce = debounce(
-            CLICK_DEBOUNCE_DELAY_MILLIS,
-            viewLifecycleOwner.lifecycleScope,
-            false
-        ) { vacancyItem ->
-            viewModel.deleteVacancyFromFavorite(vacancyItem)
-        }
+        vacancyLongClickClickDebounce = { viewModel.deleteVacancyFromFavorite(it) }
     }
 
     private fun render(state: FavoriteScreenState) {

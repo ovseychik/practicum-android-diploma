@@ -30,10 +30,10 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
     private val viewModel by viewModel<SearchViewModel>()
     private val vacancyAdapter = VacancyAdapter(
         { vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(it) } },
-        { vacancyLongClickClickDebounce?.let { vacancyLongClickClickDebounce -> vacancyLongClickClickDebounce(it) } }
+        { vacancyLongClickClickDebounce?.let { vacancyLongClickClickDebounce -> vacancyLongClickClickDebounce(it) }!! }
     )
     private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
-    private var vacancyLongClickClickDebounce: ((VacancyItem) -> Unit)? = null
+    private var vacancyLongClickClickDebounce: ((VacancyItem) -> Boolean)? = null
     private var currentItemsFound = ZERO_ITEMS
 
     override fun createBinding(
@@ -117,14 +117,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
             findNavController().navigate(R.id.action_searchFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
-        vacancyLongClickClickDebounce = debounce(
-            CLICK_DEBOUNCE_DELAY_MILLIS,
-            viewLifecycleOwner.lifecycleScope,
-            false
-        ) { vacancyItem ->
-            viewModel.setSettingsBase()
-            viewModel.saveVacancyInFavorite(vacancyItem)
-        }
+        vacancyLongClickClickDebounce = { viewModel.saveVacancyInFavorite(it) }
     }
 
     private fun render(state: ScreenStateVacancies) {

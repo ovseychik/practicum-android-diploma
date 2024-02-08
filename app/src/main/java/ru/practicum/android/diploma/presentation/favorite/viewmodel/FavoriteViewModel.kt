@@ -44,7 +44,7 @@ class FavoriteViewModel(
         _favoriteStateLiveData.postValue(state)
     }
 
-    fun deleteVacancyFromFavorite(vacancy: VacancyItem) {
+    fun deleteVacancyFromFavorite(vacancy: VacancyItem): Boolean {
         viewModelScope.launch {
             val vacancyDetails = detailsInteractor.getVacancyDetails(vacancy.id).collect {
                 when (it) {
@@ -59,5 +59,6 @@ class FavoriteViewModel(
                 }
             }
         }
+        return true
     }
 }

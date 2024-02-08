@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 
 class VacancyAdapter(
     private val onClick: (VacancyItem) -> Unit,
-    val onLongClick: (VacancyItem) -> Unit
+    val onLongClick: (VacancyItem) -> Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items: MutableList<ItemType> = mutableListOf()
 
@@ -71,7 +71,6 @@ class VacancyAdapter(
             }
             holder.itemView.setOnLongClickListener {
                 onLongClick.invoke(item.vacancyItem)
-                return@setOnLongClickListener true
             }
         }
     }
