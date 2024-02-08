@@ -72,4 +72,7 @@
     <string name="not_saved_in_favorite">Не удалось добавить в избранное</string>
     <string name="ok_saved_in_favorite">Вакансия добавлена и избранное</string>
     <string name="vacancy_already_in_favorite">Вакансия уже в избранном</string>
+    <string name="dialog_del_message_favorute">Хотите удалить вакансию из избранного?</string>
+    <string name="dialog_yes">Да</string>
+    <string name="dilog_no">Нет</string>
 </resources>
