@@ -17,8 +17,6 @@ import ru.practicum.android.diploma.util.BindingFragment
 class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
 
     private val viewModel by viewModel<LocalityTypeViewModel>()
-    private var currentCountryInput: String? = null
-    private var currentCityInput: String? = null
     override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocalityTypeBinding {
         return FragmentLocalityTypeBinding.inflate(inflater, container, false)
     }
@@ -44,6 +42,7 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 with(binding) {
                     etCountryLayout.setText(screenState.country.countryName)
                     etRegionLayout.setText(screenState.place.areaName)
+                    btnApply.isVisible = true
                 }
             }
 
@@ -51,13 +50,10 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 with(binding) {
                     etCountryLayout.text?.clear()
                     etRegionLayout.text?.clear()
+                    btnApply.isVisible = false
                 }
             }
         }
-    }
-
-    private fun setButtonVisibility() {
-        binding.btnApply.isVisible = !(currentCityInput.isNullOrEmpty() && currentCountryInput.isNullOrEmpty())
     }
 
     private fun bind() {
@@ -94,8 +90,6 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 } else {
                     etCountry.setEndIconDrawable(R.drawable.ic_close)
                 }
-                currentCountryInput = text.toString()
-                setButtonVisibility()
             }
             etRegionLayout.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrEmpty()) {
@@ -103,8 +97,6 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 } else {
                     etRegion.setEndIconDrawable(R.drawable.ic_close)
                 }
-                currentCityInput = text.toString()
-                setButtonVisibility()
             }
         }
     }
