@@ -36,15 +36,16 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_4dp"
             android:layout_marginEnd="@dimen/_4dp"
-            android:layout_weight="1"
+            android:layout_weight="10"
             android:text="@string/vacancy"
             android:textColor="?attr/text_color" />
 
         <ImageButton
             android:id="@+id/share_button"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_4dp"
+            android:layout_weight="2"
             android:background="@android:color/transparent"
             android:padding="@dimen/_8dp"
             app:srcCompat="@drawable/ic_share"
@@ -54,15 +55,16 @@
             android:layout_width="@dimen/_4dp"
             android:layout_height="match_parent" />
 
-        <ImageButton
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/add_to_favorite_button"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_4dp"
-            android:background="@android:color/transparent"
-            android:padding="@dimen/_8dp"
-            app:srcCompat="@drawable/ic_favorite_off"
-            />
+            android:layout_weight="2"
+            android:button="@null"
+            android:checked="false"
+            android:drawableEnd="@drawable/heart_state_selector"
+            android:paddingEnd="@dimen/_12dp"
+            android:stateListAnimator="@animator/scale" />
     </LinearLayout>
 
     <LinearLayout
@@ -172,8 +174,8 @@
                             android:layout_width="@dimen/_0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_8dp"
-                            android:layout_marginBottom="@dimen/_16dp"
                             android:layout_marginEnd="@dimen/_16dp"
+                            android:layout_marginBottom="@dimen/_16dp"
                             android:textColor="?attr/black_universal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
