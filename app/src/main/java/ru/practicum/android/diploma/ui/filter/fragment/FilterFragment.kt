@@ -47,9 +47,11 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             binding.applyFilterSettingsButton.isVisible = it
         }
         binding.expectedSalaryLayout.doAfterTextChanged { text ->
-            currentSalary = text.toString()
-            settingsViewModel.saveSalary(currentSalary)
-            setVisibilityCloseIcon(currentSalary)
+            if (currentSalary != text.toString()) {
+                currentSalary = text.toString()
+                settingsViewModel.saveSalary(currentSalary)
+                setVisibilityCloseIcon(currentSalary)
+            }
         }
         setOnClicks()
     }
