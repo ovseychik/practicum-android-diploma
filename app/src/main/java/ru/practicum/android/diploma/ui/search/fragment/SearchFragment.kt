@@ -63,7 +63,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private fun errorWhilePageLoadingNotification(state: PageLoadingState) {
         vacancyAdapter.removeLoading()
-        Snackbar.make(
+        val snackBar = Snackbar.make(
             binding.root,
             if (state is PageLoadingState.ServerError) {
                 getString(
@@ -72,8 +72,13 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             } else {
                 getString(R.string.no_internet_while_loading_page)
             },
-            Snackbar.LENGTH_SHORT
-        ).show()
+            Snackbar.LENGTH_INDEFINITE
+        )
+        snackBar.setAction(R.string.repeat) {
+            viewModel.onLastItemReached()
+            snackBar.dismiss()
+        }
+        snackBar.show()
     }
 
     private fun bind() {
@@ -115,21 +120,37 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private fun render(state: ScreenStateVacancies) {
         when (state) {
-            is ScreenStateVacancies.Content -> { showContent(state.listVacancies, state.foundItems) }
+            is ScreenStateVacancies.Content -> {
+                showContent(state.listVacancies, state.foundItems)
+            }
 
-            is ScreenStateVacancies.Empty -> { showEmptyState(state.message) }
+            is ScreenStateVacancies.Empty -> {
+                showEmptyState(state.message)
+            }
 
-            is ScreenStateVacancies.Error -> { showServerErrorState(state.message) }
+            is ScreenStateVacancies.Error -> {
+                showServerErrorState(state.message)
+            }
 
-            is ScreenStateVacancies.IsLoading -> { showLoadingState() }
+            is ScreenStateVacancies.IsLoading -> {
+                showLoadingState()
+            }
 
-            is ScreenStateVacancies.NoInternet -> { showNoInternetState(state.message) }
+            is ScreenStateVacancies.NoInternet -> {
+                showNoInternetState(state.message)
+            }
 
-            is ScreenStateVacancies.NextPageIsLoading -> { showNextPageLoading() }
+            is ScreenStateVacancies.NextPageIsLoading -> {
+                showNextPageLoading()
+            }
 
-            is ScreenStateVacancies.NextPageIsLoaded -> { showNextPageLoaded(state.listVacancies) }
+            is ScreenStateVacancies.NextPageIsLoaded -> {
+                showNextPageLoaded(state.listVacancies)
+            }
 
-            ScreenStateVacancies.NextPageLoadingError -> { showNextPageLoadingError() }
+            ScreenStateVacancies.NextPageLoadingError -> {
+                showNextPageLoadingError()
+            }
         }
     }
 
