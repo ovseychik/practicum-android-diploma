@@ -15,11 +15,11 @@ import ru.practicum.android.diploma.domain.models.settings.setDefault
 
 class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : ViewModel() {
 
-    private var _screenState: MutableLiveData<SearchSettings> = MutableLiveData()
+    private val _screenState: MutableLiveData<SearchSettings> = MutableLiveData()
     val screenState: LiveData<SearchSettings> = _screenState
-    private var _isSettingsModifed: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val _isSettingsModifed: MutableLiveData<Boolean> = MutableLiveData(false)
     val isSettingsModified: LiveData<Boolean> = _isSettingsModifed
-    private var _isSettingIsNotEmpty: MutableLiveData<Boolean> = MutableLiveData()
+    private val _isSettingIsNotEmpty: MutableLiveData<Boolean> = MutableLiveData()
     val isSettingIsNotEmpty: LiveData<Boolean> = _isSettingIsNotEmpty
     private var currentSettings = setDefault()
     private var baseSettings = settingsInteractor.getSettings()

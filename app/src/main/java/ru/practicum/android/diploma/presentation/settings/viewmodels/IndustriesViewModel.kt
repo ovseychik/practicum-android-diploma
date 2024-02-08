@@ -17,7 +17,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     val screenState: LiveData<IndustriesScreenState> = _screenState
     private var selectedIndustry = industriesInteractor.getIndustryFromSettings()
     private val industriesList: MutableList<IndustryItem> = mutableListOf()
-    private var filteredList = mutableListOf<IndustryItem>()
+    private val filteredList = mutableListOf<IndustryItem>()
     fun getIndustries() {
         _screenState.postValue(IndustriesScreenState.Loading)
         viewModelScope.launch {
