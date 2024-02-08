@@ -1,9 +1,11 @@
 package ru.practicum.android.diploma.ui.search.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -74,6 +76,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             },
             Snackbar.LENGTH_INDEFINITE
         )
+        snackBar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
         snackBar.setAction(R.string.repeat) {
             viewModel.onLastItemReached()
             snackBar.dismiss()
