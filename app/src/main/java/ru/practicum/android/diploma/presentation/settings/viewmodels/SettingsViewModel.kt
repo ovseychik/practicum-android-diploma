@@ -39,8 +39,13 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
         if (baseSettings.country.countryId != currentSettings.country.countryId
             || baseSettings.place.areaId != currentSettings.place.areaId
             || baseSettings.industry.industryId != currentSettings.industry.industryId
+            || baseSettings.salary != currentSettings.salary
+            || baseSettings.isSalarySpecified != currentSettings.isSalarySpecified
         ) {
             currentSettings = currentSettings.copy(settingsId = ValuesSearchId.MODIFIED)
+            settingsInteractor.saveSettings(currentSettings)
+        } else {
+            currentSettings = currentSettings.copy(settingsId = ValuesSearchId.BASE)
             settingsInteractor.saveSettings(currentSettings)
         }
         if (currentSettings.settingsId == ValuesSearchId.MODIFIED) {
@@ -75,30 +80,33 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
             settingsInteractor.saveSettings(currentSettings)
         } else {
             val modified = ValuesSearchId.BASE
-            currentSettings = currentSettings.copy(settingsId = modified)
+            currentSettings = currentSettings.copy(isSalarySpecified = newValue, settingsId = modified)
+            settingsInteractor.saveSettings(currentSettings)
         }
         compareSettings()
     }
 
     fun saveSalary(newSalary: String) {
+        var savedSalary = EMPTY_PARAM_NUM
+        savedSalary = if (newSalary == EMPTY_PARAM_SRT) {
+            EMPTY_PARAM_NUM
+        } else {
+            newSalary.toInt()
+        }
         if (currentSalary != newSalary) {
             val modified = ValuesSearchId.MODIFIED
-            if (newSalary == EMPTY_PARAM_SRT) {
-                currentSettings = currentSettings.copy(
-                    salary = EMPTY_PARAM_NUM,
-                    settingsId = modified
-                )
-                settingsInteractor.saveSettings(currentSettings)
-            } else {
-                currentSettings = currentSettings.copy(
-                    salary = newSalary.toInt(),
-                    settingsId = modified
-                )
-                settingsInteractor.saveSettings(currentSettings)
-            }
+            currentSettings = currentSettings.copy(
+                salary = savedSalary,
+                settingsId = modified
+            )
+            settingsInteractor.saveSettings(currentSettings)
         } else {
             val modified = ValuesSearchId.BASE
-            currentSettings = currentSettings.copy(settingsId = modified)
+            currentSettings = currentSettings.copy(
+                salary = savedSalary,
+                settingsId = modified
+            )
+            settingsInteractor.saveSettings(currentSettings)
         }
         compareSettings()
     }
