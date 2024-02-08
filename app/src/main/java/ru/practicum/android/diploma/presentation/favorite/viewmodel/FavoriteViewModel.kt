@@ -6,12 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
+import ru.practicum.android.diploma.domain.api.DetailsInteractor
 import ru.practicum.android.diploma.domain.api.FavoritesInteractor
+import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.vacancy.VacancyItem
 import ru.practicum.android.diploma.presentation.favorite.model.FavoriteScreenState
 
 class FavoriteViewModel(
-    private val favoritesInteractor: FavoritesInteractor
+    private val favoritesInteractor: FavoritesInteractor,
+    private val detailsInteractor: DetailsInteractor
 ) : ViewModel() {
     private val _favoriteStateLiveData = MutableLiveData<FavoriteScreenState>()
 
@@ -39,5 +42,22 @@ class FavoriteViewModel(
 
     private fun renderState(state: FavoriteScreenState) {
         _favoriteStateLiveData.postValue(state)
+    }
+
+    fun deleteVacancyFromFavorite(vacancy: VacancyItem) {
+        viewModelScope.launch {
+            val vacancyDetails = detailsInteractor.getVacancyDetails(vacancy.id).collect {
+                when (it) {
+                    is SearchResultData.Data -> {
+                        if (it.value != null) {
+                            favoritesInteractor.deleteVacancyFromFavorite(vacancyDetails = it.value)
+                            fillData()
+                        }
+                    }
+
+                    else -> {}
+                }
+            }
+        }
     }
 }
