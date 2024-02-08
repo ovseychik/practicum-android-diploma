@@ -13,13 +13,9 @@ data class ResponseAreaGuideDto(
 )
 
 fun mapToListPlacesItem(areas: List<ResponseAreaGuideDto>): Map<Country, List<PlaceItem>> {
-    val mapPlaceItem = mutableMapOf<Country, List<PlaceItem>>()
-    areas.forEach {
-        val listPlaceItem = mutableListOf<PlaceItem>()
-        listPlaceItem.addAll(createdPlacesList(it.areas))
-        mapPlaceItem[Country(it.name, it.id)] = listPlaceItem
+    return areas.associate { dto ->
+        Country(dto.name, dto.id) to createdPlacesList(dto.areas)
     }
-    return mapPlaceItem
 }
 
 private fun createdPlacesList(areas: List<AreaGuide>): List<PlaceItem> {
