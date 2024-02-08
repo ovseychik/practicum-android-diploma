@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -28,10 +29,12 @@ import ru.practicum.android.diploma.util.debounce
 class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private val viewModel by viewModel<SearchViewModel>()
-    private val vacancyAdapter = VacancyAdapter { vacancyItem ->
-        vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(vacancyItem) }
-    }
+    private val vacancyAdapter = VacancyAdapter(
+        { vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(it) } },
+        { vacancyLongClickClickDebounce?.let { vacancyLongClickClickDebounce -> vacancyLongClickClickDebounce(it) }!! }
+    )
     private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
+    private var vacancyLongClickClickDebounce: ((VacancyItem) -> Boolean)? = null
     private var currentItemsFound = ZERO_ITEMS
 
     override fun createBinding(
@@ -59,6 +62,9 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
         }
         viewModel.isSettingsNotEmpty.observe(viewLifecycleOwner) {
             binding.btnFilter.setImageResource(if (it) R.drawable.ic_filter_on else R.drawable.ic_filter_off)
+        }
+        viewModel.showToastFavorite.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), resources.getString(it), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -118,6 +124,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
             findNavController().navigate(R.id.action_searchFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
+        vacancyLongClickClickDebounce = { viewModel.saveVacancyInFavorite(it) }
     }
 
     private fun render(state: ScreenStateVacancies) {

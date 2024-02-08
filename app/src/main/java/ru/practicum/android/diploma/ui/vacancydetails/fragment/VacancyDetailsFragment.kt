@@ -53,9 +53,9 @@ class VacancyDetailsFragment : BindingFragment<FragmentVacancyDetailsBinding>() 
         }
         detailsViewModel.currentVacancyInFavorite.observe(viewLifecycleOwner) {
             if (it) {
-                binding.addToFavoriteButton.setImageDrawable(requireContext().getDrawable(R.drawable.ic_favorite_on))
+                binding.addToFavoriteButton.isChecked = true
             } else {
-                binding.addToFavoriteButton.setImageDrawable(requireContext().getDrawable(R.drawable.ic_favorite_off))
+                binding.addToFavoriteButton.isChecked = false
             }
         }
         with(binding) {
