@@ -77,7 +77,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:cursorVisible="false"
             android:focusable="false"
+            android:inputType="none"
             android:paddingStart="@dimen/_0dp"
             android:textAppearance="@style/YsDisplayRegular16" />
 
@@ -106,7 +108,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:cursorVisible="false"
             android:focusable="false"
+            android:inputType="none"
             android:paddingStart="@dimen/_0dp"
             android:textAppearance="@style/YsDisplayRegular16" />
     </com.google.android.material.textfield.TextInputLayout>
