@@ -64,7 +64,6 @@ class SearchViewModel(
         }
     }
 
-
     fun setSettingsBase() {
         val settings = settingsInteractor.getSettings()
         settingsInteractor.saveSettings(settings.copy(settingsId = ValuesSearchId.BASE))
