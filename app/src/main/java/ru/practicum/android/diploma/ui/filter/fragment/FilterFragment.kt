@@ -53,6 +53,16 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
                 setVisibilityCloseIcon(currentSalary)
             }
         }
+        settingsViewModel.boxChecked.observe(viewLifecycleOwner) {
+            binding.doNotShowWithoutSalaryCheckbox.isChecked = it
+            boxChecked = it
+        }
+        settingsViewModel.isPlaceCanDelete.observe(viewLifecycleOwner) {
+            isPlaceCanDelete = it
+        }
+        settingsViewModel.isIndustryCanDelete.observe(viewLifecycleOwner) {
+            isIndustryCanDelete = it
+        }
         setOnClicks()
     }
 
@@ -64,19 +74,15 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             if (settings.industry.industryName.isNotEmpty()) {
                 industryLayout.setText(settings.industry.industryName)
                 industry.setEndIconDrawable(R.drawable.ic_close)
-                isIndustryCanDelete = true
             } else {
                 industryLayout.setText(settings.industry.industryName)
                 industry.setEndIconDrawable(R.drawable.ic_arrow_forward)
-                isIndustryCanDelete = false
             }
             if (settings.country.countryId.isNotEmpty()) {
                 workplace.setEndIconDrawable(R.drawable.ic_close)
                 locate.append(settings.country.countryName)
-                isPlaceCanDelete = true
             } else {
                 workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
-                isPlaceCanDelete = false
             }
             if (settings.place.areaId.isNotEmpty()) {
                 locate.append(", ${settings.place.areaName}")
@@ -112,7 +118,6 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             if (isPlaceCanDelete) {
                 workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
                 settingsViewModel.deletePlace()
-                isPlaceCanDelete = false
             } else {
                 findNavController().navigate(R.id.action_filterFragment_to_localityTypeFragment)
             }
@@ -121,7 +126,6 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             if (isIndustryCanDelete) {
                 industry.setEndIconDrawable(R.drawable.ic_arrow_forward)
                 settingsViewModel.deleteIndustry()
-                isIndustryCanDelete = false
             } else {
                 findNavController().navigate(R.id.action_filterFragment_to_industryPickerFragment)
             }
@@ -136,7 +140,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             binding.expectedSalaryLayout.clearFocus()
             boxChecked = !boxChecked
             binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
-            settingsViewModel.savedIsSalarySpecified(binding.doNotShowWithoutSalaryCheckbox.isChecked)
+            settingsViewModel.savedIsSalarySpecified(boxChecked)
             setVisibilityCloseIcon(currentSalary)
         }
         applyFilterSettingsButton.setOnClickListener {
@@ -153,7 +157,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             binding.expectedSalaryLayout.clearFocus()
             boxChecked = !boxChecked
             binding.doNotShowWithoutSalaryCheckbox.isChecked = boxChecked
-            settingsViewModel.savedIsSalarySpecified(binding.doNotShowWithoutSalaryCheckbox.isChecked)
+            settingsViewModel.savedIsSalarySpecified(boxChecked)
             setVisibilityCloseIcon(currentSalary)
         }
     }

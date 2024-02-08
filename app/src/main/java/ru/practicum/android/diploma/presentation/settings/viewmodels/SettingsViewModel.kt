@@ -28,9 +28,16 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     } else {
         baseSettings.salary.toString()
     }
+    private var _boxChecked: MutableLiveData<Boolean> = MutableLiveData(false)
+    val boxChecked = _boxChecked
+    private var _isPlaceCanDelete: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isPlaceCanDelete = _isPlaceCanDelete
+    private var _isIndustryCanDelete: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isIndustryCanDelete = _isIndustryCanDelete
 
     fun getSettings() {
         currentSettings = settingsInteractor.getSettings()
+        _boxChecked.postValue(currentSettings.isSalarySpecified)
         compareSettings()
         _screenState.postValue(currentSettings)
     }
@@ -58,6 +65,9 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
         } else {
             _isSettingIsNotEmpty.postValue(false)
         }
+        _isIndustryCanDelete.postValue(currentSettings.industry.industryId.isNotEmpty())
+        _isPlaceCanDelete.postValue(currentSettings.country.countryId.isNotEmpty())
+        _boxChecked.postValue(currentSettings.isSalarySpecified)
     }
 
     private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
