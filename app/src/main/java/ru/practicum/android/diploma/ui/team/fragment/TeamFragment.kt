@@ -26,11 +26,15 @@ class TeamFragment : BindingFragment<FragmentTeamBinding>() {
             binding.teamMember2.startAnimation(inAnim)
             binding.teamMember3.startAnimation(inAnim)
             binding.teamMember4.startAnimation(inAnim)
-            delay(1500L)
+            delay(DELAY_ANIM)
             binding.teamMember1.startAnimation(blinkAnim)
             binding.teamMember2.startAnimation(blinkAnim)
             binding.teamMember3.startAnimation(blinkAnim)
             binding.teamMember4.startAnimation(blinkAnim)
         }
+    }
+
+    companion object {
+        private const val DELAY_ANIM = 1500L
     }
 }
