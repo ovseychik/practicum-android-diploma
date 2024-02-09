@@ -24,13 +24,6 @@ class TeamFragment : BindingFragment<FragmentTeamBinding>() {
         val inAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_bottom)
         val blinkAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.blink)
         lifecycleScope.launch {
-            setAnimationTextViews(
-                binding.teamMember1,
-                binding.teamMember2,
-                binding.teamMember3,
-                binding.teamMember4,
-                anim = inAnim
-            )
             delay(DELAY_ANIM)
             setAnimationTextViews(
                 binding.teamMember1,
@@ -49,6 +42,6 @@ class TeamFragment : BindingFragment<FragmentTeamBinding>() {
     }
 
     companion object {
-        private const val DELAY_ANIM = 1500L
+        private const val DELAY_ANIM = 1000L
     }
 }
