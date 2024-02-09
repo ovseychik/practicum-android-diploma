@@ -99,7 +99,7 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
     }
 
     private fun showDialog(vacancy: VacancyItem): Boolean {
-        MaterialAlertDialogBuilder(requireContext())
+        MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
             .setMessage(requireContext().getString(R.string.dialog_del_message_favorute))
             .setCancelable(false)
             .setNegativeButton(requireContext().getString(R.string.dilog_no)) { dialog, which ->

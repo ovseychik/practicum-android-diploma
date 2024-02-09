@@ -68,4 +68,32 @@
         <item name="colorAccent">@color/blue</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AlertDialogTextStyle</item>
+        <item name="android:background">?attr/white_universal</item>
+    </style>
+
+    <style name="AlertDialogTextStyle" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:textColor">?attr/black_universal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontWeight">400</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/blue</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontWeight">400</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/blue</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontWeight">400</item>
+    </style>
+
 </resources>
