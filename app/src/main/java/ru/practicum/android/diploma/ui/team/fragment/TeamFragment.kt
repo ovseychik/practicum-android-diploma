@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentTeamBinding
@@ -19,11 +20,17 @@ class TeamFragment : BindingFragment<FragmentTeamBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val inAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_bottom)
+        val blinkAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.blink)
         lifecycleScope.launch {
             binding.teamMember1.startAnimation(inAnim)
             binding.teamMember2.startAnimation(inAnim)
             binding.teamMember3.startAnimation(inAnim)
             binding.teamMember4.startAnimation(inAnim)
+            delay(1500L)
+            binding.teamMember1.startAnimation(blinkAnim)
+            binding.teamMember2.startAnimation(blinkAnim)
+            binding.teamMember3.startAnimation(blinkAnim)
+            binding.teamMember4.startAnimation(blinkAnim)
         }
     }
 }
