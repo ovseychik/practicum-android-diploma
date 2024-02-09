@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,15 +24,27 @@ class TeamFragment : BindingFragment<FragmentTeamBinding>() {
         val inAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_bottom)
         val blinkAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.blink)
         lifecycleScope.launch {
-            binding.teamMember1.startAnimation(inAnim)
-            binding.teamMember2.startAnimation(inAnim)
-            binding.teamMember3.startAnimation(inAnim)
-            binding.teamMember4.startAnimation(inAnim)
+            setAnimationTextViews(
+                binding.teamMember1,
+                binding.teamMember2,
+                binding.teamMember3,
+                binding.teamMember4,
+                anim = inAnim
+            )
             delay(DELAY_ANIM)
-            binding.teamMember1.startAnimation(blinkAnim)
-            binding.teamMember2.startAnimation(blinkAnim)
-            binding.teamMember3.startAnimation(blinkAnim)
-            binding.teamMember4.startAnimation(blinkAnim)
+            setAnimationTextViews(
+                binding.teamMember1,
+                binding.teamMember2,
+                binding.teamMember3,
+                binding.teamMember4,
+                anim = blinkAnim
+            )
+        }
+    }
+
+    private fun setAnimationTextViews(vararg view: TextView, anim: Animation) {
+        view.forEach {
+            it.startAnimation(anim)
         }
     }
 
