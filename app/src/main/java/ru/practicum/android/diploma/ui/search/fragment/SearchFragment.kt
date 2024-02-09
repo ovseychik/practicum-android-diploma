@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -69,7 +70,7 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
 
     private fun errorWhilePageLoadingNotification(state: PageLoadingState) {
         vacancyAdapter.removeLoading()
-        Snackbar.make(
+        val snackBar = Snackbar.make(
             binding.root,
             if (state is PageLoadingState.ServerError) {
                 getString(
@@ -78,8 +79,14 @@ class SearchFragment : BindingFragment<FragmentSearchBinding>() {
             } else {
                 getString(R.string.no_internet_while_loading_page)
             },
-            Snackbar.LENGTH_SHORT
-        ).show()
+            Snackbar.LENGTH_INDEFINITE
+        )
+        snackBar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        snackBar.setAction(R.string.repeat) {
+            viewModel.onLastItemReached()
+            snackBar.dismiss()
+        }
+        snackBar.show()
     }
 
     private fun bind() {
