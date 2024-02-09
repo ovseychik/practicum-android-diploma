@@ -48,7 +48,7 @@
     <string name="comment">Комментарий</string>
     <string name="error_while_loading_page">Произошла ошибка</string>
     <string name="no_internet_while_loading_page">Проверьте подключение к интернету</string>
-    <string name="locality_type_fragment_title">Выбор места работы</string>
+    <string name="location_type_fragment_title">Выбор места работы</string>
     <string name="hint_region_text">Регион</string>
     <string name="hint_country_text">Страна</string>
     <string name="btn_apply_text">Выбрать</string>

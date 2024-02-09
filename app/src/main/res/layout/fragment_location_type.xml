@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/screen_background_color"
-    tools:context=".ui.filter.fragment.placeofwork.LocalityTypeFragment">
+    tools:context=".ui.filter.fragment.placeofwork.LocationTypeFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_guideline"
@@ -49,7 +49,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_4dp"
             android:layout_weight="1"
-            android:text="@string/locality_type_fragment_title"
+            android:text="@string/location_type_fragment_title"
             android:textColor="?attr/text_color" />
     </LinearLayout>
 

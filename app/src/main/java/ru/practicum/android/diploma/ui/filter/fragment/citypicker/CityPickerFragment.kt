@@ -12,8 +12,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCityPickerBinding
 import ru.practicum.android.diploma.domain.models.guides.PlaceItem
-import ru.practicum.android.diploma.presentation.settings.adapters.LocalityAdapter
-import ru.practicum.android.diploma.presentation.settings.adapters.LocalityAdapterItem
+import ru.practicum.android.diploma.presentation.settings.adapters.LocationAdapter
+import ru.practicum.android.diploma.presentation.settings.adapters.LocationAdapterItem
 import ru.practicum.android.diploma.presentation.settings.models.PlacesScreenState
 import ru.practicum.android.diploma.presentation.settings.viewmodels.PlacesViewModel
 import ru.practicum.android.diploma.util.BindingFragment
@@ -22,10 +22,10 @@ import ru.practicum.android.diploma.util.debounce
 class CityPickerFragment : BindingFragment<FragmentCityPickerBinding>() {
 
     private val viewModel by viewModel<PlacesViewModel>()
-    private var cityClickDebounce: ((LocalityAdapterItem.City) -> Unit)? = null
-    private val placesAdapter = LocalityAdapter { city ->
+    private var cityClickDebounce: ((LocationAdapterItem.City) -> Unit)? = null
+    private val placesAdapter = LocationAdapter { city ->
         cityClickDebounce?.let {
-            it(city as LocalityAdapterItem.City)
+            it(city as LocationAdapterItem.City)
         }
     }
 

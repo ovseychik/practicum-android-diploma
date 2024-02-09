@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.practicum.android.diploma.databinding.ViewCountryItemBinding
 import ru.practicum.android.diploma.domain.models.guides.Country
 import ru.practicum.android.diploma.domain.models.guides.PlaceItem
-import ru.practicum.android.diploma.presentation.settings.viewholders.LocalityViewHolder
+import ru.practicum.android.diploma.presentation.settings.viewholders.LocationViewHolder
 
-class LocalityAdapter(private val onClick: (LocalityAdapterItem) -> Unit) :
-    RecyclerView.Adapter<LocalityViewHolder>() {
-    private val items: MutableList<LocalityAdapterItem> = mutableListOf()
+class LocationAdapter(private val onClick: (LocationAdapterItem) -> Unit) :
+    RecyclerView.Adapter<LocationViewHolder>() {
+    private val items: MutableList<LocationAdapterItem> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocalityViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val binding = ViewCountryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LocalityViewHolder(binding)
+        return LocationViewHolder(binding)
     }
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: LocalityViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
         val item = items[position]
         holder.bind(item)
         holder.itemView.setOnClickListener { onClick.invoke(item) }
@@ -27,14 +27,14 @@ class LocalityAdapter(private val onClick: (LocalityAdapterItem) -> Unit) :
 
     fun addPlaces(places: List<PlaceItem>) {
         places.forEach {
-            items.add(LocalityAdapterItem.City(it))
+            items.add(LocationAdapterItem.City(it))
         }
         notifyItemRangeInserted(items.size - places.size, places.size)
     }
 
     fun addCountries(countries: List<Country>) {
         countries.forEach {
-            items.add(LocalityAdapterItem.CountryItem(it))
+            items.add(LocationAdapterItem.CountryItem(it))
         }
         notifyItemRangeInserted(items.size - countries.size, countries.size)
     }
