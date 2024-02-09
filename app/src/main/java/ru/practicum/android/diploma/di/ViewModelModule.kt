@@ -5,7 +5,7 @@ import org.koin.dsl.module
 import ru.practicum.android.diploma.presentation.favorite.viewmodel.FavoriteViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodels.CountriesViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodels.IndustriesViewModel
-import ru.practicum.android.diploma.presentation.settings.viewmodels.LocalityTypeViewModel
+import ru.practicum.android.diploma.presentation.settings.viewmodels.LocationTypeViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodels.PlacesViewModel
 import ru.practicum.android.diploma.presentation.settings.viewmodels.SettingsViewModel
 import ru.practicum.android.diploma.presentation.vacancy.viewmodel.DetailsViewModel
@@ -36,8 +36,8 @@ val viewModelModule = module {
         IndustriesViewModel(industriesInteractor = get())
     }
 
-    viewModel<LocalityTypeViewModel> {
-        LocalityTypeViewModel(placesInteractor = get())
+    viewModel<LocationTypeViewModel> {
+        LocationTypeViewModel(placesInteractor = get())
     }
 
     viewModel<SettingsViewModel> {

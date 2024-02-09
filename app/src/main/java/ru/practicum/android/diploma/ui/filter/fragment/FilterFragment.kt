@@ -67,7 +67,7 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
     }
 
     private fun processingState(settings: SearchSettings) {
-        val locate = StringBuilder("")
+        val location = StringBuilder("")
         with(binding) {
             boxChecked = settings.isSalarySpecified
             doNotShowWithoutSalaryCheckbox.isChecked = settings.isSalarySpecified
@@ -80,14 +80,14 @@ class FilterFragment : BindingFragment<FragmentFilterSettingsBinding>() {
             }
             if (settings.country.countryId.isNotEmpty()) {
                 workplace.setEndIconDrawable(R.drawable.ic_close)
-                locate.append(settings.country.countryName)
+                location.append(settings.country.countryName)
             } else {
                 workplace.setEndIconDrawable(R.drawable.ic_arrow_forward)
             }
             if (settings.place.areaId.isNotEmpty()) {
-                locate.append(", ${settings.place.areaName}")
+                location.append(", ${settings.place.areaName}")
             }
-            workplaceLayout.setText(locate)
+            workplaceLayout.setText(location)
             setSalary(settings)
         }
     }

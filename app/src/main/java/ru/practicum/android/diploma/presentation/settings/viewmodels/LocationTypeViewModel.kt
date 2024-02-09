@@ -10,14 +10,14 @@ import ru.practicum.android.diploma.domain.api.guides.PlacesInteractor
 import ru.practicum.android.diploma.domain.models.SearchResultData
 import ru.practicum.android.diploma.domain.models.guides.Country
 import ru.practicum.android.diploma.domain.models.guides.PlaceItem
-import ru.practicum.android.diploma.presentation.settings.models.LocalityTypeScreenState
+import ru.practicum.android.diploma.presentation.settings.models.LocationTypeScreenState
 
-class LocalityTypeViewModel(private val placesInteractor: PlacesInteractor) : ViewModel() {
+class LocationTypeViewModel(private val placesInteractor: PlacesInteractor) : ViewModel() {
 
     private var place: PlaceItem = placesInteractor.getPlaceFromSettings()
     private var country: Country = placesInteractor.getCountryFromSettings()
-    private val _screenState: MutableLiveData<LocalityTypeScreenState> = MutableLiveData()
-    val screenState: LiveData<LocalityTypeScreenState> = _screenState
+    private val _screenState: MutableLiveData<LocationTypeScreenState> = MutableLiveData()
+    val screenState: LiveData<LocationTypeScreenState> = _screenState
 
     init {
         setCountryByPlaceId(place)
@@ -44,9 +44,9 @@ class LocalityTypeViewModel(private val placesInteractor: PlacesInteractor) : Vi
             setCountryByPlaceId(place)
         }
         if (place.areaId.isNotEmpty() || country.countryId.isNotEmpty()) {
-            _screenState.postValue(LocalityTypeScreenState.Content(place, country))
+            _screenState.postValue(LocationTypeScreenState.Content(place, country))
         } else {
-            _screenState.postValue(LocalityTypeScreenState.Empty)
+            _screenState.postValue(LocationTypeScreenState.Empty)
         }
     }
 
