@@ -20,6 +20,6 @@ class IndustryAdapter(private val onClick: (IndustryItem) -> Unit) : ListAdapter
     override fun onBindViewHolder(holder: IndustryViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item.industryItem, item.isSelected)
-        holder.itemView.setOnClickListener { onClick.invoke(item.industryItem) }
+        holder.itemView.setOnClickListener { onClick.invoke(currentList[holder.adapterPosition].industryItem) }
     }
 }
