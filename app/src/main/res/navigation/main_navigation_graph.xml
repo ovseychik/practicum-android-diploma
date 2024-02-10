@@ -26,7 +26,10 @@
             app:destination="@id/filterFragment" />
         <action
             android:id="@+id/action_searchFragment_to_vacancyDetailsFragment"
-            app:destination="@id/vacancyDetailsFragment" />
+            app:destination="@id/vacancyDetailsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/vacancyDetailsFragment"
