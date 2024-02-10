@@ -26,7 +26,7 @@
             android:textColor="?attr/text_color" />
     </FrameLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/brought_to_you_by"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,9 +42,9 @@
             android:text="@string/made_by"
             android:textColor="?attr/text_color"
             android:textSize="38sp" />
-    </FrameLayout>
+    </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
         android:id="@+id/members_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -94,6 +94,6 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

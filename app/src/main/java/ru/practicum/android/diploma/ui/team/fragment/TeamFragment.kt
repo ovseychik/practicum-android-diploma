@@ -21,16 +21,14 @@ class TeamFragment : BindingFragment<FragmentTeamBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val inAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_bottom)
-        val blinkAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.blink)
+        val slideInBottomAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_in_bottom)
         lifecycleScope.launch {
-            delay(DELAY_ANIM)
             setAnimationTextViews(
                 binding.teamMember1,
                 binding.teamMember2,
                 binding.teamMember3,
                 binding.teamMember4,
-                anim = blinkAnim
+                anim = slideInBottomAnim
             )
         }
     }
@@ -41,7 +39,4 @@ class TeamFragment : BindingFragment<FragmentTeamBinding>() {
         }
     }
 
-    companion object {
-        private const val DELAY_ANIM = 1000L
-    }
 }

@@ -10,7 +10,6 @@ import ru.practicum.android.diploma.data.dto.responses.guides.industries.Respons
 import ru.practicum.android.diploma.data.dto.responses.vacancy.details.ResponseDetailsDto
 import ru.practicum.android.diploma.data.dto.responses.vacancy.list.ResponseListDto
 
-
 interface HHApi {
     @GET("/vacancies")
     suspend fun getVacancies(
