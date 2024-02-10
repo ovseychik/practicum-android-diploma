@@ -100,7 +100,12 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
             ivPicPlaceholder.isVisible = false
             tvErrorPlaceholder.isVisible = false
             pbCircle.isVisible = false
-            industryAdapter.submitList(industryItems.map { IndustryUiModel(it, it.industryName == selectedIndustryName) })
+            industryAdapter.submitList(industryItems.map {
+                IndustryUiModel(
+                    it,
+                    it.industryName == selectedIndustryName
+                )
+            })
             btnSelect.isVisible = selectedIndustryName.isNotEmpty()
         }
     }
