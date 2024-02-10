@@ -16,6 +16,7 @@ import ru.practicum.android.diploma.domain.models.guides.IndustryItem
 import ru.practicum.android.diploma.presentation.settings.adapters.IndustryAdapter
 import ru.practicum.android.diploma.presentation.settings.models.IndustriesScreenState
 import ru.practicum.android.diploma.presentation.settings.viewmodels.IndustriesViewModel
+import ru.practicum.android.diploma.ui.filter.fragment.industry.IndustryUiModel
 import ru.practicum.android.diploma.util.BindingFragment
 import ru.practicum.android.diploma.util.debounce
 
@@ -41,13 +42,7 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
         }
         bind()
         viewModel.getIndustries()
-        viewModel.screenState.observe(viewLifecycleOwner) { state ->
-            if (state is IndustriesScreenState.Content) {
-                val savedIndustry = viewModel.getSelectedIndustry()
-                industryAdapter.setSelectedIndustry(savedIndustry)
-            }
-            applySelectedIndustry()
-        }
+        applySelectedIndustry()
     }
 
     private fun render(screenState: IndustriesScreenState) {
@@ -105,8 +100,7 @@ class IndustryPickerFragment : BindingFragment<FragmentIndustryPickerBinding>() 
             ivPicPlaceholder.isVisible = false
             tvErrorPlaceholder.isVisible = false
             pbCircle.isVisible = false
-            industryAdapter.clearData()
-            industryAdapter.addIndustryItems(industryItems, selectedIndustryName)
+            industryAdapter.submitList(industryItems.map { IndustryUiModel(it, it.industryName == selectedIndustryName) })
             btnSelect.isVisible = selectedIndustryName.isNotEmpty()
         }
     }
