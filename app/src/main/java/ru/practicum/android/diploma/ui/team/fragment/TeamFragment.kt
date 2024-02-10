@@ -8,7 +8,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentTeamBinding
