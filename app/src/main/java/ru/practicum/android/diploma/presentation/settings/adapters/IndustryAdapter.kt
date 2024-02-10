@@ -11,7 +11,7 @@ import ru.practicum.android.diploma.ui.filter.fragment.industry.IndustryUiModel
 
 class IndustryAdapter(private val onClick: (IndustryItem) -> Unit) : ListAdapter<IndustryUiModel, IndustryViewHolder>(
     IndustryDiffCallback()
-){
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndustryViewHolder {
         val binding = ViewIndustryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return IndustryViewHolder(binding)
