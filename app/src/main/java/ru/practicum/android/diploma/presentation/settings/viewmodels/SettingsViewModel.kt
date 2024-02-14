@@ -15,11 +15,11 @@ import ru.practicum.android.diploma.domain.models.settings.setDefault
 
 class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : ViewModel() {
 
-    private var _screenState: MutableLiveData<SearchSettings> = MutableLiveData()
+    private val _screenState: MutableLiveData<SearchSettings> = MutableLiveData()
     val screenState: LiveData<SearchSettings> = _screenState
-    private var _isSettingsModifed: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val _isSettingsModifed: MutableLiveData<Boolean> = MutableLiveData(false)
     val isSettingsModified: LiveData<Boolean> = _isSettingsModifed
-    private var _isSettingIsNotEmpty: MutableLiveData<Boolean> = MutableLiveData()
+    private val _isSettingIsNotEmpty: MutableLiveData<Boolean> = MutableLiveData()
     val isSettingIsNotEmpty: LiveData<Boolean> = _isSettingIsNotEmpty
     private var currentSettings = setDefault()
     private var baseSettings = settingsInteractor.getSettings()
@@ -28,9 +28,16 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     } else {
         baseSettings.salary.toString()
     }
+    private var _boxChecked: MutableLiveData<Boolean> = MutableLiveData(false)
+    val boxChecked = _boxChecked
+    private var _isPlaceCanDelete: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isPlaceCanDelete = _isPlaceCanDelete
+    private var _isIndustryCanDelete: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isIndustryCanDelete = _isIndustryCanDelete
 
     fun getSettings() {
         currentSettings = settingsInteractor.getSettings()
+        _boxChecked.postValue(currentSettings.isSalarySpecified)
         compareSettings()
         _screenState.postValue(currentSettings)
     }
@@ -38,9 +45,14 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
     private fun compareSettings() {
         if (baseSettings.country.countryId != currentSettings.country.countryId
             || baseSettings.place.areaId != currentSettings.place.areaId
-            || baseSettings.industry.industryName != currentSettings.industry.industryName
+            || baseSettings.industry.industryId != currentSettings.industry.industryId
+            || baseSettings.salary != currentSettings.salary
+            || baseSettings.isSalarySpecified != currentSettings.isSalarySpecified
         ) {
             currentSettings = currentSettings.copy(settingsId = ValuesSearchId.MODIFIED)
+            settingsInteractor.saveSettings(currentSettings)
+        } else {
+            currentSettings = currentSettings.copy(settingsId = ValuesSearchId.BASE)
             settingsInteractor.saveSettings(currentSettings)
         }
         if (currentSettings.settingsId == ValuesSearchId.MODIFIED) {
@@ -53,6 +65,9 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
         } else {
             _isSettingIsNotEmpty.postValue(false)
         }
+        _isIndustryCanDelete.postValue(currentSettings.industry.industryId.isNotEmpty())
+        _isPlaceCanDelete.postValue(currentSettings.country.countryId.isNotEmpty())
+        _boxChecked.postValue(currentSettings.isSalarySpecified)
     }
 
     private fun isSettingsNotEmpty(settings: SearchSettings): Boolean {
@@ -61,6 +76,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
                 && settings.salary == EMPTY_PARAM_NUM
                 && settings.country.countryId == EMPTY_PARAM_SRT
                 && settings.place.areaId == EMPTY_PARAM_SRT
+                && settings.industry.industryId == EMPTY_PARAM_SRT
             )
     }
 
@@ -74,30 +90,33 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
             settingsInteractor.saveSettings(currentSettings)
         } else {
             val modified = ValuesSearchId.BASE
-            currentSettings = currentSettings.copy(settingsId = modified)
+            currentSettings = currentSettings.copy(isSalarySpecified = newValue, settingsId = modified)
+            settingsInteractor.saveSettings(currentSettings)
         }
         compareSettings()
     }
 
     fun saveSalary(newSalary: String) {
+        var savedSalary = EMPTY_PARAM_NUM
+        savedSalary = if (newSalary == EMPTY_PARAM_SRT) {
+            EMPTY_PARAM_NUM
+        } else {
+            newSalary.toInt()
+        }
         if (currentSalary != newSalary) {
             val modified = ValuesSearchId.MODIFIED
-            if (newSalary == EMPTY_PARAM_SRT) {
-                currentSettings = currentSettings.copy(
-                    salary = EMPTY_PARAM_NUM,
-                    settingsId = modified
-                )
-                settingsInteractor.saveSettings(currentSettings)
-            } else {
-                currentSettings = currentSettings.copy(
-                    salary = newSalary.toInt(),
-                    settingsId = modified
-                )
-                settingsInteractor.saveSettings(currentSettings)
-            }
+            currentSettings = currentSettings.copy(
+                salary = savedSalary,
+                settingsId = modified
+            )
+            settingsInteractor.saveSettings(currentSettings)
         } else {
             val modified = ValuesSearchId.BASE
-            currentSettings = currentSettings.copy(settingsId = modified)
+            currentSettings = currentSettings.copy(
+                salary = savedSalary,
+                settingsId = modified
+            )
+            settingsInteractor.saveSettings(currentSettings)
         }
         compareSettings()
     }
@@ -123,7 +142,7 @@ class SettingsViewModel(private val settingsInteractor: SettingsInteractor) : Vi
 
     fun deletedSettings() {
         val newSettings = setDefault()
-        settingsInteractor.saveSettings(newSettings.copy(ValuesSearchId.MODIFIED))
+        settingsInteractor.saveSettings(newSettings.copy(settingsId = ValuesSearchId.MODIFIED))
         getSettings()
     }
 }

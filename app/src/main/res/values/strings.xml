@@ -48,7 +48,7 @@
     <string name="comment">Комментарий</string>
     <string name="error_while_loading_page">Произошла ошибка</string>
     <string name="no_internet_while_loading_page">Проверьте подключение к интернету</string>
-    <string name="locality_type_fragment_title">Выбор места работы</string>
+    <string name="location_type_fragment_title">Выбор места работы</string>
     <string name="hint_region_text">Регион</string>
     <string name="hint_country_text">Страна</string>
     <string name="btn_apply_text">Выбрать</string>
@@ -69,4 +69,11 @@
     <string name="clear">Сбросить</string>
     <string name="region_not_found">Такого региона нет</string>
     <string name="empty_industry_list">Не удалось получить\nсписок отраслей</string>
+    <string name="repeat">Повторить</string>
+    <string name="not_saved_in_favorite">Не удалось добавить в избранное</string>
+    <string name="ok_saved_in_favorite">Вакансия добавлена и избранное</string>
+    <string name="vacancy_already_in_favorite">Вакансия уже в избранном</string>
+    <string name="dialog_del_message_favorute">Хотите удалить вакансию из избранного?</string>
+    <string name="dialog_yes">Да</string>
+    <string name="dilog_no">Нет</string>
 </resources>

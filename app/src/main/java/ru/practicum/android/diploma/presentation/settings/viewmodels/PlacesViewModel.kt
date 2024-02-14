@@ -41,8 +41,7 @@ class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewMode
 
     fun getFilteredPlaces(query: String) {
         val filteredList = listPlaces
-            .filter { query.length <= it.areaName.length }
-            .filter { it.areaName.contains(query, true) }
+            .filter { query.length <= it.areaName.length && it.areaName.contains(query, true) }
         _screenState.postValue(PlacesScreenState.Loading)
         if (filteredList.isEmpty()) {
             _screenState.postValue(PlacesScreenState.Empty(R.string.region_not_found))
@@ -61,9 +60,13 @@ class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewMode
     private fun processingResult(result: SearchResultData<List<PlaceItem>>) {
         when (result) {
             is SearchResultData.Data -> {
-                listPlaces.addAll(result.value!!)
-                listPlaces.sortBy { it.areaName }
-                _screenState.postValue(PlacesScreenState.Content(listPlaces))
+                if (result.value != null) {
+                    listPlaces.addAll(result.value)
+                    listPlaces.sortBy { it.areaName }
+                    _screenState.postValue(PlacesScreenState.Content(listPlaces))
+                } else {
+                    _screenState.postValue(PlacesScreenState.Error(R.string.server_error))
+                }
             }
 
             is SearchResultData.NoInternet -> {
@@ -83,12 +86,16 @@ class PlacesViewModel(private val placesInteractor: PlacesInteractor) : ViewMode
     private fun processingResultForAllPlaces(result: SearchResultData<Map<Country, List<PlaceItem>>>) {
         when (result) {
             is SearchResultData.Data -> {
-                mapPlaces = result.value!!
-                result.value.forEach { key, items ->
-                    listPlaces.addAll(items)
+                if (result.value != null) {
+                    mapPlaces = result.value
+                    result.value.forEach { key, items ->
+                        listPlaces.addAll(items)
+                    }
+                    listPlaces.sortBy { it.areaName }
+                    _screenState.postValue(PlacesScreenState.Content(listPlaces))
+                } else {
+                    _screenState.postValue(PlacesScreenState.Error(R.string.server_error))
                 }
-                listPlaces.sortBy { it.areaName }
-                _screenState.postValue(PlacesScreenState.Content(listPlaces))
             }
 
             is SearchResultData.NoInternet -> {

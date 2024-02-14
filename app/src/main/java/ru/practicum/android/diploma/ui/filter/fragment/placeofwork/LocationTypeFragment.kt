@@ -9,18 +9,16 @@ import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
-import ru.practicum.android.diploma.databinding.FragmentLocalityTypeBinding
-import ru.practicum.android.diploma.presentation.settings.models.LocalityTypeScreenState
-import ru.practicum.android.diploma.presentation.settings.viewmodels.LocalityTypeViewModel
+import ru.practicum.android.diploma.databinding.FragmentLocationTypeBinding
+import ru.practicum.android.diploma.presentation.settings.models.LocationTypeScreenState
+import ru.practicum.android.diploma.presentation.settings.viewmodels.LocationTypeViewModel
 import ru.practicum.android.diploma.util.BindingFragment
 
-class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
+class LocationTypeFragment : BindingFragment<FragmentLocationTypeBinding>() {
 
-    private val viewModel by viewModel<LocalityTypeViewModel>()
-    private var currentCountryInput: String? = null
-    private var currentCityInput: String? = null
-    override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocalityTypeBinding {
-        return FragmentLocalityTypeBinding.inflate(inflater, container, false)
+    private val viewModel by viewModel<LocationTypeViewModel>()
+    override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLocationTypeBinding {
+        return FragmentLocationTypeBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,26 +36,24 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
         viewModel.updateState()
     }
 
-    private fun render(screenState: LocalityTypeScreenState) {
+    private fun render(screenState: LocationTypeScreenState) {
         when (screenState) {
-            is LocalityTypeScreenState.Content -> {
+            is LocationTypeScreenState.Content -> {
                 with(binding) {
                     etCountryLayout.setText(screenState.country.countryName)
                     etRegionLayout.setText(screenState.place.areaName)
+                    btnApply.isVisible = true
                 }
             }
 
-            LocalityTypeScreenState.Empty -> {
+            LocationTypeScreenState.Empty -> {
                 with(binding) {
                     etCountryLayout.text?.clear()
                     etRegionLayout.text?.clear()
+                    btnApply.isVisible = false
                 }
             }
         }
-    }
-
-    private fun setButtonVisibility() {
-        binding.btnApply.isVisible = !(currentCityInput.isNullOrEmpty() && currentCountryInput.isNullOrEmpty())
     }
 
     private fun bind() {
@@ -72,10 +68,10 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 viewModel.updateState()
             }
             etCountryLayout.setOnClickListener {
-                findNavController().navigate(R.id.action_localityTypeFragment_to_countryPickerFragment2)
+                findNavController().navigate(R.id.action_locationTypeFragment_to_countryPickerFragment2)
             }
             etRegionLayout.setOnClickListener {
-                findNavController().navigate(R.id.action_localityTypeFragment_to_cityPickerFragment)
+                findNavController().navigate(R.id.action_locationTypeFragment_to_cityPickerFragment)
             }
             btnApply.setOnClickListener {
                 findNavController().popBackStack()
@@ -94,8 +90,6 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 } else {
                     etCountry.setEndIconDrawable(R.drawable.ic_close)
                 }
-                currentCountryInput = text.toString()
-                setButtonVisibility()
             }
             etRegionLayout.doOnTextChanged { text, _, _, _ ->
                 if (text.isNullOrEmpty()) {
@@ -103,8 +97,6 @@ class LocalityTypeFragment : BindingFragment<FragmentLocalityTypeBinding>() {
                 } else {
                     etRegion.setEndIconDrawable(R.drawable.ic_close)
                 }
-                currentCityInput = text.toString()
-                setButtonVisibility()
             }
         }
     }

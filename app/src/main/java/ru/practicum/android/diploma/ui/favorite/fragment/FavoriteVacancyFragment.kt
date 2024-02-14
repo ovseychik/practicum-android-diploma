@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentFavoriteVacancyBinding
@@ -22,10 +23,12 @@ import ru.practicum.android.diploma.util.debounce
 class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>() {
     private val viewModel by viewModel<FavoriteViewModel>()
 
-    private val vacancyAdapter = VacancyAdapter { vacancyItem ->
-        vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(vacancyItem) }
-    }
+    private val vacancyAdapter = VacancyAdapter(
+        { vacancyClickDebounce?.let { vacancyClickDebounce -> vacancyClickDebounce(it) } },
+        { vacancyLongClickClickDebounce?.let { vacancyLongClickClickDebounce -> vacancyLongClickClickDebounce(it) }!! }
+    )
     private var vacancyClickDebounce: ((VacancyItem) -> Unit)? = null
+    private var vacancyLongClickClickDebounce: ((VacancyItem) -> Boolean)? = null
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -41,7 +44,6 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it)
         }
-
         setOnVacancyClickListener()
     }
 
@@ -59,6 +61,7 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
             val vacancyBundle = bundleOf(VACANCY_ID to vacancyItem.id)
             findNavController().navigate(R.id.action_favoriteVacancyFragment_to_vacancyDetailsFragment, vacancyBundle)
         }
+        vacancyLongClickClickDebounce = { showDialog(it) }
     }
 
     private fun render(state: FavoriteScreenState) {
@@ -93,6 +96,18 @@ class FavoriteVacancyFragment : BindingFragment<FragmentFavoriteVacancyBinding>(
             tvErrorPlaceholder.text = getString(R.string.favorite_db_error_text)
             ivPicPlaceholder.setImageResource(R.drawable.ic_error_favorite_list_pic)
         }
+    }
+
+    private fun showDialog(vacancy: VacancyItem): Boolean {
+        MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+            .setMessage(requireContext().getString(R.string.dialog_del_message_favorute))
+            .setCancelable(false)
+            .setNegativeButton(requireContext().getString(R.string.dilog_no)) { dialog, which ->
+            }
+            .setPositiveButton(requireContext().getString(R.string.dialog_yes)) { dialog, which ->
+                viewModel.deleteVacancyFromFavorite(vacancy)
+            }.show()
+        return true
     }
 
     companion object {

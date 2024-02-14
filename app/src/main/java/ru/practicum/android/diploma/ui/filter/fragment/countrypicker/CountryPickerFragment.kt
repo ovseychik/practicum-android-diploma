@@ -11,8 +11,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.practicum.android.diploma.R
 import ru.practicum.android.diploma.databinding.FragmentCountryPickerBinding
 import ru.practicum.android.diploma.domain.models.guides.Country
-import ru.practicum.android.diploma.presentation.settings.adapters.LocalityAdapter
-import ru.practicum.android.diploma.presentation.settings.adapters.LocalityAdapterItem
+import ru.practicum.android.diploma.presentation.settings.adapters.LocationAdapter
+import ru.practicum.android.diploma.presentation.settings.adapters.LocationAdapterItem
 import ru.practicum.android.diploma.presentation.settings.models.CountriesScreenState
 import ru.practicum.android.diploma.presentation.settings.viewmodels.CountriesViewModel
 import ru.practicum.android.diploma.util.BindingFragment
@@ -21,10 +21,10 @@ import ru.practicum.android.diploma.util.debounce
 class CountryPickerFragment : BindingFragment<FragmentCountryPickerBinding>() {
 
     private val viewModel by viewModel<CountriesViewModel>()
-    private var countryClickDebounce: ((LocalityAdapterItem.CountryItem) -> Unit)? = null
-    private val countriesAdapter = LocalityAdapter { country ->
+    private var countryClickDebounce: ((LocationAdapterItem.CountryItem) -> Unit)? = null
+    private val countriesAdapter = LocationAdapter { country ->
         countryClickDebounce?.let {
-            it(country as LocalityAdapterItem.CountryItem)
+            it(country as LocationAdapterItem.CountryItem)
         }
     }
 

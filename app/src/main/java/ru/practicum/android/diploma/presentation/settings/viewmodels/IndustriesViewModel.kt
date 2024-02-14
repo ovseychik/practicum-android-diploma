@@ -17,7 +17,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     val screenState: LiveData<IndustriesScreenState> = _screenState
     private var selectedIndustry = industriesInteractor.getIndustryFromSettings()
     private val industriesList: MutableList<IndustryItem> = mutableListOf()
-    private var filteredList = mutableListOf<IndustryItem>()
+    private val filteredList = mutableListOf<IndustryItem>()
     fun getIndustries() {
         _screenState.postValue(IndustriesScreenState.Loading)
         viewModelScope.launch {
@@ -30,8 +30,7 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
 
     fun filteredIndustries(query: String) {
         val newFilteredList = industriesList
-            .filter { query.length <= it.industryName.length }
-            .filter { it.industryName.contains(query, true) }
+            .filter { query.length <= it.industryName.length && it.industryName.contains(query, true) }
         if (newFilteredList.isEmpty()) {
             _screenState.postValue(IndustriesScreenState.Empty)
         } else {
@@ -62,12 +61,16 @@ class IndustriesViewModel(private val industriesInteractor: IndustriesInteractor
     private fun processingResult(result: SearchResultData<List<IndustryItem>>) {
         when (result) {
             is SearchResultData.Data -> {
-                industriesList.clear()
-                industriesList.addAll(result.value!!)
-                industriesList.sortBy { it.industryName }
-                filteredList.clear()
-                filteredList.addAll(industriesList)
-                _screenState.postValue(IndustriesScreenState.Content(industriesList, selectedIndustry.industryName))
+                if (result.value != null) {
+                    industriesList.clear()
+                    industriesList.addAll(result.value)
+                    industriesList.sortBy { it.industryName }
+                    filteredList.clear()
+                    filteredList.addAll(industriesList)
+                    _screenState.postValue(IndustriesScreenState.Content(industriesList, selectedIndustry.industryName))
+                } else {
+                    _screenState.postValue(IndustriesScreenState.Empty)
+                }
             }
 
             is SearchResultData.ErrorServer -> {
